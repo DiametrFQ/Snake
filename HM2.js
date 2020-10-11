@@ -1,6 +1,9 @@
 function mobile(){
-		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#buttoms").style.marginLeft = 250+'px';
+	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
+		document.querySelector("#up").style.marginLeft = 320+'px';
+		document.querySelector("#down").style.marginLeft = 320+'px';
+		document.querySelector("#left").style.marginLeft = 220+'px';
+
 		document.querySelector("#c1").style.marginLeft = 200+'px';
 	}	
 }
