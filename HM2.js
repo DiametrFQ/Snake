@@ -1,3 +1,11 @@
+function mobile(){
+		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
+		document.querySelector("#buttoms").style.marginLeft = 0+'px';
+		document.querySelector("#c1").style.marginLeft = 0+'px';
+	}	
+}
+mobile()
+
 let bUp = document.querySelector("#up");
 let bLeft = document.querySelector("#left");
 let bDown = document.querySelector("#down");
