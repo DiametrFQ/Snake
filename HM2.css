@@ -10,3 +10,25 @@
 	border: 3px solid black;
 	background: rgb(0 70 0 / 65%);
 }
+#buttoms{
+	margin-left: 450px;
+	font-size: 50px;
+	color: white;
+}
+
+
+#up,#down{
+	margin-left: 120px;
+	padding: 30px;
+	background: black;
+	width: 30px;
+}
+#left{
+	padding: 30px;
+	background: black;
+}
+#right{
+	margin-left: 50px;
+	padding: 30px;
+	background: black;
+}
