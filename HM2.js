@@ -1,3 +1,7 @@
+let bUp = document.querySelector("#up");
+let bLeft = document.querySelector("#left");
+let bDown = document.querySelector("#down");
+let bRight = document.querySelector("#right");
 let canvas = document.getElementById('c1');
 let ctx = canvas.getContext('2d');
 let mb;//Doesnt let you go abroad
@@ -209,6 +213,86 @@ document.onkeydown = function (event) {
 			t = setTimeout(U, 500);
 		}
 		U();
+	}
+}
+bUp.onclick = () => {
+	if(u !== 0 && cens !== 2) {
+		clearTimeout(t)
+		function U() {
+			ctx.clearRect(0, 0, 400, 400);
+			u[0] -= 40;
+			stop();
+			move();
+			blue();
+			minus();
+			finish()
+			plus();
+			Fake();
+			fiX();
+			cens = 4;
+			t = setTimeout(U, 500);
+		}
+		U();
+	}
+}
+bLeft.onclick = () => {
+	if(r !== 0 && cens !== 1) {
+		function L() {
+			clearTimeout(t)
+			ctx.clearRect(0, 0, 400, 400);
+			r[0] -= 40;
+			stop();
+			move();
+			blue();
+			minus();
+			finish()
+			plus();
+			Fake();
+			fiX();
+			cens = 3;
+			t = setTimeout(L, 500);
+		}
+		L();
+	}
+}
+bDown.onclick = () => {
+	if (u !== 360 && cens !== 4) {
+		clearTimeout(t)
+		function D() {
+			ctx.clearRect(0, 0, 400, 400);
+			u[0] += 40;
+			stop();
+			move();
+			blue();
+			minus();
+			finish()
+			plus();
+			Fake();
+			fiX();
+			cens = 2;
+			t = setTimeout(D, 500);
+		}
+		D();
+	}
+}
+bRight.onclick = () => {
+	if(r !== 360 && cens !== 3) {
+		clearTimeout(t)
+		function R() {
+			ctx.clearRect(0, 0, 400, 400);
+			r[0] += 40;
+			stop();
+			move();
+			blue();
+			minus();
+			finish();
+			fiX();
+			plus();
+			Fake();
+			cens = 1;
+			t = setTimeout(R, 500);
+		}
+		R();
 	}
 }
 neW();
