@@ -1,10 +1,14 @@
 function mobile(){
-	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
+		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 		document.querySelector("#up").style.marginLeft = 320+'px';
 		document.querySelector("#down").style.marginLeft = 320+'px';
 		document.querySelector("#left").style.marginLeft = 220+'px';
 
 		document.querySelector("#c1").style.marginLeft = 200+'px';
+		document.querySelector("#up").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/up_circle-64.png" alt="">`;
+		document.querySelector("#left").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/left_circle-64.png" alt="">`;
+	  	document.querySelector("#right").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/right_circle-64.png" alt="">`;
+	  	document.querySelector("#down").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/down_circle-64.png" alt="">`;
 	}	
 }
 mobile()
@@ -24,6 +28,7 @@ let Saves = {
 	XSearch: 0,
 	YSearch: 0,
 	times: 0,
+	sec: 1000,
 }
 let t;//timer
 let yum = 2;//yum-yum yummy!//hum
@@ -84,6 +89,7 @@ function minus() {
 			Saves.YSearch = cdnt - i;
 			if (r[0] === 40 * Saves.YSearch && u[0] === 40 * Saves.XSearch) {
 				yum++;
+				Saves.sec -= 7;
 				neW();
 			}
 		}
@@ -109,7 +115,7 @@ function plus() {
 		ctx.fill();
 	}
 }//+tail
-function Fake() {
+function fake() {
 	for (let i = 5; i < yum; i++) {
 		if (r[i] === r[1] && u[i] === u[1]) {
 			alert('Oh shit, here we go again');
@@ -149,160 +155,83 @@ function neW() {
 	}
 }//rundom number
 blue();
+function sequence(){
+	ctx.clearRect(0, 0, 400, 400);
+	stop();
+	move();
+	blue();
+	minus();
+	finish();
+	fiX();
+	plus();
+	fake();
+}
+function R() {
+	r[0] += 40;
+	sequence()
+	cens = 1;
+	t = setTimeout(R, Saves.sec);
+}
+function D() {
+	u[0] += 40;
+	sequence()
+	cens = 2;
+	t = setTimeout(D, Saves.sec);
+}
+function L() {
+	r[0] -= 40;
+	sequence()
+	cens = 3;
+	t = setTimeout(L, Saves.sec);
+}
+function U() {
+	u[0] -= 40;
+	sequence()
+	cens = 4;
+	t = setTimeout(U, Saves.sec);
+}
 document.onkeydown = function (event) {
 	ctx.clearRect(0, 0, 400, 400);
 	blue();
 	fiX();
 	if (event.key === 'ArrowRight' | event.key === 'D' | event.key === 'd' | event.key === 'в' | event.key === 'В' && r !== 360 && cens !== 3) {
 		clearTimeout(t)
-		function R() {
-			ctx.clearRect(0, 0, 400, 400);
-			r[0] += 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish();
-			fiX();
-			plus();
-			Fake();
-			cens = 1;
-			t = setTimeout(R, 500);
-		}
 		R();
 	}
 	if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
 		clearTimeout(t)
-		function D() {
-			ctx.clearRect(0, 0, 400, 400);
-			u[0] += 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 2;
-			t = setTimeout(D, 500);
-		}
 		D();
 	}
 	if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
 		clearTimeout(t)
-		function L() {
-			ctx.clearRect(0, 0, 400, 400);
-			r[0] -= 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 3;
-			t = setTimeout(L, 500);
-		}
 		L();
 	}
 	if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
 		clearTimeout(t)
-		function U() {
-			ctx.clearRect(0, 0, 400, 400);
-			u[0] -= 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 4;
-			t = setTimeout(U, 500);
-		}
 		U();
 	}
 }
 bUp.onclick = () => {
 	if(u !== 0 && cens !== 2) {
 		clearTimeout(t)
-		function U() {
-			ctx.clearRect(0, 0, 400, 400);
-			u[0] -= 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 4;
-			t = setTimeout(U, 500);
-		}
 		U();
 	}
 }
 bLeft.onclick = () => {
 	if(r !== 0 && cens !== 1) {
-		function L() {
-			clearTimeout(t)
-			ctx.clearRect(0, 0, 400, 400);
-			r[0] -= 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 3;
-			t = setTimeout(L, 500);
-		}
+		clearTimeout(t)
 		L();
 	}
 }
 bDown.onclick = () => {
 	if (u !== 360 && cens !== 4) {
 		clearTimeout(t)
-		function D() {
-			ctx.clearRect(0, 0, 400, 400);
-			u[0] += 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish()
-			plus();
-			Fake();
-			fiX();
-			cens = 2;
-			t = setTimeout(D, 500);
-		}
 		D();
 	}
 }
 bRight.onclick = () => {
 	if(r !== 360 && cens !== 3) {
 		clearTimeout(t)
-		function R() {
-			ctx.clearRect(0, 0, 400, 400);
-			r[0] += 40;
-			stop();
-			move();
-			blue();
-			minus();
-			finish();
-			fiX();
-			plus();
-			Fake();
-			cens = 1;
-			t = setTimeout(R, 500);
-		}
 		R();
 	}
 }
