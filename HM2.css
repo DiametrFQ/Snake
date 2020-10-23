@@ -2,6 +2,15 @@
 	margin: 30px;
 	padding: auto;
 }
+.version{
+	font-size: 32px;
+	margin: 0;
+	padding: 0;
+}
+.version-id{
+	color:red;
+	font-size: 32px;
+}
 #c1{
     overflow: hidden;
 	width: auto;
