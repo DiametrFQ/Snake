@@ -36,7 +36,7 @@ document.querySelector(".bottom1").onclick = () => {
     for(i=1;i<6;i++){
         document.querySelector(".colors1").innerHTML += `<span class="colorN1${i}"></span>`;
     }
-    document.querySelector("#buttom1").innerHTML = `<img class="bottom1"src="C:/Users/adm/Desktop/Start/Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom1").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
     on();
     on1();
 }
@@ -46,7 +46,7 @@ document.querySelector(".bottom2").onclick = () => {
     for(i=1;i<6;i++){
         document.querySelector(".colors2").innerHTML += `<span class="colorN2${i}"></span>`;
     }
-    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="C:/Users/adm/Desktop/Start/Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
     on();
     on2();
 }
@@ -56,7 +56,7 @@ document.querySelector(".bottom3").onclick = () => {
     for(i=1;i<6;i++){
         document.querySelector(".colors3").innerHTML += `<span class="colorN3${i}"></span>`;
     }
-    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="C:/Users/adm/Desktop/Start/Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
     on();
     on3();
 }
