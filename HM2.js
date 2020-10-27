@@ -1,7 +1,7 @@
 let bgcolor = localStorage.getItem('bgcolor');
 let snacolor = localStorage.getItem('snacolor');
 let eacolor = localStorage.getItem('eacolor');
-const col = [colSnake = 0]
+const col = [colSnake= 0]
 const colN1 = [colN10 = 0,colN11 = 0,colN12 = 0,colN13 = 0,colN14 = 0,colN15 = 0];
 const colN2 = [colN20 = 0,colN21 = 0,colN22 = 0,colN23 = 0,colN24 = 0,colN25 = 0];
 const colN3 = [colN30 = 0,colN31 = 0,colN32 = 0,colN33 = 0,colN34 = 0,colN35 = 0];
@@ -42,7 +42,7 @@ function start(){
         document.querySelector(`#tails${i}`).style.left= 0+30*(i-4)+"px";
         document.querySelector(`#tails${i}`).style.top = 120+"px";
     }
-    for(i=12;i<14;i++){
+    for(i=11;i<14;i++){
         document.querySelector(`#tails${i}`).style.left= 210+"px";
         document.querySelector(`#tails${i}`).style.top = 120+30*(i-11)+"px";
     }
@@ -69,7 +69,6 @@ document.querySelector(".bottom2").onclick = () => {
     on();
     on2();
 }
-
 document.querySelector(".bottom3").onclick = () => {
     document.querySelector(".colors3").innerHTML = `<span class="colorN30"></span>`;
     for(i=1;i<6;i++){
