@@ -1,3 +1,12 @@
+let bgcolor = localStorage.getItem('bgcolor');
+let snacolor = localStorage.getItem('snacolor');
+let eacolor = localStorage.getItem('eacolor');
+const col = [colSnake= 0]
+const colN1 = [colN10 = 0,colN11 = 0,colN12 = 0,colN13 = 0,colN14 = 0,colN15 = 0];
+const colN2 = [colN20 = 0,colN21 = 0,colN22 = 0,colN23 = 0,colN24 = 0,colN25 = 0];
+const colN3 = [colN30 = 0,colN31 = 0,colN32 = 0,colN33 = 0,colN34 = 0,colN35 = 0];
+const newCol = [orange = "orange",blue = "blue",green = "green",white = "white",black = "black",red = "red"];
+
 function mobile(){
 	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 		document.querySelector("#center").style.marginLeft = -220+"px";
@@ -5,11 +14,21 @@ function mobile(){
 	}	
 }
 mobile()
-const col = [colBack = "green",colSnake = "blue",colYum = "orange"];
-const colN1 = [colN10 = 0,colN11 = 0,colN12 = 0,colN13 = 0,colN14 = 0,colN15 = 0];
-const colN2 = [colN20 = 0,colN21 = 0,colN22 = 0,colN23 = 0,colN24 = 0,colN25 = 0];
-const colN3 = [colN30 = 0,colN31 = 0,colN32 = 0,colN33 = 0,colN34 = 0,colN35 = 0];
-const newCol = [orange = "orange",blue = "blue",green = "green",white = "white",black = "black",red = "red"];
+window.onload = function(){
+	if (localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null){
+
+		document.querySelector(".color1").style.backgroundColor = bgcolor;
+		document.querySelector("#c2").style.backgroundColor = bgcolor;
+
+        document.querySelector(".color2").style.backgroundColor = snacolor;
+        for(i=0;i<14;i++){
+            document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
+        }
+
+		document.querySelector(".color3").style.backgroundColor = eacolor;
+		document.querySelector(`#yum`).style.backgroundColor= eacolor;
+	}
+}
 
 function start(){
     for(i=0;i<14;i++){
@@ -23,7 +42,7 @@ function start(){
         document.querySelector(`#tails${i}`).style.left= 0+30*(i-4)+"px";
         document.querySelector(`#tails${i}`).style.top = 120+"px";
     }
-    for(i=12;i<14;i++){
+    for(i=11;i<14;i++){
         document.querySelector(`#tails${i}`).style.left= 210+"px";
         document.querySelector(`#tails${i}`).style.top = 120+30*(i-11)+"px";
     }
@@ -50,7 +69,6 @@ document.querySelector(".bottom2").onclick = () => {
     on();
     on2();
 }
-
 document.querySelector(".bottom3").onclick = () => {
     document.querySelector(".colors3").innerHTML = `<span class="colorN30"></span>`;
     for(i=1;i<6;i++){
@@ -73,73 +91,85 @@ function on1(){
     colN1[0].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[0];
 		document.querySelector("#c2").style.backgroundColor = newCol[0];
-		colBack = newCol[0];
+		bgcolor = newCol[0];
+		localStorage.setItem('bgcolor',newCol[0]);
     }
     colN1[1].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[1];
 		document.querySelector("#c2").style.backgroundColor = newCol[1];
-		colBack = newCol[1];
+		bgcolor = newCol[1];
+		localStorage.setItem('bgcolor',newCol[1]);
     }
     colN1[2].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[2];
 		document.querySelector("#c2").style.backgroundColor = newCol[2];
-		colBack = newCol[2];
+		bgcolor = newCol[2];
+		localStorage.setItem('bgcolor',newCol[2]);
     }
     colN1[3].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[3];
 		document.querySelector("#c2").style.backgroundColor = newCol[3];
-		colBack = newCol[3];
+		bgcolor = newCol[3];
+		localStorage.setItem('bgcolor',newCol[3]);
     }
     colN1[4].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[4];
 		document.querySelector("#c2").style.backgroundColor = newCol[4];
-		colBack = newCol[4];
+		bgcolor = newCol[4];
+		localStorage.setItem('bgcolor',newCol[4]);
     }
     colN1[5].onclick = () => {
         document.querySelector(".color1").style.backgroundColor = newCol[5];
 		document.querySelector("#c2").style.backgroundColor = newCol[5];
-		colBack = newCol[5];
+		bgcolor = newCol[5];
+		localStorage.setItem('bgcolor',newCol[5]);
     }
 }
 
 function on2(){
     colN2[0].onclick = () => {
-		colSnake = newCol[0];
+		localStorage.setItem('snacolor',newCol[0]);
+		snacolor = newCol[0];
         document.querySelector(".color2").style.backgroundColor = newCol[0];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[0];
         }
     }
     colN2[1].onclick = () => {
-		colSnake = newCol[1];
+		localStorage.setItem('snacolor',newCol[1]);
+		snacolor = newCol[1];
         document.querySelector(".color2").style.backgroundColor = newCol[1];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[1];
         }
     }
     colN2[2].onclick = () => {
-		colSnake = newCol[2];
+		localStorage.setItem('snacolor',newCol[2]);
+		snacolor = newCol[2];
         document.querySelector(".color2").style.backgroundColor = newCol[2];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[2];
         }
     }
     colN2[3].onclick = () => {
-		colSnake = newCol[3];
+		localStorage.setItem('snacolor',newCol[3]);
+		snacolor = newCol[3];
         document.querySelector(".color2").style.backgroundColor = newCol[3];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[3];
         }
     }
     colN2[4].onclick = () => {
-		colSnake = newCol[4];
+		localStorage.setItem('snacolor',newCol[4]);
+		snacolor = newCol[4];
         document.querySelector(".color2").style.backgroundColor = newCol[4];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[4];
         }
     }
     colN2[5].onclick = () => {
-		colSnake = newCol[5];
+		localStorage.setItem('snacolor',newCol[5]);
+		snacolor = newCol[5];
         document.querySelector(".color2").style.backgroundColor = newCol[5];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[5];
@@ -151,43 +181,52 @@ function on3(){
     colN3[0].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[0];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[0];
-		colYum = newCol[0];
+		localStorage.setItem('eacolor',newCol[0]);
+		eacolor = newCol[0];
     }
     colN3[1].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[1];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[1];
-		colYum = newCol[1];
+		localStorage.setItem('eacolor',newCol[1]);
+		eacolor = newCol[1];
     }
     colN3[2].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[2];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[2];
-		colYum = newCol[2];
+		localStorage.setItem('eacolor',newCol[2]);
+		eacolor = newCol[2];
     }
     colN3[3].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[3];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[3];
-		colYum = newCol[3];
+		localStorage.setItem('eacolor',newCol[3]);
+		eacolor = newCol[3];
     }
     colN3[4].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[4];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[4];
-		colYum = newCol[4];
+		localStorage.setItem('eacolor',newCol[4]);
+		eacolor = newCol[4];
     }
     colN3[5].onclick = () => {
         document.querySelector(".color3").style.backgroundColor = newCol[5];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[5];
-		colYum = newCol[5];
+		localStorage.setItem('eacolor',newCol[5]);
+		eacolor = newCol[5];
     }
 }
 document.querySelector("#start").onclick = () =>{
 	Two();
 }
+document.onkeydown = function (event) {if(event.key = "Enter"){
+	Two();
+}}
 
 
 function Two(){
 	document.querySelector("body").innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.428</span><br></br>`
 	document.querySelector("body").innerHTML += `<canvas id="c1" width="400" height="400"></canvas>`;
-	document.querySelector("#c1").style.backgroundColor = colBack;
+	document.querySelector("#c1").style.backgroundColor = bgcolor;
 	document.querySelector("body").innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#buttoms").innerHTML += `<div id="up"></div>`;
 	document.querySelector("#buttoms").innerHTML += `<span id="left"></span>`;
@@ -270,7 +309,7 @@ function Two(){
 	}//Snake moves
 	function blue() {
 		ctx.beginPath();
-		ctx.fillStyle = colSnake;
+		ctx.fillStyle = snacolor;
 		ctx.moveTo(r[0], u[0]);
 		ctx.lineTo(r[0] + 40, u[0]);
 		ctx.lineTo(r[0] + 40, u[0] + 40);
@@ -302,7 +341,7 @@ function Two(){
 	function plus() {
 		for (let i = 0; i < yum; i++) {
 			ctx.beginPath();
-			ctx.fillStyle = colSnake;
+			ctx.fillStyle = snacolor;
 			ctx.moveTo(r[i], u[i]);
 			ctx.lineTo(r[i] + 40, u[i]);
 			ctx.lineTo(r[i] + 40, u[i] + 40);
@@ -326,7 +365,7 @@ function Two(){
 				Saves.Y = i / 10;
 				Saves.X = cdnt - i;
 				ctx.beginPath();
-				ctx.fillStyle = colYum;
+				ctx.fillStyle = eacolor;
 				ctx.moveTo(0 + 40 * Saves.X, 0 + 40 * Saves.Y);
 				ctx.lineTo(40 + 40 * Saves.X, 0 + 40 * Saves.Y);
 				ctx.lineTo(40 + 40 * Saves.X, 40 + 40 * Saves.Y);
