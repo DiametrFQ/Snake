@@ -217,7 +217,7 @@ function on3(){
 document.querySelector("#start").onclick = () =>{
 	Two();
 }
-document.onkeydown = function (event) {if(event.key = "Enter"){
+document.onkeydown = function (event) {if(event.key === "Enter"){
 	Two();
 }}
 
