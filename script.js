@@ -222,7 +222,7 @@ document.onkeydown = function (event) {if(event.key === "Enter"){
 
 
 function Two(){
-	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.501</span><br></br>`;
+	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span><br></br>`;
 	document.body.innerHTML += `<canvas id="c1" width="400" height="400"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
@@ -284,7 +284,7 @@ function Two(){
 		thend();
 	}//plus to score and best score!
 	function thend(){
-		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.501</span><br></br>`;
+		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span><br></br>`;
 		document.body.innerHTML += `<div id="center"></div>`;
 		document.querySelector("#center").style.background = "black";
 		document.querySelector("#center").style.top = 100+"px";
