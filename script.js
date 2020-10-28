@@ -9,12 +9,7 @@ const colN2 = [colN20 = 0,colN21 = 0,colN22 = 0,colN23 = 0,colN24 = 0,colN25 = 0
 const colN3 = [colN30 = 0,colN31 = 0,colN32 = 0,colN33 = 0,colN34 = 0,colN35 = 0];
 const newCol = [orange = "orange",blue = "blue",green = "green",white = "white",black = "black",red = "red"];
 
-function mobile(){
-	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-        document.querySelector("#center").style.marginLeft = -120+"px";
-	}	
-}
-mobile()
+
 window.onload = function(){
 	if (localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null){
 
@@ -28,6 +23,10 @@ window.onload = function(){
 
 		document.querySelector(".color3").style.backgroundColor = eacolor;
 		document.querySelector(`#yum`).style.backgroundColor= eacolor;
+
+		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
+			document.querySelector("#center").style.marginLeft = -120+"px";
+		}	
 	}
 }
 
@@ -278,7 +277,6 @@ function Two(){
 		pluScore = +((yum - 2) * 10)
 		score += pluScore;
 		localStorage.setItem('score',+score);
-		console.log(pluScore,bestScore);
 		if(pluScore > bestScore){
 			bestScore = +pluScore;
 		}
@@ -291,6 +289,9 @@ function Two(){
 		document.querySelector("#center").style.background = "black";
 		document.querySelector("#center").style.top = 100+"px";
 		document.querySelector("#center").style.height = 600+"px";
+		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
+			document.querySelector("#center").style.marginLeft = -130+'px';
+		}	
 		document.querySelector("#center").innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
 		
 		document.querySelector("#center").innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
