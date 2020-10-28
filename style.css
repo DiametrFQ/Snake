@@ -32,7 +32,7 @@
     border: 1px solid black;
     border-radius: 32px;
     width: 950px;
-    height: 600px;
+    height: 730px;
     top: 150px;
     left:100px;
 }
@@ -46,27 +46,21 @@
 }
 .color1{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: green;
     border: 1px solid black;
 }
 .color2{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: blue;
     border: 1px solid black;
 }
 .color3{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: orange;
     border: 1px solid black;
@@ -89,54 +83,42 @@
 }
 .colorN10,.colorN20,.colorN30{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: orange;
     border: 1px solid black;
 }
 .colorN11,.colorN21,.colorN31{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: blue;
     border: 1px solid black;
 }
 .colorN12,.colorN22,.colorN32{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: green;
     border: 1px solid black;
 }
 .colorN13,.colorN23,.colorN33{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: white;
     border: 1px solid black;
 }
 .colorN14,.colorN24,.colorN34{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: black;
     border: 1px solid black;
 }
 .colorN15,.colorN25,.colorN35{
     margin: 0;
-    padding: 1px;
-    padding-left: 64px;
-    padding-top: 44px;
+    padding: 44px 1px 1px 64px;
     color: white;
     background-color: red;
     border: 1px solid black;
@@ -170,11 +152,24 @@
 }
 #start{
     background-color: black;
-    color:white;
-    height: 150px;
-    font-size: 140px;
-    padding-left: 200px;
-    padding-bottom: 30px;
+    padding: 0px -100px 30px 0px;
     margin-top: 0px;
 	border-radius: 32px;
+}
+#imStart{
+    padding: 0px 0 0px 0;
+}
+#gameover{
+    margin-left: 120px;
+}
+#restart{
+    margin: -80px 0px 0px 520px;
+    border: white solid 1px;
+}
+.score{
+    margin-left: 120px;
+    color:white
+}
+#tScorEv{
+    margin-left: 120px;
 }
