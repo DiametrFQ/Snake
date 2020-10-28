@@ -1,3 +1,5 @@
+let score = +localStorage.getItem('score');
+let bestScore = +localStorage.getItem('bestscore');
 let bgcolor = localStorage.getItem('bgcolor');
 let snacolor = localStorage.getItem('snacolor');
 let eacolor = localStorage.getItem('eacolor');
@@ -28,6 +30,7 @@ window.onload = function(){
 		document.querySelector(`#yum`).style.backgroundColor= eacolor;
 	}
 }
+
 function start(){
     for(i=0;i<14;i++){
         document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
@@ -43,27 +46,25 @@ function start(){
     for(i=11;i<14;i++){
         document.querySelector(`#tails${i}`).style.left= 210+"px";
         document.querySelector(`#tails${i}`).style.top = 120+30*(i-11)+"px";
-    }
-        
+    }     
 }
-start()
+start();
 
 document.querySelector(".bottom1").onclick = () => { 
     document.querySelector(".colors1").innerHTML = `<span class="colorN10"></span>`;
     for(i=1;i<6;i++){
         document.querySelector(".colors1").innerHTML += `<span class="colorN1${i}"></span>`;
     }
-    document.querySelector("#buttom1").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom1").innerHTML = `<img class="bottom1" src="Images/Buttom2.png" alt=""></img>`;
     on();
     on1();
 }
-
 document.querySelector(".bottom2").onclick = () => { 
     document.querySelector(".colors2").innerHTML = `<span class="colorN20"></span>`;
     for(i=1;i<6;i++){
         document.querySelector(".colors2").innerHTML += `<span class="colorN2${i}"></span>`;
     }
-    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="Images/Buttom2.png" alt=""></img>`;
     on();
     on2();
 }
@@ -72,7 +73,7 @@ document.querySelector(".bottom3").onclick = () => {
     for(i=1;i<6;i++){
         document.querySelector(".colors3").innerHTML += `<span class="colorN3${i}"></span>`;
     }
-    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
+    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="Images/Buttom2.png" alt=""></img>`;
     on();
     on3();
 }
@@ -216,15 +217,16 @@ function on3(){
 document.querySelector("#start").onclick = () =>{
 	Two();
 }
-document.onkeydown = function (event){
-	if(event.key === "Enter")Two();
-}
+document.onkeydown = function (event) {if(event.key === "Enter"){
+	Two();
+}}
+
 
 function Two(){
-	document.querySelector("body").innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.428</span><br></br>`
-	document.querySelector("body").innerHTML += `<canvas id="c1" width="400" height="400"></canvas>`;
+	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.500</span><br></br>`;
+	document.body.innerHTML += `<canvas id="c1" width="400" height="400"></canvas>`;
+	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	document.querySelector("body").innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#buttoms").innerHTML += `<div id="up"></div>`;
 	document.querySelector("#buttoms").innerHTML += `<span id="left"></span>`;
 	document.querySelector("#buttoms").innerHTML += `<span id="right"></span>`;
@@ -238,10 +240,10 @@ function Two(){
 		document.querySelector("#left").style.marginLeft = 215+'px';
 		document.querySelector("#c1").style.marginLeft = 200+'px';
 
-		document.querySelector("#up").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/up_circle-64.png" alt="">`;
-		document.querySelector("#left").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/left_circle-64.png" alt="">`;
-	  	document.querySelector("#right").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/right_circle-64.png" alt="">`;
-		document.querySelector("#down").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/down_circle-64.png" alt="">`;
+		document.querySelector("#up").innerHTML =`<img src="Images/up_circle-64.png" alt="">`;
+		document.querySelector("#left").innerHTML =`<img src="Images/left_circle-64.png" alt="">`;
+	  	document.querySelector("#right").innerHTML =`<img src="Images/right_circle-64.png" alt="">`;
+		document.querySelector("#down").innerHTML =`<img src="Images/down_circle-64.png" alt="">`;
 		}	
 	}
 	mobile()
@@ -265,37 +267,69 @@ function Two(){
 	}
 	let t;//timer
 	let yum = 2;//yum-yum yummy!//hum
-	cdnt = Math.floor(Math.random() * 100);
+	cdnt = Math.floor(Math.random() * 100);//random
 	let r = [Math.floor(cdnt / 10) * 40];//right
 	let u = [cdnt % 10 * 40];//up
+
+	let pluScore;
+
+	function scoreF(){
+		clearTimeout(t);
+		pluScore = +((yum - 2) * 10)
+		score += pluScore;
+		localStorage.setItem('score',+score);
+		console.log(pluScore,bestScore);
+		if(pluScore > bestScore){
+			bestScore = +pluScore;
+		}
+		localStorage.setItem('bestscore',bestScore);
+		thend();
+	}//plus to score and best score!
+	function thend(){
+		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.500</span><br></br>`;
+		document.body.innerHTML += `<div id="center"></div>`;
+		document.querySelector("#center").style.background = "black";
+		document.querySelector("#center").style.top = 100+"px";
+		document.querySelector("#center").style.height = 600+"px";
+		document.querySelector("#center").innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
+		
+		document.querySelector("#center").innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
+		document.querySelector("#center").innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
+		document.querySelector("#center").innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
+		
+		document.querySelector("#center").innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
+		document.querySelector("#restart").onmousemove = function() {
+			this.src = src="Images/Restart2.png";
+		}
+		document.querySelector("#restart").onmouseleave = function() {
+			this.src = src="Images/Restart.png";
+		}
+		document.querySelector("#restart").onclick = function() {
+			location.reload();
+		}
+	}
+
+
 	function stop() {
 		if (r[0] === -40) {
-			r[0] += 40;
-			mb = 0;
-			alert("Тебе стоит быть по медленнее");
-			location.reload();
+			scoreF();
 		}
 		else if (r[0] === 400) {
-			r[0] -= 40;
-			mb = 0;
-			alert("Аа,да?");
-			location.reload();
+			scoreF();
 		}
 		else if (u[0] === -40) {
-			u[0] += 40;
-			mb = 0;
-			alert("Уоу уоу,помедленнее!");
-			location.reload();
-
+			scoreF();
 		}
 		else if (u[0] === 400) {
-			u[0] -= 40;
-			mb = 0;
-			alert("Попробуй еще раз");
-			location.reload();
+			scoreF();
 		}
 		else mb = 1;
-	}//You will not pass!
+		for (let i = 5; i < yum; i++) {
+			if (r[i] === r[1] && u[i] === u[1]) {
+				scoreF();
+			}
+		}
+	}//Game over
 	function move() {
 		if (mb === 1) {
 			for (let i = 100; i > 0; i--) {
@@ -349,14 +383,6 @@ function Two(){
 			ctx.fill();
 		}
 	}//+tail
-	function fake() {
-		for (let i = 5; i < yum; i++) {
-			if (r[i] === r[1] && u[i] === u[1]) {
-				alert('Oh shit, here we go again');
-				location.reload();
-			}
-		}
-	}//Snake hits itself.REBOOT///
 	function fiX() {
 		for (let i = 0; i < 100; i += 10) {
 			if (i <= cdnt && cdnt < i + 10) {
@@ -388,6 +414,7 @@ function Two(){
 			}
 		}
 	}//rundom number
+
 	blue();
 	function sequence(){
 		ctx.clearRect(0, 0, 400, 400);
@@ -398,7 +425,6 @@ function Two(){
 		finish();
 		fiX();
 		plus();
-		fake();
 	}	
 	function R() {
 		r[0] += 40;
@@ -432,20 +458,17 @@ function Two(){
 			clearTimeout(t)
 			R();
 		}
-		else if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
-			clearTimeout(t);
+		if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
+			clearTimeout(t)
 			D();
 		}
-		else if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
-			clearTimeout(t);
+		if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
+			clearTimeout(t)
 			L();
 		}
-		else if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
-			clearTimeout(t);
+		if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
+			clearTimeout(t)
 			U();
-		}
-		else{
-			sequence();
 		}
 	}
 	bUp.onclick = () => {
