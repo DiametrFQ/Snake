@@ -28,7 +28,6 @@ window.onload = function(){
 		document.querySelector(`#yum`).style.backgroundColor= eacolor;
 	}
 }
-
 function start(){
     for(i=0;i<14;i++){
         document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
@@ -47,7 +46,7 @@ function start(){
     }
         
 }
-start();
+start()
 
 document.querySelector(".bottom1").onclick = () => { 
     document.querySelector(".colors1").innerHTML = `<span class="colorN10"></span>`;
@@ -217,10 +216,9 @@ function on3(){
 document.querySelector("#start").onclick = () =>{
 	Two();
 }
-document.onkeydown = function (event) {if(event.key === "Enter"){
-	Two();
-}}
-
+document.onkeydown = function (event){
+	if(event.key === "Enter")Two();
+}
 
 function Two(){
 	document.querySelector("body").innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.428</span><br></br>`
@@ -267,8 +265,9 @@ function Two(){
 	}
 	let t;//timer
 	let yum = 2;//yum-yum yummy!//hum
-	let u = [0];//up
-	let r = [0];//right
+	cdnt = Math.floor(Math.random() * 100);
+	let r = [Math.floor(cdnt / 10) * 40];//right
+	let u = [cdnt % 10 * 40];//up
 	function stop() {
 		if (r[0] === -40) {
 			r[0] += 40;
@@ -389,7 +388,6 @@ function Two(){
 			}
 		}
 	}//rundom number
-
 	blue();
 	function sequence(){
 		ctx.clearRect(0, 0, 400, 400);
@@ -434,17 +432,20 @@ function Two(){
 			clearTimeout(t)
 			R();
 		}
-		if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
-			clearTimeout(t)
+		else if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
+			clearTimeout(t);
 			D();
 		}
-		if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
-			clearTimeout(t)
+		else if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
+			clearTimeout(t);
 			L();
 		}
-		if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
-			clearTimeout(t)
+		else if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
+			clearTimeout(t);
 			U();
+		}
+		else{
+			sequence();
 		}
 	}
 	bUp.onclick = () => {
