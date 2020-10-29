@@ -270,7 +270,7 @@ function Two(){
 		times: 0,
 		YSearch: Math.floor(cdnt / 10),
 		XSearch: cdnt % 10,
-		sec: 1000,
+		sec: 700,
 	}
 
 	let pluScore;
@@ -361,7 +361,7 @@ function Two(){
 	function minus() {
 		if (r[0] === size * Saves.XSearch && u[0] === size * Saves.YSearch) {
 			yum++;
-			Saves.sec -= 7;
+			Saves.sec -= 4;
 			neW();
 		}
 	}//orng is dying
