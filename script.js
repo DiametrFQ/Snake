@@ -225,7 +225,7 @@ document.onkeydown = function (event) {if(event.key === "Enter")Two();}
 
 function Two(){
 	let size = 70;
-	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.500</span><br />`;
+	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span><br />`;
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
@@ -288,7 +288,7 @@ function Two(){
 	}//plus to score and best score!
 
 	function thend(){
-		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.500</span>`;
+		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
 		document.querySelector("#center").style.background = "black";
 		document.querySelector("#center").style.top = 100+"px";
