@@ -42,12 +42,12 @@ function start(){
         document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
     }
     for(i=5;i<12;i++){
-        document.querySelector(`#tails${i}`).style.left= 0+30*(i-4)+"px";
+        document.querySelector(`#tails${i}`).style.left= 0+31*(i-4)+"px";
         document.querySelector(`#tails${i}`).style.top = 120+"px";
     }
     for(i=11;i<14;i++){
-        document.querySelector(`#tails${i}`).style.left= 210+"px";
-        document.querySelector(`#tails${i}`).style.top = 120+30*(i-11)+"px";
+        document.querySelector(`#tails${i}`).style.left= 217+"px";
+        document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
     }
 }//Creates a non-playable snake for example
 start();
