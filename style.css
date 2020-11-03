@@ -1,16 +1,17 @@
 *:only-child{
-    background-image: none;
+    background-image: url("https://thumbs.dreamstime.com/b/vector-seamless-halloween-pattern-orange-pumpkins-black-background-vector-seamless-halloween-pattern-orange-pumpkins-129355851.jpg");
 }
 *{
-	margin: 16px;
+    margin: 16px;
 	padding: auto;
 }
-.version{
+#version-font{
+    color:white;
 	font-size: 32px;
 	margin: 0;
 	padding: 0;
 }
-.version-id{
+#version-id{
 	color:red;
 	font-size: 32px;
 }
@@ -23,11 +24,16 @@
 	background-color: green;
 }
 #up,#down{
+    background-image: none;
 	margin-left: 520px;
 
 }
 #left{
+    background-image: none;
 	margin-left: 430px;
+}
+#right{
+    background-image: none;
 }
 #center{
     margin: 0px;
@@ -48,84 +54,41 @@
     padding: 0;
     margin: 0;
 }
-.color1{
+.color{
     margin: 0;
     padding: 44px 1px 1px 64px;
-    color: white;
+    border: 1px solid black;
+}
+#color1{
     background-color: green;
-    border: 1px solid black;
 }
-.color2{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#color2{
     background-color: blue;
-    border: 1px solid black;
 }
-.color3{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#color3{
     background-color: orange;
-    border: 1px solid black;
 }
-.bottom1{
+.bottom{
     margin: 0;
     padding: 0;
 }
-.bottom2{
-    margin: 0;
-    padding: 0;
-}
-.bottom3{
-    margin: 0;
-    padding: 0;
-}
-.colors{
-    margin: 0;
-    padding: 0;
-}
-.colorN10,.colorN20,.colorN30{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN10,#colorN20,#colorN30{
     background-color: orange;
-    border: 1px solid black;
 }
-.colorN11,.colorN21,.colorN31{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN11,#colorN21,#colorN31{
     background-color: blue;
-    border: 1px solid black;
 }
-.colorN12,.colorN22,.colorN32{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN12,#colorN22,#colorN32{
     background-color: green;
-    border: 1px solid black;
 }
-.colorN13,.colorN23,.colorN33{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN13,#colorN23,#colorN33{
     background-color: white;
-    border: 1px solid black;
 }
-.colorN14,.colorN24,.colorN34{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN14,#colorN24,#colorN34{
     background-color: black;
-    border: 1px solid black;
 }
-.colorN15,.colorN25,.colorN35{
-    margin: 0;
-    padding: 44px 1px 1px 64px;
-    color: white;
+#colorN15,#colorN25,#colorN35{
     background-color: red;
-    border: 1px solid black;
 }
 #c2{
     width: 300px;
