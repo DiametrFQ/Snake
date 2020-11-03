@@ -16,17 +16,16 @@ window.onload = function(){
 		eacolor = 'orange';
 		console.log('lS is no')
 	}
-	document.querySelector(".color1").style.backgroundColor = bgcolor;
+	document.querySelector("#color1").style.backgroundColor = bgcolor;
 	document.querySelector("#c2").style.backgroundColor = bgcolor;
 
-    document.querySelector(".color2").style.backgroundColor = snacolor;
+    document.querySelector("#color2").style.backgroundColor = snacolor;
     for(i=0;i<14;i++){
         document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
     }
 
-	document.querySelector(".color3").style.backgroundColor = eacolor;
+	document.querySelector("#color3").style.backgroundColor = eacolor;
 	document.querySelector(`#yum`).style.backgroundColor = eacolor;
-	console.log('lS is no')
 
 	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 		document.querySelector("#center").style.marginLeft = -120+"px";
@@ -41,7 +40,7 @@ function start(){
         document.querySelector(`#tails${i}`).style.left= 0+"px";
         document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
     }
-    for(i=5;i<12;i++){
+    for(i=4;i<12;i++){
         document.querySelector(`#tails${i}`).style.left= 0+31*(i-4)+"px";
         document.querySelector(`#tails${i}`).style.top = 120+"px";
     }
@@ -52,75 +51,77 @@ function start(){
 }//Creates a non-playable snake for example
 start();
 
-document.querySelector(".bottom1").onclick = () => { 
-    document.querySelector(".colors1").innerHTML = `<span class="colorN10"></span>`;
+document.querySelector("#bottom1").onclick = () => { 
+    document.querySelector("#colors1").innerHTML = `<span class="color" id="colorN10"></span>`;
     for(i=1;i<6;i++){
-        document.querySelector(".colors1").innerHTML += `<span class="colorN1${i}"></span>`;
+        document.querySelector("#colors1").innerHTML += `<span class="color" id="colorN1${i}"></span>`;
     }
-    document.querySelector("#buttom1").innerHTML = `<img class="bottom1" src="Images/Buttom2.png" alt=""></img>`;
+	document.querySelector("#buttoms1").innerHTML = `<img class="bottom" src="Images/Buttom2.png" alt="">`;
     on();
-    on1();
+	on1();
 }//Choice of colors for Background
-document.querySelector(".bottom2").onclick = () => { 
-    document.querySelector(".colors2").innerHTML = `<span class="colorN20"></span>`;
+
+document.querySelector("#bottom2").onclick = () => { 
+    document.querySelector("#colors2").innerHTML = `<span class="color" id="colorN20"></span>`;
     for(i=1;i<6;i++){
-        document.querySelector(".colors2").innerHTML += `<span class="colorN2${i}"></span>`;
-    }
-    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="Images/Buttom2.png" alt=""></img>`;
+        document.querySelector("#colors2").innerHTML += `<span class="color" id="colorN2${i}"></span>`;
+	}
+	document.querySelector("#buttoms2").innerHTML = `<img class="bottom" src="Images/Buttom2.png" alt=""></img>`;
     on();
-    on2();
+	on2();
 }//Choice of colors for Snake
-document.querySelector(".bottom3").onclick = () => {
-    document.querySelector(".colors3").innerHTML = `<span class="colorN30"></span>`;
+
+document.querySelector("#bottom3").onclick = () => {
+    document.querySelector("#colors3").innerHTML = `<span class="color" id="colorN30"></span>`;
     for(i=1;i<6;i++){
-        document.querySelector(".colors3").innerHTML += `<span class="colorN3${i}"></span>`;
+        document.querySelector("#colors3").innerHTML += `<span class="color" id="colorN3${i}"></span>`;
     }
-    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="Images/Buttom2.png" alt=""></img>`;
+	document.querySelector("#buttoms3").innerHTML = `<img class="bottom" src="Images/Buttom2.png" alt=""></img>`;
     on();
     on3();
 }//Choice of colors for food
 
 function on(){
     for(i=0;i<6;i++){
-        colN1[i] = document.querySelector(`.colorN1${i}`);
-        colN2[i] = document.querySelector(`.colorN2${i}`);
-        colN3[i] = document.querySelector(`.colorN3${i}`);
+        colN1[i] = document.querySelector(`#colorN1${i}`);
+        colN2[i] = document.querySelector(`#colorN2${i}`);
+        colN3[i] = document.querySelector(`#colorN3${i}`);
     }
 }//Color selection buttons
 
 function on1(){
     colN1[0].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[0];
+        document.querySelector("#color1").style.backgroundColor = newCol[0];
 		document.querySelector("#c2").style.backgroundColor = newCol[0];
 		bgcolor = newCol[0];
 		localStorage.setItem('bgcolor',newCol[0]);
     }
     colN1[1].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[1];
+        document.querySelector("#color1").style.backgroundColor = newCol[1];
 		document.querySelector("#c2").style.backgroundColor = newCol[1];
 		bgcolor = newCol[1];
 		localStorage.setItem('bgcolor',newCol[1]);
     }
     colN1[2].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[2];
+        document.querySelector("#color1").style.backgroundColor = newCol[2];
 		document.querySelector("#c2").style.backgroundColor = newCol[2];
 		bgcolor = newCol[2];
 		localStorage.setItem('bgcolor',newCol[2]);
     }
     colN1[3].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[3];
+        document.querySelector("#color1").style.backgroundColor = newCol[3];
 		document.querySelector("#c2").style.backgroundColor = newCol[3];
 		bgcolor = newCol[3];
 		localStorage.setItem('bgcolor',newCol[3]);
     }
     colN1[4].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[4];
+        document.querySelector("#color1").style.backgroundColor = newCol[4];
 		document.querySelector("#c2").style.backgroundColor = newCol[4];
 		bgcolor = newCol[4];
 		localStorage.setItem('bgcolor',newCol[4]);
     }
     colN1[5].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[5];
+        document.querySelector("#color1").style.backgroundColor = newCol[5];
 		document.querySelector("#c2").style.backgroundColor = newCol[5];
 		bgcolor = newCol[5];
 		localStorage.setItem('bgcolor',newCol[5]);
@@ -131,7 +132,7 @@ function on2(){
     colN2[0].onclick = () => {
 		localStorage.setItem('snacolor',newCol[0]);
 		snacolor = newCol[0];
-        document.querySelector(".color2").style.backgroundColor = newCol[0];
+        document.querySelector("#color2").style.backgroundColor = newCol[0];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[0];
         }
@@ -139,7 +140,7 @@ function on2(){
     colN2[1].onclick = () => {
 		localStorage.setItem('snacolor',newCol[1]);
 		snacolor = newCol[1];
-        document.querySelector(".color2").style.backgroundColor = newCol[1];
+        document.querySelector("#color2").style.backgroundColor = newCol[1];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[1];
         }
@@ -147,7 +148,7 @@ function on2(){
     colN2[2].onclick = () => {
 		localStorage.setItem('snacolor',newCol[2]);
 		snacolor = newCol[2];
-        document.querySelector(".color2").style.backgroundColor = newCol[2];
+        document.querySelector("#color2").style.backgroundColor = newCol[2];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[2];
         }
@@ -155,7 +156,7 @@ function on2(){
     colN2[3].onclick = () => {
 		localStorage.setItem('snacolor',newCol[3]);
 		snacolor = newCol[3];
-        document.querySelector(".color2").style.backgroundColor = newCol[3];
+        document.querySelector("#color2").style.backgroundColor = newCol[3];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[3];
         }
@@ -163,7 +164,7 @@ function on2(){
     colN2[4].onclick = () => {
 		localStorage.setItem('snacolor',newCol[4]);
 		snacolor = newCol[4];
-        document.querySelector(".color2").style.backgroundColor = newCol[4];
+        document.querySelector("#color2").style.backgroundColor = newCol[4];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[4];
         }
@@ -171,7 +172,7 @@ function on2(){
     colN2[5].onclick = () => {
 		localStorage.setItem('snacolor',newCol[5]);
 		snacolor = newCol[5];
-        document.querySelector(".color2").style.backgroundColor = newCol[5];
+        document.querySelector("#color2").style.backgroundColor = newCol[5];
         for(i=0;i<14;i++){
             document.querySelector(`#tails${i}`).style.backgroundColor= newCol[5];
         }
@@ -180,37 +181,37 @@ function on2(){
 
 function on3(){
     colN3[0].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[0];
+        document.querySelector("#color3").style.backgroundColor = newCol[0];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[0];
 		localStorage.setItem('eacolor',newCol[0]);
 		eacolor = newCol[0];
     }
     colN3[1].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[1];
+        document.querySelector("#color3").style.backgroundColor = newCol[1];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[1];
 		localStorage.setItem('eacolor',newCol[1]);
 		eacolor = newCol[1];
     }
     colN3[2].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[2];
+        document.querySelector("#color3").style.backgroundColor = newCol[2];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[2];
 		localStorage.setItem('eacolor',newCol[2]);
 		eacolor = newCol[2];
     }
     colN3[3].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[3];
+        document.querySelector("#color3").style.backgroundColor = newCol[3];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[3];
 		localStorage.setItem('eacolor',newCol[3]);
 		eacolor = newCol[3];
     }
     colN3[4].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[4];
+        document.querySelector("#color3").style.backgroundColor = newCol[4];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[4];
 		localStorage.setItem('eacolor',newCol[4]);
 		eacolor = newCol[4];
     }
     colN3[5].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[5];
+        document.querySelector("#color3").style.backgroundColor = newCol[5];
 		document.querySelector(`#yum`).style.backgroundColor= newCol[5];
 		localStorage.setItem('eacolor',newCol[5]);
 		eacolor = newCol[5];
@@ -225,7 +226,7 @@ document.onkeydown = function (event) {if(event.key === "Enter")Two();}
 
 function Two(){
 	let size = 70;
-	document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span><br />`;
+	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.2.3.500</span><br />`;
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
@@ -236,10 +237,10 @@ function Two(){
 
 	function mobile(){
 		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#up").style.marginLeft = 50*size/10+'px';
-		document.querySelector("#down").style.marginLeft = 50*size/10+'px';
-		document.querySelector("#left").style.marginLeft = 25*size/10+'px';
-		document.querySelector("#right").style.marginLeft = 25*size/10+'px';
+		document.querySelector("#up").style.marginLeft = 350+'px';
+		document.querySelector("#down").style.marginLeft = 350+'px';
+		document.querySelector("#left").style.marginLeft = 175+'px';
+		document.querySelector("#right").style.marginLeft = 175+'px';
 		document.querySelector("#c1").style.marginLeft = 100+'px';
 
 		document.querySelector("#up").innerHTML =`<img src="Images/up_circle-128.png" alt="">`;
@@ -288,7 +289,7 @@ function Two(){
 	}//plus to score and best score!
 
 	function thend(){
-		document.body.innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.11.501</span>`;
+		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.2.3.500</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
 		document.querySelector("#center").style.background = "black";
 		document.querySelector("#center").style.top = 100+"px";
