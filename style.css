@@ -1,12 +1,11 @@
 *:only-child{
-    background-image: url("https://thumbs.dreamstime.com/b/vector-seamless-halloween-pattern-orange-pumpkins-black-background-vector-seamless-halloween-pattern-orange-pumpkins-129355851.jpg");
+    background-image: none;
 }
 *{
     margin: 16px;
 	padding: auto;
 }
 #version-font{
-    color:white;
 	font-size: 32px;
 	margin: 0;
 	padding: 0;
@@ -42,12 +41,9 @@
     border: 1px solid black;
     border-radius: 32px;
     width: 950px;
-    height: 730px;
+    height: 710px;
     top: 50px;
     left:100px;
-}
-#input{
-    width: 300px;
 }
 .word{
     font-size: 32px;
