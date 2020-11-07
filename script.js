@@ -3,8 +3,6 @@ let bestScore = +localStorage.getItem('bestscore');//Keeping the color of the Be
 let bgcolor = localStorage.getItem('bgcolor');//Keeping the color of the background
 let snacolor = localStorage.getItem('snacolor');//Keeping the color of the snake
 let eacolor = localStorage.getItem('eacolor');//Keeping the color of the food
-const newCol = [orange = "rgb(250, 150, 0)",blue = "rgb(0, 0, 255)",green = "'rgb(0, 255, 0)'",white = "white",black = "black",red = "red"];
-
 
 window.onload = function(){
 	if (localStorage.getItem('bgcolor')==null||localStorage.getItem('bgcolor')==null||localStorage.getItem('bgcolor')==null){
@@ -18,9 +16,8 @@ window.onload = function(){
 	document.querySelector("#c2").style.backgroundColor = bgcolor;
 	document.querySelector(`#yum`).style.backgroundColor = eacolor;
 		
-    for(i=0;i<14;i++){
-        document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
-    }
+	for(i=0;i<14;i++)document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
+	
     for(i=0;i<5;i++){
         document.querySelector(`#tails${i}`).style.left= 0+"px";
         document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
@@ -33,9 +30,7 @@ window.onload = function(){
         document.querySelector(`#tails${i}`).style.left= 217+"px";
         document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
 	}//Creates a non-playable snake for example
-	for(i=0;i<14;i++){
-        document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
-	}
+	for(i=0;i<14;i++)document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
 
 	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 		document.querySelector("#center").style.marginLeft = -120+"px";
@@ -61,10 +56,8 @@ document.querySelector("#color3").oninput = function(){
 	localStorage.setItem('eacolor',this.value);
 }
 
-document.querySelector("#start").onclick = () =>{
-	Two();
-}
-document.onkeydown = function (event) {if(event.key === "Enter")Two();}
+document.querySelector("#start").onclick = () => Two();
+document.onkeydown = function (event){if(event.key === "Enter")Two()}
 
 
 function Two(){
@@ -116,7 +109,6 @@ function Two(){
 		XSearch: cdnt % 10,
 		sec: 700,
 	}
-
 	let pluScore;
 
 	function scoreF(){
@@ -124,9 +116,7 @@ function Two(){
 		pluScore = +((yum - 2) * 10)
 		score += pluScore;
 		localStorage.setItem('score',+score);
-		if(pluScore > bestScore){
-			bestScore = +pluScore;
-		}
+		if(pluScore > bestScore) bestScore = +pluScore;
 		localStorage.setItem('bestscore',bestScore);
 		thend();
 	}//plus to score and best score!
@@ -147,37 +137,19 @@ function Two(){
 		document.querySelector("#center").innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
 		
 		document.querySelector("#center").innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
-		document.querySelector("#restart").onmousemove = function() {
-			this.src = src="Images/Restart2.png";
-		}
-		document.querySelector("#restart").onmouseleave = function() {
-			this.src = src="Images/Restart.png";
-		}
-		document.querySelector("#restart").onclick = function() {
-			location.reload();
-		}
+		document.querySelector("#restart").onmousemove = function() { this.src = src="Images/Restart2.png" }
+		document.querySelector("#restart").onmouseleave = function() { this.src = src="Images/Restart.png" }
+		document.querySelector("#restart").onclick = function() { location.reload() }
 	}//GameOver
 
 
 	function stop() {
-		if (r[0] === -1*size) {
-			scoreF();
-		}
-		else if (r[0] === size*10) {
-			scoreF();
-		}
-		else if (u[0] === -1*size) {
-			scoreF();
-		}
-		else if (u[0] === size*10) {
-			scoreF();
-		}
+		if (r[0] === -1*size) scoreF();
+		else if (r[0] === size*10)scoreF();
+		else if (u[0] === -1*size)scoreF();
+		else if (u[0] === size*10)scoreF();
 		else mb = 1;
-		for (let i = 4; i < yum; i++) {
-			if (r[i] === r[0] && u[i] === u[0]) {
-				scoreF();
-			}
-		}
+		for (let i = 4; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF()
 	}//Game over
 
 	function move() {
@@ -222,11 +194,7 @@ function Two(){
 		cdnt = Math.floor(Math.random() * 100);
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for (let k = 0; k < yum; k++) {
-			if (r[k] === size * Saves.XSearch && u[k] === size * Saves.YSearch) {
-				neW();
-			}
-		}
+		for (let k = 0; k < yum; k++) if (r[k] === size * Saves.XSearch && u[k] === size * Saves.YSearch) neW();
 	}//rundom number
 
 	function fiX() {
