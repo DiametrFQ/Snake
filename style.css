@@ -111,3 +111,34 @@
 #tScorEv{
     margin-left: 120px;
 }
+
+
+.arrow span {
+    margin: 0;
+    margin-bottom: 12px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-bottom: 5px solid #eb2a2a;
+    border-right: 5px solid #eb2a2a;
+    animation: arrow 2s infinite;
+}
+.arrow span:nth-child(1){
+    animation-delay: -0.2s;
+}
+.arrow span:nth-child(2){
+    animation-delay: -0.1s;
+}
+@keyframes arrow {
+    0%{
+        opacity: 0;
+        transform: translate(50px,0) rotate(135deg);
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translate(10px,0) rotate(135deg);
+    }
+}
