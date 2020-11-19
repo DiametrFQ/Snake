@@ -46,9 +46,7 @@ document.querySelector("#color1").oninput = function(){
 document.querySelector("#color2").oninput = function(){
 	snacolor = this.value;
 	localStorage.setItem('snacolor',snacolor);
-	for(i=0;i<14;i++){
-		document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
-	}
+	for(i=0;i<14;i++)document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
 }
 document.querySelector("#color3").oninput = function(){
 	eacolor = this.value;
@@ -62,36 +60,36 @@ document.onkeydown = function (event){if(event.key === "Enter")Two()}
 
 function Two(){
 	let size = 70;
-	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.2.3.500</span><br />`;
+	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span><br />`;
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	document.querySelector("#buttoms").innerHTML += `<div id="up"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<span id="left"></span>`;
-	document.querySelector("#buttoms").innerHTML += `<span id="right"></span>`;
-	document.querySelector("#buttoms").innerHTML += `<div id="down"></div>`;
-
 	function mobile(){
 		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#up").style.marginLeft = 350+'px';
-		document.querySelector("#down").style.marginLeft = 350+'px';
-		document.querySelector("#left").style.marginLeft = 175+'px';
-		document.querySelector("#right").style.marginLeft = 175+'px';
 		document.querySelector("#c1").style.marginLeft = 100+'px';
 
-		document.querySelector("#up").innerHTML =`<img src="Images/up_circle-128.png" alt="">`;
-		document.querySelector("#left").innerHTML =`<img src="Images/left_circle-128.png" alt="">`;
-	  	document.querySelector("#right").innerHTML =`<img src="Images/right_circle-128.png" alt="">`;
-		document.querySelector("#down").innerHTML =`<img src="Images/down_circle-128.png" alt="">`;
+		document.querySelector("#buttoms").innerHTML += `<div class="arrow-up"></div>`;
+		document.querySelector("#buttoms").innerHTML += `<div class="arrow-down"></div>`;
+		document.querySelector("#buttoms").innerHTML += `<div class="arrow-left"></div>`;
+		document.querySelector("#buttoms").innerHTML += `<div class="arrow-right"></div>`;
+
+		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-top"></div>`;
+		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-bottom"></div>`;
+		document.querySelector(".arrow-down").innerHTML +=`<div class="arrow-down-top"></div>`;
+		document.querySelector(".arrow-down").innerHTML +=`<div class="arrow-down-bottom"></div>`;
+		document.querySelector(".arrow-left").innerHTML +=`<div class="arrow-left-top"></div>`;
+		document.querySelector(".arrow-left").innerHTML +=`<div class="arrow-left-bottom"></div>`;
+		document.querySelector(".arrow-right").innerHTML +=`<div class="arrow-right-top"></div>`;
+		document.querySelector(".arrow-right").innerHTML +=`<div class="arrow-right-bottom"></div>`;
 		}	
 	}
 	mobile()//mobile version: Snake
 
 
-	let bUp = document.querySelector("#up");
-	let bLeft = document.querySelector("#left");
-	let bDown = document.querySelector("#down");
-	let bRight = document.querySelector("#right");
+	let bUp = document.querySelector(".arrow-up");
+	let bLeft = document.querySelector(".arrow-left");
+	let bDown = document.querySelector(".arrow-down");
+	let bRight = document.querySelector(".arrow-right");
 	let canvas = document.getElementById('c1');
 	let ctx = canvas.getContext('2d');
 	let mb;/*Doesnt let you go abroad*/ 
@@ -119,38 +117,37 @@ function Two(){
 		if(pluScore > bestScore) bestScore = +pluScore;
 		localStorage.setItem('bestscore',bestScore);
 		thend();
-	}//plus to score and best score!
+	}//plus to score and best score!//
 
 	function thend(){
-		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.2.3.500</span>`;
+		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
+		document.querySelector("#center").innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
+		document.querySelector("#center").innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
+		document.querySelector("#center").innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
+		document.querySelector("#center").innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
+		document.querySelector("#center").innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
 		document.querySelector("#center").style.background = "black";
 		document.querySelector("#center").style.top = 100+"px";
 		document.querySelector("#center").style.height = 600+"px";
 		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 			document.querySelector("#center").style.marginLeft = -130+'px';
 		}//mobile version:GameOver
-		document.querySelector("#center").innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
 		
-		document.querySelector("#center").innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
-		document.querySelector("#center").innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
-		document.querySelector("#center").innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
-		
-		document.querySelector("#center").innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
 		document.querySelector("#restart").onmousemove = function() { this.src = src="Images/Restart2.png" }
 		document.querySelector("#restart").onmouseleave = function() { this.src = src="Images/Restart.png" }
 		document.querySelector("#restart").onclick = function() { location.reload() }
-	}//GameOver
+	}//GameOver//
 
 
 	function stop() {
 		if (r[0] === -1*size) scoreF();
-		else if (r[0] === size*10)scoreF();
-		else if (u[0] === -1*size)scoreF();
-		else if (u[0] === size*10)scoreF();
+		else if (r[0] === size*10) scoreF();
+		else if (u[0] === -1*size) scoreF();
+		else if (u[0] === size*10) scoreF();
 		else mb = 1;
 		for (let i = 4; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF()
-	}//Game over
+	}//Game over//
 
 	function move() {
 		if (mb === 1) {
@@ -160,7 +157,7 @@ function Two(){
 				u[i] = u[Saves.times];
 			}
 		}
-	}//Snake moves
+	}//Snake moves//
 
 	function blue() {
 		ctx.beginPath();
@@ -172,7 +169,7 @@ function Two(){
 		ctx.lineTo(r[0], u[0]);
 		ctx.stroke();
 		ctx.fill();
-	}//blue square
+	}//blue square//
 
 	function minus() {
 		if (r[0] === size * Saves.XSearch && u[0] === size * Saves.YSearch) {
@@ -207,7 +204,7 @@ function Two(){
 		ctx.lineTo(0 + size * Saves.XSearch, 0 + size * Saves.YSearch);
 		ctx.stroke();
 		ctx.fill();
-	}//Spawn orng square
+	}//Spawn orng square//
 
 	function plus() {
 		for (let i = 0; i < yum; i++) {
@@ -310,7 +307,6 @@ function Two(){
 				R();
 			}
 	}//click on right
-
 	neW();
 	fiX();
 }//Snake
