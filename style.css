@@ -22,18 +22,6 @@
 	border: 3px solid black;
 	background-color: green;
 }
-#up,#down{
-    background-image: none;
-	margin-left: 520px;
-
-}
-#left{
-    background-image: none;
-	margin-left: 430px;
-}
-#right{
-    background-image: none;
-}
 #center{
     margin: 0px;
     position: relative;
@@ -141,4 +129,103 @@
         opacity: 0;
         transform: translate(10px,0) rotate(135deg);
     }
+}
+
+
+
+.arrow{
+    cursor: pointer;
+    position: relative;
+}
+.arrow-down-top, .arrow-down-bottom,
+.arrow-up-top, .arrow-up-bottom,
+.arrow-right-top, .arrow-right-bottom,
+.arrow-left-top, .arrow-left-bottom{
+    background: #337AB7;
+    height: 40px;
+    position: absolute;
+    width: 110px;
+}
+.arrow-right-bottom {
+    left: 520px;
+    top: 1034px;
+}
+.arrow-right-top {
+    left: 520px;
+    top: 1049px;
+}
+.arrow-down-bottom{
+    left: 441px;
+    top: 1113px;
+}
+.arrow-down-top {
+    left: 390px;
+    top: 1177px;
+}
+.arrow-left-bottom {
+    left: 312px;
+    top: 982px;
+}
+.arrow-left-top {
+    left: 312px;
+    top: 1098px;
+}
+.arrow-up-bottom {
+    left: 390px;
+    top: 904px;
+}
+.arrow-up-top {
+    left: 441px;
+    top: 971px;
+}
+.arrow-down-top,
+.arrow-up-top,
+.arrow-right-top,
+.arrow-left-top{
+    transform: rotate(45deg);
+    transform-origin: bottom right;
+}
+.arrow-down-bottom,
+.arrow-up-bottom,
+.arrow-right-bottom,
+.arrow-left-bottom{
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+.arrow-down-top::after, 
+.arrow-down-bottom::after,
+.arrow-up-top::after, 
+.arrow-up-bottom::after,
+.arrow-right-top::after, 
+.arrow-right-bottom::after,
+.arrow-left-top::after, 
+.arrow-left-bottom::after {
+    background: #000;
+    content: '';
+    height: 100%;
+    position: absolute;
+    transition: all 0.15s;
+    transition-delay: 0s;
+}
+.arrow-down-top::after, .arrow-up-bottom::after {
+    left: 0;
+    right: 100%;
+}
+.arrow-down-bottom::after, .arrow-up-top::after {
+    left: 100%;
+    right: 0;
+}
+.arrow-right-top::after, .arrow-right-bottom::after {
+    left: 0;
+    right: 100%;
+}
+.arrow-left-top::after, .arrow-left-bottom::after {
+    left: 100%;
+    right: 0;
+}
+.arrow-down:hover .arrow-down-top::after, .arrow-up:hover .arrow-up-bottom::after, .arrow-right:hover .arrow-right-top::after, .arrow-right:hover .arrow-right-bottom::after {
+    right: 0;
+}
+.arrow-down:hover .arrow-down-bottom::after, .arrow-up:hover .arrow-up-top::after, .arrow-left:hover .arrow-left-top::after, .arrow-left:hover .arrow-left-bottom::after {
+    left: 0;
 }
