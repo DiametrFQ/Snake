@@ -64,14 +64,15 @@ function Two(){
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
+	
+	document.querySelector("#buttoms").innerHTML += `<div class="arrow-up"></div>`;
+	document.querySelector("#buttoms").innerHTML += `<div class="arrow-down"></div>`;
+	document.querySelector("#buttoms").innerHTML += `<div class="arrow-left"></div>`;
+	document.querySelector("#buttoms").innerHTML += `<div class="arrow-right"></div>`;
+
 	function mobile(){
 		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
 		document.querySelector("#c1").style.marginLeft = 100+'px';
-
-		document.querySelector("#buttoms").innerHTML += `<div class="arrow-up"></div>`;
-		document.querySelector("#buttoms").innerHTML += `<div class="arrow-down"></div>`;
-		document.querySelector("#buttoms").innerHTML += `<div class="arrow-left"></div>`;
-		document.querySelector("#buttoms").innerHTML += `<div class="arrow-right"></div>`;
 
 		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-top"></div>`;
 		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-bottom"></div>`;
@@ -85,7 +86,7 @@ function Two(){
 	}
 	mobile()//mobile version: Snake
 
-
+	
 	let bUp = document.querySelector(".arrow-up");
 	let bLeft = document.querySelector(".arrow-left");
 	let bDown = document.querySelector(".arrow-down");
@@ -139,14 +140,13 @@ function Two(){
 		document.querySelector("#restart").onclick = function() { location.reload() }
 	}//GameOver//
 
-
 	function stop() {
 		if (r[0] === -1*size) scoreF();
 		else if (r[0] === size*10) scoreF();
 		else if (u[0] === -1*size) scoreF();
 		else if (u[0] === size*10) scoreF();
 		else mb = 1;
-		for (let i = 4; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF()
+		for (let i = 5; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF();
 	}//Game over//
 
 	function move() {
@@ -220,12 +220,12 @@ function Two(){
 		}
 	}//+tail
 
-
 	blue();
 	function sequence(){
 		ctx.clearRect(0, 0, size*10, size*10);
 		stop();
 		move();
+		stop();
 		blue();
 		minus();
 		finish();
