@@ -132,7 +132,6 @@
 }
 
 
-
 .arrow{
     cursor: pointer;
     position: relative;
@@ -142,41 +141,41 @@
 .arrow-right-top, .arrow-right-bottom,
 .arrow-left-top, .arrow-left-bottom{
     background: #337AB7;
-    height: 40px;
+    height: 80px;
     position: absolute;
-    width: 110px;
+    width: 150px;
 }
 .arrow-right-bottom {
-    left: 520px;
-    top: 1034px;
+    left: 470px;
+    top: 1015px;
 }
 .arrow-right-top {
-    left: 520px;
-    top: 1049px;
+    left: 470px;
+    top: 1047px;
 }
 .arrow-down-bottom{
-    left: 441px;
-    top: 1113px;
+    left: 364px;
+    top: 1121px;
 }
 .arrow-down-top {
-    left: 390px;
-    top: 1177px;
+    left: 314px;
+    top: 1204px;
 }
 .arrow-left-bottom {
-    left: 312px;
-    top: 982px;
+    left: 210px;
+    top: 965px;
 }
 .arrow-left-top {
-    left: 312px;
-    top: 1098px;
+    left: 210px;
+    top: 1099px;
 }
 .arrow-up-bottom {
-    left: 390px;
-    top: 904px;
+    left: 315px;
+    top: 860px;
 }
 .arrow-up-top {
-    left: 441px;
-    top: 971px;
+    left: 365px;
+    top: 943px;
 }
 .arrow-down-top,
 .arrow-up-top,
@@ -223,9 +222,11 @@
     left: 100%;
     right: 0;
 }
+.arrow-down:hover .arrow-down-bottom::after, .arrow-up:hover .arrow-up-top::after, .arrow-left:hover .arrow-left-top::after, .arrow-left:hover .arrow-left-bottom::after {
+    border: 1px solid black;
+    left: 0;
+}
 .arrow-down:hover .arrow-down-top::after, .arrow-up:hover .arrow-up-bottom::after, .arrow-right:hover .arrow-right-top::after, .arrow-right:hover .arrow-right-bottom::after {
     right: 0;
-}
-.arrow-down:hover .arrow-down-bottom::after, .arrow-up:hover .arrow-up-top::after, .arrow-left:hover .arrow-left-top::after, .arrow-left:hover .arrow-left-bottom::after {
-    left: 0;
+    border: 1px solid black;
 }
