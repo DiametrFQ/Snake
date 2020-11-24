@@ -149,9 +149,8 @@ function Two(){
 	function move() {
 		if (mb === 1) {
 			for (let i = 100;i > 0; i--) {
-				Saves.times = i - 1;
-				r[i] = r[Saves.times];
-				u[i] = u[Saves.times];
+				r[i] = r[i-1];
+				u[i] = u[i-1];
 			}
 		}
 	}//Snake moves//
@@ -188,7 +187,7 @@ function Two(){
 		cdnt = Math.floor(Math.random() * 100);
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for (let k = 0; k < yum; k++) if (r[k] === size*Saves.YSearch && u[k] === size*Saves.XSearch) neW();
+		for (let k = 0; k < yum; k++) if (r[k] === size*Saves.XSearch && u[k] === size*Saves.YSearch) neW();
 	}//rundom number
 
 	function fiX() {
