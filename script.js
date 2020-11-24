@@ -1,11 +1,12 @@
-let score = +localStorage.getItem('score');// Preserve the color of the overall result
-let bestScore = +localStorage.getItem('bestscore');//Keeping the color of the Best Score
+let score = localStorage.getItem('score');// Preserve the color of the overall result
+let bestScore = localStorage.getItem('bestscore');//Keeping the color of the Best Score
 let bgcolor = localStorage.getItem('bgcolor');//Keeping the color of the background
 let snacolor = localStorage.getItem('snacolor');//Keeping the color of the snake
 let eacolor = localStorage.getItem('eacolor');//Keeping the color of the food
-
+let navUA = navigator.userAgent;
+let center = document.querySelector("#center");
 window.onload = function(){
-	if (localStorage.getItem('bgcolor')==null||localStorage.getItem('bgcolor')==null||localStorage.getItem('bgcolor')==null){
+	if (bgcolor==null||snacolor==null||eacolor==null){
 		bgcolor = '#00ff00';
 		snacolor = '#0000ff';
 		eacolor = '#ffb500';
@@ -19,21 +20,21 @@ window.onload = function(){
 	for(i=0;i<14;i++)document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
 	
     for(i=0;i<5;i++){
-        document.querySelector(`#tails${i}`).style.left= 0+"px";
-        document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
+        document.querySelector(`#tails${i}`).style.left = 0 + "px";
+		document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
     }
     for(i=4;i<12;i++){
         document.querySelector(`#tails${i}`).style.left= 0+31*(i-4)+"px";
-        document.querySelector(`#tails${i}`).style.top = 120+"px";
+		document.querySelector(`#tails${i}`).style.top = 120+"px";
     }
     for(i=11;i<14;i++){
-        document.querySelector(`#tails${i}`).style.left= 217+"px";
-        document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
+		document.querySelector(`#tails${i}`).style.left= 217+"px";
+		document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
 	}//Creates a non-playable snake for example
-	for(i=0;i<14;i++)document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
+	for(i=0;i<14;i++) document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
 
-	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#center").style.marginLeft = -120+"px";
+	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
+		center.style.marginLeft = -120+"px";
 	}//mobile version:Start
 }//Start
 
@@ -64,33 +65,29 @@ function Two(){
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	
-	document.querySelector("#buttoms").innerHTML += `<div class="arrow-up"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<div class="arrow-down"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<div class="arrow-left"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<div class="arrow-right"></div>`;
 
-	function mobile(){
-		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#c1").style.marginLeft = 100+'px';
-
-		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-top"></div>`;
-		document.querySelector(".arrow-up").innerHTML +=`<div class="arrow-up-bottom"></div>`;
-		document.querySelector(".arrow-down").innerHTML +=`<div class="arrow-down-top"></div>`;
-		document.querySelector(".arrow-down").innerHTML +=`<div class="arrow-down-bottom"></div>`;
-		document.querySelector(".arrow-left").innerHTML +=`<div class="arrow-left-top"></div>`;
-		document.querySelector(".arrow-left").innerHTML +=`<div class="arrow-left-bottom"></div>`;
-		document.querySelector(".arrow-right").innerHTML +=`<div class="arrow-right-top"></div>`;
-		document.querySelector(".arrow-right").innerHTML +=`<div class="arrow-right-bottom"></div>`;
-		}	
-	}
-	mobile()//mobile version: Snake
-
-	
+	let buttoms = document.querySelector("#buttoms");
+	buttoms.innerHTML += `<div class="arrow-up"></div>`;
+	buttoms.innerHTML += `<div class="arrow-down"></div>`;
+	buttoms.innerHTML += `<div class="arrow-left"></div>`;
+	buttoms.innerHTML += `<div class="arrow-right"></div>`;
 	let bUp = document.querySelector(".arrow-up");
 	let bLeft = document.querySelector(".arrow-left");
 	let bDown = document.querySelector(".arrow-down");
 	let bRight = document.querySelector(".arrow-right");
+
+	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
+		document.querySelector("#c1").style.marginLeft = 100+'px';
+
+		bUp.innerHTML +=`<div class="arrow-up-top"></div>`;
+		bUp.innerHTML +=`<div class="arrow-up-bottom"></div>`;
+		bDown.innerHTML +=`<div class="arrow-down-top"></div>`;
+		bDown.innerHTML +=`<div class="arrow-down-bottom"></div>`;
+		bLeft.innerHTML +=`<div class="arrow-left-top"></div>`;
+		bLeft.innerHTML +=`<div class="arrow-left-bottom"></div>`;
+		bRight.innerHTML +=`<div class="arrow-right-top"></div>`;
+		bRight.innerHTML +=`<div class="arrow-right-bottom"></div>`;
+	}	
 	let canvas = document.getElementById('c1');
 	let ctx = canvas.getContext('2d');
 	let mb;/*Doesnt let you go abroad*/ 
@@ -98,7 +95,6 @@ function Two(){
 	let cdnt;//Coordinates
 	let t;//timer
 	let yum = 2;//yum-yum yummy!//hum
-
 	cdnt = Math.floor(Math.random() * 100);//random
 	let r = [Math.floor(cdnt / 10) * size];//right
 	let u = [cdnt % 10 * size];//up
@@ -123,21 +119,22 @@ function Two(){
 	function thend(){
 		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
-		document.querySelector("#center").innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
-		document.querySelector("#center").innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
-		document.querySelector("#center").innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
-		document.querySelector("#center").innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
-		document.querySelector("#center").innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
-		document.querySelector("#center").style.background = "black";
-		document.querySelector("#center").style.top = 100+"px";
-		document.querySelector("#center").style.height = 600+"px";
-		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-			document.querySelector("#center").style.marginLeft = -130+'px';
+		let center = document.querySelector("#center");
+		center.innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
+		center.innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
+		center.innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
+		center.innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
+		center.innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
+		center.style.background = "black";
+		center.style.top = 100+"px";
+		center.style.height = 600+"px";
+		if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
+			center.style.marginLeft = -130+'px';
 		}//mobile version:GameOver
-		
-		document.querySelector("#restart").onmousemove = function() { this.src = src="Images/Restart2.png" }
-		document.querySelector("#restart").onmouseleave = function() { this.src = src="Images/Restart.png" }
-		document.querySelector("#restart").onclick = function() { location.reload() }
+		let restart = document.querySelector("#restart");
+		restart.onmousemove = function() { this.src = "Images/Restart2.png" }
+		restart.onmouseleave = function() { this.src = "Images/Restart.png" }
+		restart.onclick = function() { location.reload() }
 	}//GameOver//
 
 	function stop() {
@@ -172,7 +169,7 @@ function Two(){
 	}//blue square//
 
 	function minus() {
-		if (r[0] === size * Saves.XSearch && u[0] === size * Saves.YSearch) {
+		if (r[0] === size*Saves.XSearch && u[0] === size*Saves.YSearch) {
 			yum++;
 			Saves.sec -= 4;
 			neW();
@@ -181,7 +178,7 @@ function Two(){
 
 	function finish() {
 		if (yum === 100) {
-			document.querySelector('body').style.background = "yellow";
+			document.body.style.background = "yellow";
 			alert('Congratulations you won!');
 			location.reload();
 		}
@@ -191,17 +188,17 @@ function Two(){
 		cdnt = Math.floor(Math.random() * 100);
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for (let k = 0; k < yum; k++) if (r[k] === size * Saves.XSearch && u[k] === size * Saves.YSearch) neW();
+		for (let k = 0; k < yum; k++) if (r[k] === size*Saves.YSearch && u[k] === size*Saves.XSearch) neW();
 	}//rundom number
 
 	function fiX() {
 		ctx.beginPath();
 		ctx.fillStyle = eacolor;
-		ctx.moveTo(0 + size * Saves.XSearch, 0 + size * Saves.YSearch);
-		ctx.lineTo(size + size * Saves.XSearch, 0 + size * Saves.YSearch);
+		ctx.moveTo(size * Saves.XSearch, size * Saves.YSearch);
+		ctx.lineTo(size + size * Saves.XSearch, size * Saves.YSearch);
 		ctx.lineTo(size + size * Saves.XSearch, size + size * Saves.YSearch);
-		ctx.lineTo(0 + size * Saves.XSearch, size + size * Saves.YSearch);
-		ctx.lineTo(0 + size * Saves.XSearch, 0 + size * Saves.YSearch);
+		ctx.lineTo(size * Saves.XSearch, size + size * Saves.YSearch);
+		ctx.lineTo(size * Saves.XSearch, size * Saves.YSearch);
 		ctx.stroke();
 		ctx.fill();
 	}//Spawn orng square//
@@ -265,19 +262,19 @@ function Two(){
 		ctx.clearRect(0, 0, size*10, size*10);
 		blue();
 		fiX();
-		if (event.key === 'ArrowRight' | event.key === 'D' | event.key === 'd' | event.key === 'в' | event.key === 'В' && r !== 360 && cens !== 3) {
+		if (event.key === 'ArrowRight' || event.key === 'D'||event.key ==='d'||event.key ==='в'||event.key ==='В'&& r !== 360 && cens !== 3) {
 			clearTimeout(t)
 			R();
 		}
-		if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
+		if (event.key === 'ArrowDown' || event.key === 'S' || event.key === 's' || event.key === 'ы' || event.key === 'Ы' && u !== 360 && cens !== 4) {
 			clearTimeout(t)
 			D();
 		}
-		if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
+		if (event.key === 'ArrowLeft' || event.key === 'A' || event.key === 'a' || event.key === 'ф' || event.key === 'Ф' && r !== 0 && cens !== 1) {
 			clearTimeout(t)
 			L();
 		}
-		if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
+		if (event.key === 'ArrowUp' || event.key === 'W' || event.key === 'w' || event.key === 'ц' || event.key === 'Ц' && u !== 0 && cens !== 2) {
 			clearTimeout(t)
 			U();
 		}
