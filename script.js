@@ -1,5 +1,5 @@
-let score = localStorage.getItem('score');// Preserve the color of the overall result
-let bestScore = localStorage.getItem('bestscore');//Keeping the color of the Best Score
+let score = +localStorage.getItem('score');// Preserve the color of the overall result
+let bestScore = +localStorage.getItem('bestscore');//Keeping the color of the Best Score
 let bgcolor = localStorage.getItem('bgcolor');//Keeping the color of the background
 let snacolor = localStorage.getItem('snacolor');//Keeping the color of the snake
 let eacolor = localStorage.getItem('eacolor');//Keeping the color of the food
@@ -56,16 +56,15 @@ document.querySelector("#color3").oninput = function(){
 }
 
 document.querySelector("#start").onclick = () => Two();
-document.onkeydown = function (event){if(event.key === "Enter")Two()}
-
+document.onkeydown =(event)=> {if(event.key === "Enter")Two()}
 
 function Two(){
-	let size = 70;
+	const size = 70;
 	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span><br />`;
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-
+	let canvas = document.getElementById('c1');
 	let buttoms = document.querySelector("#buttoms");
 	buttoms.innerHTML += `<div class="arrow-up"></div>`;
 	buttoms.innerHTML += `<div class="arrow-down"></div>`;
@@ -87,28 +86,27 @@ function Two(){
 		bLeft.innerHTML +=`<div class="arrow-left-bottom"></div>`;
 		bRight.innerHTML +=`<div class="arrow-right-top"></div>`;
 		bRight.innerHTML +=`<div class="arrow-right-bottom"></div>`;
-	}	
-	let canvas = document.getElementById('c1');
+	}
 	let ctx = canvas.getContext('2d');
 	let mb;/*Doesnt let you go abroad*/ 
 	let cens;//NO left <- -> right NO up <- -> bottom NO
-	let cdnt;//Coordinates
+	let cdnt = Math.floor(Math.random() * 100);//Coordinates
 	let t;//timer
 	let yum = 2;//yum-yum yummy!//hum
-	cdnt = Math.floor(Math.random() * 100);//random
+	// cdnt = Math.floor(Math.random() * 100);//random
 	let r = [Math.floor(cdnt / 10) * size];//right
 	let u = [cdnt % 10 * size];//up
 	let Saves = {
-		times: 0,
 		YSearch: Math.floor(cdnt / 10),
 		XSearch: cdnt % 10,
 		sec: 700,
-	}
+	};
 	let pluScore;
-
+	let sSX = size*Saves.XSearch;
+	let sSY = size*Saves.YSearch;
 	function scoreF(){
 		clearTimeout(t);
-		pluScore = +((yum - 2) * 10)
+		pluScore = +((yum - 2) * 10);
 		score += pluScore;
 		localStorage.setItem('score',+score);
 		if(pluScore > bestScore) bestScore = +pluScore;
@@ -134,7 +132,7 @@ function Two(){
 		let restart = document.querySelector("#restart");
 		restart.onmousemove = function() { this.src = "Images/Restart2.png" }
 		restart.onmouseleave = function() { this.src = "Images/Restart.png" }
-		restart.onclick = function() { location.reload() }
+		restart.onclick =()=> { location.reload() }
 	}//GameOver//
 
 	function stop() {
@@ -181,13 +179,13 @@ function Two(){
 			alert('Congratulations you won!');
 			location.reload();
 		}
-	}//The End.
+	}//The End(?).
 
 	function neW() {
 		cdnt = Math.floor(Math.random() * 100);
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for (let k = 0; k < yum; k++) if (r[k] === size*Saves.XSearch && u[k] === size*Saves.YSearch) neW();
+		for (let k = 0; k < yum; k++) if (r[k] === sSX && u[k] === sSY) neW();
 	}//rundom number
 
 	function fiX() {
@@ -257,48 +255,49 @@ function Two(){
 		t = setTimeout(U, Saves.sec);
 	}//moving to the up
 
-	document.onkeydown = function (event) {
+	document.onkeydown =(event)=>{
 		ctx.clearRect(0, 0, size*10, size*10);
 		blue();
 		fiX();
-		if (event.key === 'ArrowRight' || event.key === 'D'||event.key ==='d'||event.key ==='в'||event.key ==='В'&& r !== 360 && cens !== 3) {
+		let ek = event.key
+		if (ek ==='ArrowRight'|| ek ==='D'||ek ==='d'||ek ==='в'||ek ==='В'&&cens!== 3) {
 			clearTimeout(t)
 			R();
 		}
-		if (event.key === 'ArrowDown' || event.key === 'S' || event.key === 's' || event.key === 'ы' || event.key === 'Ы' && u !== 360 && cens !== 4) {
+		if (ek ==='ArrowDown'||ek ==='S'||ek ==='s'||ek ==='ы'||ek ==='Ы'&&cens!== 4) {
 			clearTimeout(t)
 			D();
 		}
-		if (event.key === 'ArrowLeft' || event.key === 'A' || event.key === 'a' || event.key === 'ф' || event.key === 'Ф' && r !== 0 && cens !== 1) {
+		if (ek ==='ArrowLeft'||ek ==='A'||ek ==='a'||ek ==='ф'||ek ==='Ф'&&cens!== 1) {
 			clearTimeout(t)
 			L();
 		}
-		if (event.key === 'ArrowUp' || event.key === 'W' || event.key === 'w' || event.key === 'ц' || event.key === 'Ц' && u !== 0 && cens !== 2) {
+		if (ek ==='ArrowUp'||ek ==='W'||ek ==='w'||ek ==='ц'||ek ==='Ц'&&cens!== 2) {
 			clearTimeout(t)
 			U();
 		}
 	}
 
 	bUp.onclick = () => {
-			if(u !== 0 && cens !== 2) {
+			if(cens !== 2) {
 				clearTimeout(t)
 				U();
 			}
 	}//click on up
 	bLeft.onclick = () => {
-			if(r !== 0 && cens !== 1) {
+			if(cens !== 1) {
 				clearTimeout(t)
 				L();
 			}
 	}//click on left
 	bDown.onclick = () => {
-			if (u !== 9*size && cens !== 4) {
+			if (cens !== 4) {
 				clearTimeout(t)
 				D();
 			}
 	}//click on down
 	bRight.onclick = () => {
-			if(r !== 9*size && cens !== 3) {
+			if(cens !== 3) {
 				clearTimeout(t)
 				R();
 			}
