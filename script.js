@@ -19,23 +19,20 @@ window.onload = function(){
 		
 	for(i=0;i<14;i++)document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
 	
-    for(i=0;i<5;i++){
-        document.querySelector(`#tails${i}`).style.left = 0 + "px";
+	for(i=0;i<5;i++){
+		document.querySelector(`#tails${i}`).style.left = 0 + "px";
 		document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
-    }
-    for(i=4;i<12;i++){
+	}for(i=4;i<12;i++){
         document.querySelector(`#tails${i}`).style.left= 0+31*(i-4)+"px";
-		document.querySelector(`#tails${i}`).style.top = 120+"px";
-    }
-    for(i=11;i<14;i++){
+	document.querySelector(`#tails${i}`).style.top = 120+"px";
+	}
+	for(i=11;i<14;i++){
 		document.querySelector(`#tails${i}`).style.left= 217+"px";
 		document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
 	}//Creates a non-playable snake for example
 	for(i=0;i<14;i++) document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
 
-	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
-		center.style.marginLeft = -120+"px";
-	}//mobile version:Start
+	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {center.style.marginLeft = -120+"px";}//mobile version:Start
 }//Start
 
 
@@ -75,7 +72,7 @@ function Two(){
 	let bDown = document.querySelector(".arrow-down");
 	let bRight = document.querySelector(".arrow-right");
 
-	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
+	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
 		document.querySelector("#c1").style.marginLeft = 100+'px';
 
 		bUp.innerHTML +=`<div class="arrow-up-top"></div>`;
@@ -90,10 +87,9 @@ function Two(){
 	let ctx = canvas.getContext('2d');
 	let mb;/*Doesnt let you go abroad*/ 
 	let cens;//NO left <- -> right NO up <- -> bottom NO
-	let cdnt = Math.floor(Math.random() * 100);//Coordinates
+	let cdnt = Math.floor(Math.random() * 100);//random
 	let t;//timer
 	let yum = 2;//yum-yum yummy!//hum
-	// cdnt = Math.floor(Math.random() * 100);//random
 	let r = [Math.floor(cdnt / 10) * size];//right
 	let u = [cdnt % 10 * size];//up
 	let Saves = {
@@ -102,8 +98,6 @@ function Two(){
 		sec: 700,
 	};
 	let pluScore;
-	let sSX = size*Saves.XSearch;
-	let sSY = size*Saves.YSearch;
 	function scoreF(){
 		clearTimeout(t);
 		pluScore = +((yum - 2) * 10);
@@ -115,6 +109,7 @@ function Two(){
 	}//plus to score and best score!//
 
 	function thend(){
+		clearTimeout(t);
 		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
 		let center = document.querySelector("#center");
@@ -182,10 +177,10 @@ function Two(){
 	}//The End(?).
 
 	function neW() {
-		cdnt = Math.floor(Math.random() * 100);
+		cdnt = Math.floor(Math.random() * 100);//random
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for (let k = 0; k < yum; k++) if (r[k] === sSX && u[k] === sSY) neW();
+		for(i = 0; i < yum - 2; i++)if(r[i] === size*Saves.XSearch && u[i] === size*Saves.YSearch)neW();
 	}//rundom number
 
 	function fiX() {
@@ -214,7 +209,6 @@ function Two(){
 		}
 	}//+tail
 
-	blue();
 	function sequence(){
 		ctx.clearRect(0, 0, size*10, size*10);
 		stop();
@@ -254,30 +248,30 @@ function Two(){
 		cens = 4;		
 		t = setTimeout(U, Saves.sec);
 	}//moving to the up
-
+	blue();
 	document.onkeydown =(event)=>{
 		ctx.clearRect(0, 0, size*10, size*10);
 		blue();
 		fiX();
+		clearTimeout(t);
 		let ek = event.key
-		if (ek ==='ArrowRight'|| ek ==='D'||ek ==='d'||ek ==='в'||ek ==='В'&&cens!== 3) {
-			clearTimeout(t)
+		if (cens !== 3 && ek ==='ArrowRight'|| ek ==='D'||ek ==='d'||ek ==='в'||ek ==='В'){
+			clearTimeout(t);
 			R();
 		}
-		if (ek ==='ArrowDown'||ek ==='S'||ek ==='s'||ek ==='ы'||ek ==='Ы'&&cens!== 4) {
-			clearTimeout(t)
+		if (cens !== 4 && ek ==='ArrowDown'||ek ==='S'||ek ==='s'||ek ==='ы'||ek ==='Ы'){
+			clearTimeout(t);
 			D();
 		}
-		if (ek ==='ArrowLeft'||ek ==='A'||ek ==='a'||ek ==='ф'||ek ==='Ф'&&cens!== 1) {
-			clearTimeout(t)
+		if (cens !== 1 && ek ==='ArrowLeft'||ek ==='A'||ek ==='a'||ek ==='ф'||ek ==='Ф'){
+			clearTimeout(t);
 			L();
 		}
-		if (ek ==='ArrowUp'||ek ==='W'||ek ==='w'||ek ==='ц'||ek ==='Ц'&&cens!== 2) {
-			clearTimeout(t)
+		if (cens !== 2 && ek ==='ArrowUp'||ek ==='W'||ek ==='w'||ek ==='ц'||ek ==='Ц'){
+			clearTimeout(t);
 			U();
 		}
 	}
-
 	bUp.onclick = () => {
 			if(cens !== 2) {
 				clearTimeout(t)
