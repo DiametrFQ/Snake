@@ -24,15 +24,13 @@ window.onload = function(){
 		document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
 	}for(i=4;i<12;i++){
         document.querySelector(`#tails${i}`).style.left= 0+31*(i-4)+"px";
-	document.querySelector(`#tails${i}`).style.top = 120+"px";
+		document.querySelector(`#tails${i}`).style.top = 120+"px";
 	}
 	for(i=11;i<14;i++){
 		document.querySelector(`#tails${i}`).style.left= 217+"px";
 		document.querySelector(`#tails${i}`).style.top = 120+31*(i-11)+"px";
 	}//Creates a non-playable snake for example
 	for(i=0;i<14;i++) document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
-
-	if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {center.style.marginLeft = -120+"px";}//mobile version:Start
 }//Start
 
 
@@ -73,8 +71,6 @@ function Two(){
 	let bRight = document.querySelector(".arrow-right");
 
 	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
-		document.querySelector("#c1").style.marginLeft = 100+'px';
-
 		bUp.innerHTML +=`<div class="arrow-up-top"></div>`;
 		bUp.innerHTML +=`<div class="arrow-up-bottom"></div>`;
 		bDown.innerHTML +=`<div class="arrow-down-top"></div>`;
@@ -116,14 +112,10 @@ function Two(){
 		center.innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
 		center.innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
 		center.innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
-		center.innerHTML += `<span class="score" id="tScorEv">Total score ever: ${score}<span>`;
+		center.innerHTML += `<div class="score" id="tScorEv">Total score ever: ${score}<div>`;
 		center.innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
 		center.style.background = "black";
-		center.style.top = 100+"px";
 		center.style.height = 600+"px";
-		if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
-			center.style.marginLeft = -130+'px';
-		}//mobile version:GameOver
 		let restart = document.querySelector("#restart");
 		restart.onmousemove = function() { this.src = "Images/Restart2.png" }
 		restart.onmouseleave = function() { this.src = "Images/Restart.png" }
@@ -131,9 +123,9 @@ function Two(){
 	}//GameOver//
 
 	function stop() {
-		if (r[0] === -1*size) scoreF();
+		if (r[0] === -size) scoreF();
 		else if (r[0] === size*10) scoreF();
-		else if (u[0] === -1*size) scoreF();
+		else if (u[0] === -size) scoreF();
 		else if (u[0] === size*10) scoreF();
 		else mb = 1;
 		for (let i = 5; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF();
