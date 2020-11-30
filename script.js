@@ -172,7 +172,7 @@ function Two(){
 		cdnt = Math.floor(Math.random() * 100);//random
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for(i = 0; i < yum - 2; i++)if(r[i] === size*Saves.XSearch && u[i] === size*Saves.YSearch)neW();
+		for(i = 0; i < yum; i++)if(r[i] === size*Saves.XSearch && u[i] === size*Saves.YSearch)neW();
 	}//rundom number
 
 	function fiX() {
