@@ -1,9 +1,6 @@
-*:only-child{
-    background-image: none;
-}
+*:only-child{background-image: none;}
 *{
     text-align: center;
-    margin: 0;
     padding: 0;
 }
 .div{
@@ -24,6 +21,7 @@
 	background-color: green;
 }
 #center{
+    margin: 0 auto;
     padding: 16px;
     position: relative;
     background-color: white;
@@ -32,9 +30,7 @@
     width: 950px;
     height: 710px;
 }
-.word{
-    font-size: 32px;
-}
+.word{font-size: 32px;}
 .color{
     background-color: rgb(207, 207, 207);
     width: 66px;
@@ -72,9 +68,7 @@
     margin: 16px;
 	border-radius: 32px;
 }
-#imStart{
-    padding: 0px 0 0px 0;
-}
+#imStart{padding: 0px 0 0px 0;}
 #restart{
     margin: -100px 0px 0px 520px;
     border: white solid 1px;
@@ -97,12 +91,8 @@
     border-right: 5px solid #eb2a2a;
     animation: arrow 2s infinite;
 }
-.arrow span:nth-child(1){
-    animation-delay: -0.2s;
-}
-.arrow span:nth-child(2){
-    animation-delay: -0.1s;
-}
+.arrow span:nth-child(1){ animation-delay: -0.2s;}
+.arrow span:nth-child(2){animation-delay: -0.1s;}
 @keyframes arrow {
     0%{
         opacity: 0;
