@@ -209,10 +209,10 @@ function Two(){
 		if (cens !== 3 && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek)) makeTurn(r, 1, 1);
 		if (cens !== 4 && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'], ek)) makeTurn(u, 1, 2);
 	}
-	bLeft.onclick = () => {if(cens !== 1) makeTurn(t, L)}//click on left
-	bUp.onclick = () => {if(cens !== 2) makeTurn(t, U)}//click on up
-	bRight.onclick = () => {if(cens !== 3) makeTurn(t, R);}//click on right
-	bDown.onclick = () => {if(cens !== 4) makeTurn(t, D);}//click on down
+	bLeft.onclick = () => {if(cens !== 1) makeTurn(r, -1, 3)}//click on left
+	bUp.onclick = () => {if(cens !== 2) makeTurn(u, -1, 4)}//click on up
+	bRight.onclick = () => {if(cens !== 3) makeTurn(r, 1, 1)}//click on right
+	bDown.onclick = () => {if(cens !== 4) makeTurn(u, 1, 2)}//click on down
 
 	neW();
 	fiX();
