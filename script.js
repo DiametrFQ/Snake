@@ -3,8 +3,8 @@ let bestScore = +localStorage.getItem('bestscore');//Keeping the color of the Be
 let bgcolor = localStorage.getItem('bgcolor');//Keeping the color of the background
 let snacolor = localStorage.getItem('snacolor');//Keeping the color of the snake
 let eacolor = localStorage.getItem('eacolor');//Keeping the color of the food
-let navUA = navigator.userAgent;
-let center = document.querySelector("#center");
+const navUA = navigator.userAgent;
+const center = document.querySelector("#center");
 window.onload = function(){
 	if (bgcolor==null||snacolor==null||eacolor==null){
 		bgcolor = '#00ff00';
@@ -51,7 +51,7 @@ document.querySelector("#color3").oninput = function(){
 }
 
 document.querySelector("#start").onclick = () => Two();
-document.onkeydown =(event)=> {if(event.key === "Enter")Two()}
+document.onkeydown = (event)=> {if(event.key === "Enter")Two()}
 
 function Two(){
 	const size = 70;
@@ -59,16 +59,16 @@ function Two(){
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	let canvas = document.getElementById('c1');
-	let buttoms = document.querySelector("#buttoms");
+	const canvas = document.getElementById('c1');
+	const buttoms = document.querySelector("#buttoms");
 	buttoms.innerHTML += `<div class="arrow-up"></div>`;
 	buttoms.innerHTML += `<div class="arrow-down"></div>`;
 	buttoms.innerHTML += `<div class="arrow-left"></div>`;
 	buttoms.innerHTML += `<div class="arrow-right"></div>`;
-	let bUp = document.querySelector(".arrow-up");
-	let bLeft = document.querySelector(".arrow-left");
-	let bDown = document.querySelector(".arrow-down");
-	let bRight = document.querySelector(".arrow-right");
+	const bUp = document.querySelector(".arrow-up");
+	const bLeft = document.querySelector(".arrow-left");
+	const bDown = document.querySelector(".arrow-down");
+	const bRight = document.querySelector(".arrow-right");
 
 	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
 		bUp.innerHTML +=`<div class="arrow-up-top"></div>`;
@@ -80,7 +80,7 @@ function Two(){
 		bRight.innerHTML +=`<div class="arrow-right-top"></div>`;
 		bRight.innerHTML +=`<div class="arrow-right-bottom"></div>`;
 	}
-	let ctx = canvas.getContext('2d');
+	const ctx = canvas.getContext('2d');
 	let mb;/*Doesnt let you go abroad*/ 
 	let cens;//NO left <- -> right NO up <- -> bottom NO
 	let cdnt = Math.floor(Math.random() * 100);//random
@@ -108,7 +108,7 @@ function Two(){
 		clearTimeout(t);
 		document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.3.312</span>`;
 		document.body.innerHTML += `<div id="center"></div>`;
-		let center = document.querySelector("#center");
+		const center = document.querySelector("#center");
 		center.innerHTML = `<img id="gameover" src="Images/GameOver.png" alt=""></img>`;
 		center.innerHTML += `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`;
 		center.innerHTML += `<div class="score" id="bScore">Best score: ${bestScore}<divn>`;
@@ -116,7 +116,7 @@ function Two(){
 		center.innerHTML += `<img id="restart" src="Images/Restart.png" alt=""></img>`;
 		center.style.background = "black";
 		center.style.height = 600+"px";
-		let restart = document.querySelector("#restart");
+		const restart = document.querySelector("#restart");
 		restart.onmousemove = function() { this.src = "Images/Restart2.png" }
 		restart.onmouseleave = function() { this.src = "Images/Restart.png" }
 		restart.onclick =()=> { location.reload() }
@@ -128,17 +128,10 @@ function Two(){
 		else if (u[0] === -size) scoreF();
 		else if (u[0] === size*10) scoreF();
 		else mb = 1;
-		for (let i = 5; i < yum; i++) if (r[i] === r[0] && u[i] === u[0]) scoreF();
+		for (i = 5; i < yum; i++) if(r[i] === r[0] && u[i] === u[0]) scoreF();
 	}//Game over//
 
-	function move() {
-		if (mb === 1) {
-			for (let i = 100;i > 0; i--) {
-				r[i] = r[i-1];
-				u[i] = u[i-1];
-			}
-		}
-	}//Snake moves//
+	function move(){if(mb === 1) for(i = 100;i > 0; i--) r[i] = r[i-1], u[i] = u[i-1];}//Snake moves
 
 	function blue() {
 		ctx.beginPath();
@@ -172,23 +165,25 @@ function Two(){
 		cdnt = Math.floor(Math.random() * 100);//random
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
-		for(i = 0; i < yum; i++)if(r[i] === size*Saves.XSearch && u[i] === size*Saves.YSearch)neW();
+		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch;
+		for(i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) neW();
 	}//rundom number
 
 	function fiX() {
+		let sSX = size * Saves.XSearch,sSY = size * Saves.YSearch
 		ctx.beginPath();
 		ctx.fillStyle = eacolor;
-		ctx.moveTo(size * Saves.XSearch, size * Saves.YSearch);
-		ctx.lineTo(size + size * Saves.XSearch, size * Saves.YSearch);
-		ctx.lineTo(size + size * Saves.XSearch, size + size * Saves.YSearch);
-		ctx.lineTo(size * Saves.XSearch, size + size * Saves.YSearch);
-		ctx.lineTo(size * Saves.XSearch, size * Saves.YSearch);
+		ctx.moveTo(sSX, sSY);
+		ctx.lineTo(size + sSX, sSY);
+		ctx.lineTo(size + sSX, size + sSY);
+		ctx.lineTo(sSX, size + sSY);
+		ctx.lineTo(sSX, sSY);
 		ctx.stroke();
 		ctx.fill();
 	}//Spawn orng square//
 
 	function plus() {
-		for (let i = 0; i < yum; i++) {
+		for (i = 0; i < yum; i++) {
 			ctx.beginPath();
 			ctx.fillStyle = snacolor;
 			ctx.moveTo(r[i], u[i]);
@@ -215,79 +210,54 @@ function Two(){
 
 	function R() {
 		r[0] += size;
-		sequence()
+		sequence();
 		cens = 1;
 		t = setTimeout(R, Saves.sec);
 	}//moving to the right
 
 	function D() {
 		u[0] += size;
-		sequence()
+		sequence();
 		cens = 2;
 		t = setTimeout(D, Saves.sec);
 	}//moving to the down
 
 	function L() {
 		r[0] -= size;
-		sequence()
+		sequence();
 		cens = 3;
 		t = setTimeout(L, Saves.sec);
 	}//moving to the left
 
 	function U() {
 		u[0] -= size;
-		sequence()
+		sequence();
 		cens = 4;		
 		t = setTimeout(U, Saves.sec);
 	}//moving to the up
+
 	blue();
-	document.onkeydown =(event)=>{
+	const makeTurn = (t, method) => {
+		clearTimeout(t);
+		method();
+	}
+	document.onkeydown = (event)=>{
 		ctx.clearRect(0, 0, size*10, size*10);
+
 		blue();
 		fiX();
-		clearTimeout(t);
-		let ek = event.key
-		if (cens !== 3 && ek ==='ArrowRight'|| ek ==='D'||ek ==='d'||ek ==='в'||ek ==='В'){
-			clearTimeout(t);
-			R();
-		}
-		if (cens !== 4 && ek ==='ArrowDown'||ek ==='S'||ek ==='s'||ek ==='ы'||ek ==='Ы'){
-			clearTimeout(t);
-			D();
-		}
-		if (cens !== 1 && ek ==='ArrowLeft'||ek ==='A'||ek ==='a'||ek ==='ф'||ek ==='Ф'){
-			clearTimeout(t);
-			L();
-		}
-		if (cens !== 2 && ek ==='ArrowUp'||ek ==='W'||ek ==='w'||ek ==='ц'||ek ==='Ц'){
-			clearTimeout(t);
-			U();
-		}
+		const ek = event.key
+		const checkEk = (directionKeys, ek) => {return directionKeys.includes(ek);}
+
+		if (cens !== 1 && checkEk(['ArrowLeft', 'A', 'a', 'ф', 'Ф'],  ek)) makeTurn(t, L);
+		if (cens !== 2 && checkEk(['ArrowUp', 'W', 'w', 'ц','Ц'],     ek)) makeTurn(t, U);
+		if (cens !== 3 && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek)) makeTurn(t, R);
+		if (cens !== 4 && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'],  ek)) makeTurn(t, D);
 	}
-	bUp.onclick = () => {
-			if(cens !== 2) {
-				clearTimeout(t)
-				U();
-			}
-	}//click on up
-	bLeft.onclick = () => {
-			if(cens !== 1) {
-				clearTimeout(t)
-				L();
-			}
-	}//click on left
-	bDown.onclick = () => {
-			if (cens !== 4) {
-				clearTimeout(t)
-				D();
-			}
-	}//click on down
-	bRight.onclick = () => {
-			if(cens !== 3) {
-				clearTimeout(t)
-				R();
-			}
-	}//click on right
+	bLeft.onclick = () => {if(cens !== 1) makeTurn(t, L);}//click on left
+	bUp.onclick = () => {if(cens !== 2) makeTurn(t, U);}//click on up
+	bRight.onclick = () => {if(cens !== 3) makeTurn(t, R);}//click on right
+	bDown.onclick = () => {if(cens !== 4) makeTurn(t, D);}//click on down
 	neW();
 	fiX();
 }//Snake
