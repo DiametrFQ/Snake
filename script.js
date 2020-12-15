@@ -49,9 +49,8 @@ document.querySelector("#color3").oninput = function(){
 	document.querySelector(`#yum`).style.backgroundColor = this.value;
 	localStorage.setItem('eacolor',this.value);
 }
-
 document.querySelector("#start").onclick = () => Two();
-document.onkeydown = (event)=> {if(event.key === "Enter")Two()}
+document.onkeydown = (event)=> {if(event.key === "Enter")Two() }
 
 function Two(){
 	const size = 70;
@@ -59,7 +58,7 @@ function Two(){
 	document.body.innerHTML += `<canvas id="c1" width="${size * 10}" height="${size * 10}"></canvas>`;
 	document.body.innerHTML += `<div id="buttoms"></div>`;
 	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	const canvas = document.getElementById('c1');
+	const canvas = document.querySelector('#c1');
 	const buttoms = document.querySelector("#buttoms");
 	buttoms.innerHTML += `<div class="arrow-up"></div>`;
 	buttoms.innerHTML += `<div class="arrow-down"></div>`;
@@ -94,13 +93,15 @@ function Two(){
 		sec: 700,
 	};
 	let pluScore;
+
 	function scoreF(){
 		clearTimeout(t);
+		document.onkeydown = null;
 		pluScore = +((yum - 2) * 10);
 		score += pluScore;
-		localStorage.setItem('score',+score);
-		if(pluScore > bestScore) bestScore = +pluScore;
-		localStorage.setItem('bestscore',bestScore);
+		localStorage.setItem('score', +score);
+		if(pluScore > bestScore)bestScore = +pluScore;
+		localStorage.setItem('bestscore', bestScore);
 		thend();
 	}//plus to score and best score!//
 
@@ -131,22 +132,25 @@ function Two(){
 		for (i = 5; i < yum; i++) if(r[i] === r[0] && u[i] === u[0]) scoreF();
 	}//Game over//
 
-	function move(){if(mb === 1) for(i = 100;i > 0; i--) r[i] = r[i-1], u[i] = u[i-1];}//Snake moves
+	function move(){if(mb === 1) for(i = 100;i > 0; i--) r[i]=r[i-1], u[i]=u[i-1];}//Snake moves
 
-	function blue() {
+	function square(color,x, y) {
 		ctx.beginPath();
-		ctx.fillStyle = snacolor;
-		ctx.moveTo(r[0], u[0]);
-		ctx.lineTo(r[0] + size, u[0]);
-		ctx.lineTo(r[0] + size, u[0] + size);
-		ctx.lineTo(r[0], u[0] + size);
-		ctx.lineTo(r[0], u[0]);
+		ctx.fillStyle = color;
+		ctx.moveTo(x, y);
+		ctx.lineTo(size + x, y);
+		ctx.lineTo(size + x, y + size);
+		ctx.lineTo(x, y + size);
+		ctx.lineTo(x, y);
 		ctx.stroke();
 		ctx.fill();
-	}//blue square//
+	}
+
+	function blue(){square(snacolor,r[0], u[0])}//blue square//
 
 	function minus() {
-		if (r[0] === size*Saves.XSearch && u[0] === size*Saves.YSearch) {
+		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch;
+		if (r[0] === sSX && u[0] === sSY) {
 			yum++;
 			Saves.sec -= 4;
 			neW();
@@ -163,44 +167,22 @@ function Two(){
 
 	function neW() {
 		cdnt = Math.floor(Math.random() * 100);//random
+
 		Saves.YSearch = Math.floor(cdnt / 10);
 		Saves.XSearch = cdnt % 10;
+
 		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch;
-		for(i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) neW();
+		for(i = 0; i < yum; i++)if(r[i] === sSX && u[i] === sSY) neW();
 	}//rundom number
 
-	function fiX() {
-		let sSX = size * Saves.XSearch,sSY = size * Saves.YSearch
-		ctx.beginPath();
-		ctx.fillStyle = eacolor;
-		ctx.moveTo(sSX, sSY);
-		ctx.lineTo(size + sSX, sSY);
-		ctx.lineTo(size + sSX, size + sSY);
-		ctx.lineTo(sSX, size + sSY);
-		ctx.lineTo(sSX, sSY);
-		ctx.stroke();
-		ctx.fill();
-	}//Spawn orng square//
+	function fiX() {square(eacolor, size * Saves.XSearch, size * Saves.YSearch)}//Spawn orng square//
 
-	function plus() {
-		for (i = 0; i < yum; i++) {
-			ctx.beginPath();
-			ctx.fillStyle = snacolor;
-			ctx.moveTo(r[i], u[i]);
-			ctx.lineTo(r[i] + size, u[i]);
-			ctx.lineTo(r[i] + size, u[i] + size);
-			ctx.lineTo(r[i], u[i] + size);
-			ctx.lineTo(r[i], u[i]);
-			ctx.stroke();
-			ctx.fill();
-		}
-	}//+tail
+	function plus() {for(i = 0; i < yum; i++)square(snacolor, r[i], u[i])}//+tail
 
 	function sequence(){
 		ctx.clearRect(0, 0, size*10, size*10);
 		stop();
 		move();
-		stop();
 		blue();
 		minus();
 		finish();
@@ -208,56 +190,32 @@ function Two(){
 		plus();
 	}//sequence
 
-	function R() {
-		r[0] += size;
-		sequence();
-		cens = 1;
-		t = setTimeout(R, Saves.sec);
-	}//moving to the right
-
-	function D() {
-		u[0] += size;
-		sequence();
-		cens = 2;
-		t = setTimeout(D, Saves.sec);
-	}//moving to the down
-
-	function L() {
-		r[0] -= size;
-		sequence();
-		cens = 3;
-		t = setTimeout(L, Saves.sec);
-	}//moving to the left
-
-	function U() {
-		u[0] -= size;
-		sequence();
-		cens = 4;		
-		t = setTimeout(U, Saves.sec);
-	}//moving to the up
-
-	blue();
-	const makeTurn = (t, method) => {
+	const makeTurn = (uORx, one, censNum) => {
 		clearTimeout(t);
-		method();
-	}
-	document.onkeydown = (event)=>{
-		ctx.clearRect(0, 0, size*10, size*10);
+		uORx[0] += one*size;
+		sequence();
+		cens = censNum;		
+		t = setTimeout(makeTurn, Saves.sec, uORx, one, censNum);
+	}//moving
 
-		blue();
-		fiX();
+	blue()
+
+	document.onkeydown = (event) => {
+		ctx.clearRect(0, 0, size*10, size*10);
+		blue()
 		const ek = event.key
 		const checkEk = (directionKeys, ek) => {return directionKeys.includes(ek);}
 
-		if (cens !== 1 && checkEk(['ArrowLeft', 'A', 'a', 'ф', 'Ф'],  ek)) makeTurn(t, L);
-		if (cens !== 2 && checkEk(['ArrowUp', 'W', 'w', 'ц','Ц'],     ek)) makeTurn(t, U);
-		if (cens !== 3 && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek)) makeTurn(t, R);
-		if (cens !== 4 && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'],  ek)) makeTurn(t, D);
+		if (cens !== 1 && checkEk(['ArrowLeft', 'A', 'a', 'ф', 'Ф'], ek)) makeTurn(r, -1, 3);
+		if (cens !== 2 && checkEk(['ArrowUp', 'W', 'w', 'ц','Ц'], ek)) makeTurn(u, -1, 4);
+		if (cens !== 3 && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek)) makeTurn(r, 1, 1);
+		if (cens !== 4 && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'], ek)) makeTurn(u, 1, 2);
 	}
-	bLeft.onclick = () => {if(cens !== 1) makeTurn(t, L);}//click on left
-	bUp.onclick = () => {if(cens !== 2) makeTurn(t, U);}//click on up
+	bLeft.onclick = () => {if(cens !== 1) makeTurn(t, L)}//click on left
+	bUp.onclick = () => {if(cens !== 2) makeTurn(t, U)}//click on up
 	bRight.onclick = () => {if(cens !== 3) makeTurn(t, R);}//click on right
 	bDown.onclick = () => {if(cens !== 4) makeTurn(t, D);}//click on down
+
 	neW();
 	fiX();
 }//Snake
