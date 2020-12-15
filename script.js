@@ -201,8 +201,6 @@ function Two(){
 	blue()
 
 	document.onkeydown = (event) => {
-		ctx.clearRect(0, 0, size*10, size*10);
-		blue()
 		const ek = event.key
 		const checkEk = (directionKeys, ek) => {return directionKeys.includes(ek);}
 
