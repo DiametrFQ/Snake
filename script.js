@@ -1,65 +1,67 @@
 let score = +localStorage.getItem('score')// Preserve the color of the overall result
 let bestScore = +localStorage.getItem('bestscore')//Keeping the color of the Best Score
-let bgcolor = localStorage.getItem('bgcolor')//Keeping the color of the background
-let snacolor = localStorage.getItem('snacolor')//Keeping the color of the snake
-let eacolor = localStorage.getItem('eacolor')//Keeping the color of the food
+let bgColor = localStorage.getItem('bgColor')//Keeping the color of the background
+let snakeColor = localStorage.getItem('snakeColor')//Keeping the color of the snake
+let eatColor = localStorage.getItem('eatColor')//Keeping the color of the food
 
 const center = document.querySelector("#center")
 const colBg = document.querySelector("#colBg")
 const colSnake = document.querySelector("#colSnake")
 const colEat = document.querySelector("#colEat")
+const tail = document.querySelector("#tail")
+
 const navUA = navigator.userAgent
 
 window.onload =()=> {
-	if(bgcolor === null) bgcolor = '#00ff00'
-	if(snacolor === null) snacolor = '#0000ff'
-	if(eacolor === null) eacolor= '#ffb500'
+	if(bgColor === null) bgColor = '#00ff00'
+	if(snakeColor === null) snakeColor = '#0000ff'
+	if(eatColor === null) eatColor= '#ffb500'
 
-	colBg.value = bgcolor
-	colSnake.value = snacolor
-	colEat.value = eacolor
+	colBg.value = bgColor
+	colSnake.value = snakeColor
+	colEat.value = eatColor
 
-	document.querySelector("#canvas2").style.backgroundColor = bgcolor
-	document.querySelector(`#yum`).style.backgroundColor = eacolor
+	center.querySelector("#canvas2").style.backgroundColor = bgColor
+	center.querySelector(`#yum`).style.backgroundColor = eatColor
 		
-	for(i = 0; i < 14; i++)document.querySelector("#tail").insertAdjacentHTML('beforeend', `<div class="tails" id="tail${i}"></div>`)
+	for(i = 0; i < 14; i++)tail.insertAdjacentHTML('beforeend', `<div class="tails" id="tail${i}"></div>`)
 	
 	for(i = 0; i < 5; i++){
-		document.querySelector(`#tail${i}`).style.left = 0 + "px"
-		document.querySelector(`#tail${i}`).style.top = 30 * i +"px"
+		tail.querySelector(`#tail${i}`).style.left = 0 + "px"
+		tail.querySelector(`#tail${i}`).style.top = 30 * i +"px"
 	}for(i = 4; i < 12; i++){
-        document.querySelector(`#tail${i}`).style.left = 31 * ( i - 4 ) +"px"
-		document.querySelector(`#tail${i}`).style.top = 120 + "px"
+        tail.querySelector(`#tail${i}`).style.left = 31 * ( i - 4 ) +"px"
+		tail.querySelector(`#tail${i}`).style.top = 120 + "px"
 	}
 	for(i = 11; i < 14; i++){
-		document.querySelector(`#tail${i}`).style.left = 217 + "px"
-		document.querySelector(`#tail${i}`).style.top = 120 + 31 * ( i - 11 ) +"px"
+		tail.querySelector(`#tail${i}`).style.left = 217 + "px"
+		tail.querySelector(`#tail${i}`).style.top = 120 + 31 * ( i - 11 ) +"px"
 	}//Creates a non-playable snake for example
-	for(i = 0; i < 14; i++) document.querySelector(`#tail${i}`).style.backgroundColor = snacolor
+	for(i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = snakeColor
 }//Start
 
 colBg.oninput = function()  {
-	bgcolor = this.value
-	document.querySelector("#canvas2").style.backgroundColor = this.value
-	localStorage.setItem('bgcolor', this.value)
+	bgColor = this.value
+	center.querySelector("#canvas2").style.backgroundColor = this.value
+	localStorage.setItem('bgColor', this.value)
 }
 colSnake.oninput = function() {
-	snacolor = this.value
-	document.querySelector(`.tails`).style.backgroundColor = this.value
-	localStorage.setItem('snacolor', this.value)
+	snakeColor = this.value
+	for(i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = this.value
+	localStorage.setItem('snakeColor', this.value)
 }
 colEat.oninput = function() {
-	eacolor = this.value
-	document.querySelector(`#yum`).style.backgroundColor = this.value
-	localStorage.setItem('eacolor',this.value)
+	eatColor = this.value
+	center.querySelector(`#yum`).style.backgroundColor = this.value
+	localStorage.setItem('eatColor', this.value)
 }
-document.querySelector("#start").onclick = () => Start()
+center.querySelector("#start").onclick = () => Start()
 
 document.onkeydown = (event) => { if(event.key === "Enter") Start() }
 
 function Start(){
 	const size = 70
-	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.4.243</span><br />`
+	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.4.245</span><br />`
 	document.body.insertAdjacentHTML('beforeend', `<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>`)
 	document.body.insertAdjacentHTML('beforeend', `<div id="buttons"></div>`)
 
@@ -87,7 +89,7 @@ function Start(){
 		buttonRight.insertAdjacentHTML('beforeend', `<div class="arrow-right-top"></div>`)
 		buttonRight.insertAdjacentHTML('beforeend', `<div class="arrow-right-bottom"></div>`)
 	}
-	const canvas = document.querySelector('#canvas1')
+	const canvas = document.querySelector('#canvas1')//c1
 	canvas.style.backgroundColor = bgcolor
 	const ctx = canvas.getContext('2d');
 
@@ -106,7 +108,7 @@ function Start(){
 
 	function thend(){
 		clearTimeout(t)
-		document.body.innerHTML = `<span id="version-font">Version: </span><span id="version-id">1.3.4.243</span>`
+		document.body.innerHTML = `<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>`
 		document.body.insertAdjacentHTML('beforeend',`<div id="center"></div>`)
 
 		const center = document.querySelector("#center")
