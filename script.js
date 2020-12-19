@@ -90,7 +90,7 @@ function Start(){
 		buttonRight.insertAdjacentHTML('beforeend', `<div class="arrow-right-bottom"></div>`)
 	}
 	const canvas = document.querySelector('#canvas1')//c1
-	canvas.style.backgroundColor = bgcolor
+	canvas.style.backgroundColor = bgColor
 	const ctx = canvas.getContext('2d');
 
 	let cens;//NO left <- -> right NO up <- -> bottom NO
