@@ -193,10 +193,10 @@ function Start(){
 		for(i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) newCrdntEat()
 	}//rundom number
 
-	const fixEat = () => creatingSquare(eacolor, size * Saves.XSearch, size * Saves.YSearch)//Spawn orng square//
+	const fixEat = () => creatingSquare(eatColor, size * Saves.XSearch, size * Saves.YSearch)//Spawn orng square//
 
 	const MakingSnake = () => { 
-		for(i = 0; i < yum; i++) creatingSquare(snacolor, r[i], u[i]) 
+		for(i = 0; i < yum; i++) creatingSquare(snakeColor, r[i], u[i]) 
 	}
 
 	function sequence(){
@@ -239,7 +239,7 @@ function Start(){
 		if(cens !== 4) makeTurn(u, size, 2)//click on down
 	}
 
-	creatingSquare(snacolor, r[0], u[0])//snakeHead
+	creatingSquare(snakeColor, r[0], u[0])//snakeHead 
 	newCrdntEat()
 	fixEat()
 }//Snake
