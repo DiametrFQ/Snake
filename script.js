@@ -61,15 +61,20 @@ document.onkeydown = (event) => { if(event.key === "Enter") Start() }
 
 function Start(){
 	const size = 70
-	document.body.innerHTML = `<span id="version-font">Version:</span><span id="version-id"> 1.3.4.245</span><br />`
-	document.body.insertAdjacentHTML('beforeend', `<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>`)
-	document.body.insertAdjacentHTML('beforeend', `<div id="buttons"></div>`)
+	document.body.innerHTML = ''
+	document.body.insertAdjacentHTML('beforeend', `
+		<span id="version-font">Version:</span><span id="version-id"> 1.3.4.245</span><br />
+		<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>
+		<div id="buttons"></div>
+	`)
 
 	const buttons = document.querySelector("#buttons")
-	buttons.insertAdjacentHTML('beforeend', `<div class="arrow-up"></div>`)
-	buttons.insertAdjacentHTML('beforeend', `<div class="arrow-down"></div>`)
-	buttons.insertAdjacentHTML('beforeend', `<div class="arrow-left"></div>`)
-	buttons.insertAdjacentHTML('beforeend', `<div class="arrow-right"></div>`)
+	buttons.insertAdjacentHTML('beforeend', `
+		<div class="arrow-up"></div>
+		<div class="arrow-down"></div>
+		<div class="arrow-left"></div>
+		<div class="arrow-right"></div>
+	`)
 
 	const buttonUp = document.querySelector(".arrow-up")
 	const buttonLeft = document.querySelector(".arrow-left")
@@ -77,17 +82,22 @@ function Start(){
 	const buttonRight = document.querySelector(".arrow-right")
 
 	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
-		buttonUp.insertAdjacentHTML('beforeend', `<div class="arrow-up-top"></div>`)
-		buttonUp.insertAdjacentHTML('beforeend', `<div class="arrow-up-bottom"></div>`)
-
-		buttonDown.insertAdjacentHTML('beforeend', `<div class="arrow-down-top"></div>`)
-		buttonDown.insertAdjacentHTML('beforeend', `<div class="arrow-down-bottom"></div>`)
-
-		buttonLeft.insertAdjacentHTML('beforeend', `<div class="arrow-left-top"></div>`)
-		buttonLeft.insertAdjacentHTML('beforeend', `<div class="arrow-left-bottom"></div>`)
-
-		buttonRight.insertAdjacentHTML('beforeend', `<div class="arrow-right-top"></div>`)
-		buttonRight.insertAdjacentHTML('beforeend', `<div class="arrow-right-bottom"></div>`)
+		buttonUp.insertAdjacentHTML('beforeend', `
+			<div class="arrow-up-top"></div>
+			<div class="arrow-up-bottom"></div>
+		`)
+		buttonDown.insertAdjacentHTML('beforeend', `
+			<div class="arrow-down-top"></div>
+			<div class="arrow-down-bottom"></div>
+		`)
+		buttonLeft.insertAdjacentHTML('beforeend', `
+			<div class="arrow-left-top"></div>
+			<div class="arrow-left-bottom"></div>
+		`)
+		buttonRight.insertAdjacentHTML('beforeend', `
+			<div class="arrow-right-top"></div>
+			<div class="arrow-right-bottom"></div>
+		`)
 	}
 	const canvas = document.querySelector('#canvas1')//c1
 	canvas.style.backgroundColor = bgColor
@@ -108,15 +118,20 @@ function Start(){
 
 	function thend(){
 		clearTimeout(t)
-		document.body.innerHTML = `<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>`
-		document.body.insertAdjacentHTML('beforeend',`<div id="center"></div>`)
+		document.body.innerHTML = '' 
+		document.body.insertAdjacentHTML('beforeend', `
+			<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>
+			<div id="center"></div>
+		`)
 
 		const center = document.querySelector("#center")
-		center.insertAdjacentHTML('beforeend', `<img id="gameover" src="Images/GameOver.png" alt=""></img>`)
-		center.insertAdjacentHTML('beforeend', `<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>`)
-		center.insertAdjacentHTML('beforeend', `<div class="score" id="bScore">Best score: ${bestScore}<divn>`)
-		center.insertAdjacentHTML('beforeend', `<div class="score" id="tScorEv">Total score ever: ${score}<div>`)
-		center.insertAdjacentHTML('beforeend', `<img id="restart" src="Images/Restart.png" alt=""></img>`)
+		center.insertAdjacentHTML('beforeend', `
+			<img id="gameover" src="Images/GameOver.png" alt=""></img>
+			<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>
+			<div class="score" id="bScore">Best score: ${bestScore}<divn>
+			<div class="score" id="tScorEv">Total score ever: ${score}<div>
+			<img id="restart" src="Images/Restart.png" alt=""></img>
+		`)
 
 		center.style.background = "black"
 		center.style.height = 600 +"px"
