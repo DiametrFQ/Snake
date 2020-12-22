@@ -24,20 +24,20 @@ window.onload =()=> {
 	center.querySelector("#canvas2").style.backgroundColor = bgColor
 	center.querySelector(`#yum`).style.backgroundColor = eatColor
 		
-	for(i = 0; i < 14; i++)tail.insertAdjacentHTML('beforeend', `<div class="tails" id="tail${i}"></div>`)
+	for(let i = 0; i < 14; i++)tail.insertAdjacentHTML('beforeend', `<div class="tails" id="tail${i}"></div>`)
 	
-	for(i = 0; i < 5; i++){
+	for(let i = 0; i < 5; i++){
 		tail.querySelector(`#tail${i}`).style.left = 0 + "px"
 		tail.querySelector(`#tail${i}`).style.top = 30 * i +"px"
-	}for(i = 4; i < 12; i++){
+	}for(let i = 4; i < 12; i++){
         tail.querySelector(`#tail${i}`).style.left = 31 * ( i - 4 ) +"px"
 		tail.querySelector(`#tail${i}`).style.top = 120 + "px"
 	}
-	for(i = 11; i < 14; i++){
+	for(let i = 11; i < 14; i++){
 		tail.querySelector(`#tail${i}`).style.left = 217 + "px"
 		tail.querySelector(`#tail${i}`).style.top = 120 + 31 * ( i - 11 ) +"px"
 	}//Creates a non-playable snake for example
-	for(i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = snakeColor
+	for(let i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = snakeColor
 }//Start
 
 colBg.oninput = function()  {
@@ -47,7 +47,7 @@ colBg.oninput = function()  {
 }
 colSnake.oninput = function() {
 	snakeColor = this.value
-	for(i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = this.value
+	for(let i = 0; i < 14; i++) tail.querySelector(`#tail${i}`).style.backgroundColor = this.value
 	localStorage.setItem('snakeColor', this.value)
 }
 colEat.oninput = function() {
@@ -63,19 +63,15 @@ function Start(){
 	const size = 70
 	document.body.innerHTML = ''
 	document.body.insertAdjacentHTML('beforeend', `
-		<span id="version-font">Version:</span><span id="version-id"> 1.3.4.245</span><br />
-		<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>
-		<div id="buttons"></div>
+		<div id="version-font">Version:</span><span id="version-id"> 1.3.4.245</div>
+		<canvas id="canvas1" width="${size * 10}" height="${size * 10}" />
+		<div id="buttons">
+			<div class="arrow-up"></div>
+			<div class="arrow-down"></div>
+			<div class="arrow-left"></div>
+			<div class="arrow-right"></div>
+		</div>
 	`)
-
-	const buttons = document.querySelector("#buttons")
-	buttons.insertAdjacentHTML('beforeend', `
-		<div class="arrow-up"></div>
-		<div class="arrow-down"></div>
-		<div class="arrow-left"></div>
-		<div class="arrow-right"></div>
-	`)
-
 	const buttonUp = document.querySelector(".arrow-up")
 	const buttonLeft = document.querySelector(".arrow-left")
 	const buttonDown = document.querySelector(".arrow-down")
@@ -116,23 +112,30 @@ function Start(){
 	};
 	let pluScore;
 
-	function thend(){
+	function gameOver(){
+		clearTimeout(t)
+		document.onkeydown = null
+
+		pluScore = ((+yum - 2) * 10)
+		score += pluScore//plus to score
+		if(pluScore > bestScore) bestScore = +pluScore//plus to best score!
+
+		localStorage.setItem('score', +score)
+		localStorage.setItem('bestscore', bestScore)
+
 		clearTimeout(t)
 		document.body.innerHTML = '' 
 		document.body.insertAdjacentHTML('beforeend', `
 			<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>
-			<div id="center"></div>
+			<div id="center">
+				<img id="gameover" src="Images/GameOver.png" alt="" />
+				<div class="score" id="scoreITG">Your score in this game: ${pluScore}</div>
+				<div class="score" id="bScore">Best score: ${bestScore}</div>
+				<div class="score" id="tScorEv">Total score ever: ${score}</div>
+				<img id="restart" src="Images/Restart.png" alt="" />
+			</div>
 		`)
-
 		const center = document.querySelector("#center")
-		center.insertAdjacentHTML('beforeend', `
-			<img id="gameover" src="Images/GameOver.png" alt=""></img>
-			<div class="score" id="scoreITG">Your score in this game: ${pluScore}<div>
-			<div class="score" id="bScore">Best score: ${bestScore}<divn>
-			<div class="score" id="tScorEv">Total score ever: ${score}<div>
-			<img id="restart" src="Images/Restart.png" alt=""></img>
-		`)
-
 		center.style.background = "black"
 		center.style.height = 600 +"px"
 
@@ -142,27 +145,14 @@ function Start(){
 		restart.onclick = () => location.reload()
 	}//GameOver//
 
-	function gameOver(){
-		clearTimeout(t)
-		document.onkeydown = null
-
-		pluScore = ((+yum - 2) * 10)
-		score += pluScore
-		if(pluScore > bestScore) bestScore = +pluScore
-
-		localStorage.setItem('score', +score)
-		localStorage.setItem('bestscore', bestScore)
-		thend()
-	}//plus to score and best score!//
-
 	function checkGameOver() {
 		if (r[0] === -size || r[0] === size*10 || u[0] === -size || u[0] === size*10) gameOver()
 
-		for (i = 4; i < yum; i++) if(r[i] === r[0] && u[i] === u[0]) gameOver()
+		for (let i = 4; i < yum; i++) if(r[i] === r[0] && u[i] === u[0]) gameOver()
 	}//Game over//
 
 	const plusTail = () => {
-		for(i = 100; i > 0; i--) {
+		for(let i = 100; i > 0; i--) {
 			r[i] = r[i-1]
 			u[i] = u[i-1]
 		}
@@ -205,13 +195,13 @@ function Start(){
 		Saves.XSearch = cdnt % 10
 		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch
 
-		for(i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) newCrdntEat()
+		for(let i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) newCrdntEat()
 	}//rundom number
 
 	const fixEat = () => creatingSquare(eatColor, size * Saves.XSearch, size * Saves.YSearch)//Spawn orng square//
 
-	const MakingSnake = () => { 
-		for(i = 0; i < yum; i++) creatingSquare(snakeColor, r[i], u[i]) 
+	const makingSnake = () => { 
+		for(let i = 0; i < yum; i++) creatingSquare(snakeColor, r[i], u[i]) 
 	}
 
 	function sequence(){
@@ -221,7 +211,7 @@ function Start(){
 		minusEat()
 		finish()
 		fixEat()
-		MakingSnake()
+		makingSnake()
 	}//sequence
 
 	const makeTurn = (uORx, size, censNum) => {
