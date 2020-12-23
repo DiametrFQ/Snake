@@ -64,7 +64,7 @@ function Start(){
 	document.body.innerHTML = ''
 	document.body.insertAdjacentHTML('beforeend', `
 		<div id="version-font">Version:</span><span id="version-id"> 1.3.4.245</div>
-		<canvas id="canvas1" width="${size * 10}" height="${size * 10}" />
+		<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>
 		<div id="buttons">
 			<div class="arrow-up"></div>
 			<div class="arrow-down"></div>
