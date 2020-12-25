@@ -12,7 +12,7 @@ const colBg = document.querySelector("#colBg")
 const colSnake = document.querySelector("#colSnake")
 const colEat = document.querySelector("#colEat")
 const canvas2 = document.querySelector("#canvas2")
-const ctx2 = document.getContext('2d');
+const ctx2 = canvas2.getContext('2d');
 
 const navUA = navigator.userAgent
 const size = 70
