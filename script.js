@@ -1,476 +1,239 @@
-let bgcolor = localStorage.getItem('bgcolor');
-let snacolor = localStorage.getItem('snacolor');
-let eacolor = localStorage.getItem('eacolor');
-const col = [colSnake= 0]
-const colN1 = [colN10 = 0,colN11 = 0,colN12 = 0,colN13 = 0,colN14 = 0,colN15 = 0];
-const colN2 = [colN20 = 0,colN21 = 0,colN22 = 0,colN23 = 0,colN24 = 0,colN25 = 0];
-const colN3 = [colN30 = 0,colN31 = 0,colN32 = 0,colN33 = 0,colN34 = 0,colN35 = 0];
-const newCol = [orange = "orange",blue = "blue",green = "green",white = "white",black = "black",red = "red"];
+let score = +localStorage.getItem('score')// Preserve the color of the overall result
+let bestScore = +localStorage.getItem('bestscore')//Keeping the color of the Best Score
+let bgColor = localStorage.getItem('bgColor')//Keeping the color of the background
+let snakeColor = localStorage.getItem('snakeColor')//Keeping the color of the snake
+let eatColor = localStorage.getItem('eatColor')//Keeping the color of the food
 
-function mobile(){
-	if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-        document.querySelector("#center").style.marginLeft = -120+"px";
-	}	
+if(bgColor === null) bgColor = '#00ff00'
+if(snakeColor === null) snakeColor = '#0000ff'
+if(eatColor === null) eatColor= '#ffb500'
+
+const colBg = document.querySelector("#colBg")
+const colSnake = document.querySelector("#colSnake")
+const colEat = document.querySelector("#colEat")
+const canvas2 = document.querySelector("#canvas2")
+const ctx2 = document.getContext('2d');
+
+const navUA = navigator.userAgent
+const size = 70
+
+function creatingSquare(ctx, color, x, y, length) {
+	ctx.beginPath()
+	ctx.fillStyle = color
+	ctx.moveTo(x, y)
+	ctx.lineTo(length + x, y)
+	ctx.lineTo(length + x, y + length)
+	ctx.lineTo(x, y + length)
+	ctx.lineTo(x, y)
+	ctx.stroke()
+	ctx.fill()
 }
-mobile()
-window.onload = function(){
-	if (localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null||localStorage.getItem('bgcolor')!==null){
+function startCanvas(){
+	ctx2.clearRect(0, 0, size*10, size*10)
+	for(let i = 0; i < 5; i++) creatingSquare(ctx2, snakeColor, 0, 31 * i, 30)
+	for(let i = 4; i < 12; i++) creatingSquare(ctx2, snakeColor, 31*( i - 4 ), 124, 30)
+	for(let i = 11; i < 14; i++) creatingSquare(ctx2, snakeColor, 217, 124 + 31*( i - 11 ), 30)//Snake on Start
+	creatingSquare(ctx2, eatColor, 217, 217, 30)//Eat on Start
+}
+window.onload = () => {
+	colBg.value = bgColor
+	colSnake.value = snakeColor
+	colEat.value = eatColor
+	canvas2.style.backgroundColor = bgColor
+	startCanvas()
+}//Start
+colBg.oninput = function() {
+	bgColor = this.value
+	canvas2.style.backgroundColor = this.value
+	localStorage.setItem('bgColor', this.value)
+}
+colSnake.oninput = function() {
+	snakeColor = this.value
+	localStorage.setItem('snakeColor', this.value)
+	startCanvas()
+}
+colEat.oninput = function() {
+	eatColor = this.value
+	localStorage.setItem('eatColor', this.value)
+	startCanvas()
+}
+document.querySelector("#start").onclick = () => Start()
 
-		document.querySelector(".color1").style.backgroundColor = bgcolor;
-		document.querySelector("#c2").style.backgroundColor = bgcolor;
+document.onkeydown = (event) => { if(event.key === "Enter") Start() }
 
-        document.querySelector(".color2").style.backgroundColor = snacolor;
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor = snacolor;
-        }
+function Start(){
+	document.body.innerHTML = ''
+	document.body.insertAdjacentHTML('beforeend', `
+		<div id="version-font">Version:</span><span id="version-id"> 1.3.4.245</div>
+		<canvas id="canvas1" width="${size * 10}" height="${size * 10}"></canvas>
+		<div id="buttons">
+			<div class="arrow-up"></div>
+			<div class="arrow-down"></div>
+			<div class="arrow-left"></div>
+			<div class="arrow-right"></div>
+		</div>
+	`)
+	const buttonUp = document.querySelector(".arrow-up")
+	const buttonLeft = document.querySelector(".arrow-left")
+	const buttonDown = document.querySelector(".arrow-down")
+	const buttonRight = document.querySelector(".arrow-right")
 
-		document.querySelector(".color3").style.backgroundColor = eacolor;
-		document.querySelector(`#yum`).style.backgroundColor= eacolor;
+	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
+		buttonUp.insertAdjacentHTML('beforeend', `
+			<div class="arrow-up-top"></div>
+			<div class="arrow-up-bottom"></div>
+		`)
+		buttonDown.insertAdjacentHTML('beforeend', `
+			<div class="arrow-down-top"></div>
+			<div class="arrow-down-bottom"></div>
+		`)
+		buttonLeft.insertAdjacentHTML('beforeend', `
+			<div class="arrow-left-top"></div>
+			<div class="arrow-left-bottom"></div>
+		`)
+		buttonRight.insertAdjacentHTML('beforeend', `
+			<div class="arrow-right-top"></div>
+			<div class="arrow-right-bottom"></div>
+		`)
 	}
-}
+	const canvas = document.querySelector('#canvas1')//c1
+	canvas.style.backgroundColor = bgColor
+	const ctx = canvas.getContext('2d');
 
-function start(){
-    for(i=0;i<14;i++){
-        document.querySelector("#tail").innerHTML += `<div class="tails" id="tails${i}"></div>`;
-    }
-    for(i=0;i<5;i++){
-        document.querySelector(`#tails${i}`).style.left= 0+"px";
-        document.querySelector(`#tails${i}`).style.top = 0+30*i+"px";
-    }
-    for(i=5;i<12;i++){
-        document.querySelector(`#tails${i}`).style.left= 0+30*(i-4)+"px";
-        document.querySelector(`#tails${i}`).style.top = 120+"px";
-    }
-    for(i=11;i<14;i++){
-        document.querySelector(`#tails${i}`).style.left= 210+"px";
-        document.querySelector(`#tails${i}`).style.top = 120+30*(i-11)+"px";
-    }
-        
-}
-start();
-
-document.querySelector(".bottom1").onclick = () => { 
-    document.querySelector(".colors1").innerHTML = `<span class="colorN10"></span>`;
-    for(i=1;i<6;i++){
-        document.querySelector(".colors1").innerHTML += `<span class="colorN1${i}"></span>`;
-    }
-    document.querySelector("#buttom1").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
-    on();
-    on1();
-}
-
-document.querySelector(".bottom2").onclick = () => { 
-    document.querySelector(".colors2").innerHTML = `<span class="colorN20"></span>`;
-    for(i=1;i<6;i++){
-        document.querySelector(".colors2").innerHTML += `<span class="colorN2${i}"></span>`;
-    }
-    document.querySelector("#buttom2").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
-    on();
-    on2();
-}
-document.querySelector(".bottom3").onclick = () => {
-    document.querySelector(".colors3").innerHTML = `<span class="colorN30"></span>`;
-    for(i=1;i<6;i++){
-        document.querySelector(".colors3").innerHTML += `<span class="colorN3${i}"></span>`;
-    }
-    document.querySelector("#buttom3").innerHTML = `<img class="bottom1"src="Buttom2.png" alt=""></img>`;
-    on();
-    on3();
-}
-
-function on(){
-    for(i=0;i<6;i++){
-        colN1[i] = document.querySelector(`.colorN1${i}`);
-        colN2[i] = document.querySelector(`.colorN2${i}`);
-        colN3[i] = document.querySelector(`.colorN3${i}`);
-    }
-}
-
-function on1(){
-    colN1[0].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[0];
-		document.querySelector("#c2").style.backgroundColor = newCol[0];
-		bgcolor = newCol[0];
-		localStorage.setItem('bgcolor',newCol[0]);
-    }
-    colN1[1].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[1];
-		document.querySelector("#c2").style.backgroundColor = newCol[1];
-		bgcolor = newCol[1];
-		localStorage.setItem('bgcolor',newCol[1]);
-    }
-    colN1[2].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[2];
-		document.querySelector("#c2").style.backgroundColor = newCol[2];
-		bgcolor = newCol[2];
-		localStorage.setItem('bgcolor',newCol[2]);
-    }
-    colN1[3].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[3];
-		document.querySelector("#c2").style.backgroundColor = newCol[3];
-		bgcolor = newCol[3];
-		localStorage.setItem('bgcolor',newCol[3]);
-    }
-    colN1[4].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[4];
-		document.querySelector("#c2").style.backgroundColor = newCol[4];
-		bgcolor = newCol[4];
-		localStorage.setItem('bgcolor',newCol[4]);
-    }
-    colN1[5].onclick = () => {
-        document.querySelector(".color1").style.backgroundColor = newCol[5];
-		document.querySelector("#c2").style.backgroundColor = newCol[5];
-		bgcolor = newCol[5];
-		localStorage.setItem('bgcolor',newCol[5]);
-    }
-}
-
-function on2(){
-    colN2[0].onclick = () => {
-		localStorage.setItem('snacolor',newCol[0]);
-		snacolor = newCol[0];
-        document.querySelector(".color2").style.backgroundColor = newCol[0];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[0];
-        }
-    }
-    colN2[1].onclick = () => {
-		localStorage.setItem('snacolor',newCol[1]);
-		snacolor = newCol[1];
-        document.querySelector(".color2").style.backgroundColor = newCol[1];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[1];
-        }
-    }
-    colN2[2].onclick = () => {
-		localStorage.setItem('snacolor',newCol[2]);
-		snacolor = newCol[2];
-        document.querySelector(".color2").style.backgroundColor = newCol[2];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[2];
-        }
-    }
-    colN2[3].onclick = () => {
-		localStorage.setItem('snacolor',newCol[3]);
-		snacolor = newCol[3];
-        document.querySelector(".color2").style.backgroundColor = newCol[3];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[3];
-        }
-    }
-    colN2[4].onclick = () => {
-		localStorage.setItem('snacolor',newCol[4]);
-		snacolor = newCol[4];
-        document.querySelector(".color2").style.backgroundColor = newCol[4];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[4];
-        }
-    }
-    colN2[5].onclick = () => {
-		localStorage.setItem('snacolor',newCol[5]);
-		snacolor = newCol[5];
-        document.querySelector(".color2").style.backgroundColor = newCol[5];
-        for(i=0;i<14;i++){
-            document.querySelector(`#tails${i}`).style.backgroundColor= newCol[5];
-        }
-    }
-}
-
-function on3(){
-    colN3[0].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[0];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[0];
-		localStorage.setItem('eacolor',newCol[0]);
-		eacolor = newCol[0];
-    }
-    colN3[1].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[1];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[1];
-		localStorage.setItem('eacolor',newCol[1]);
-		eacolor = newCol[1];
-    }
-    colN3[2].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[2];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[2];
-		localStorage.setItem('eacolor',newCol[2]);
-		eacolor = newCol[2];
-    }
-    colN3[3].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[3];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[3];
-		localStorage.setItem('eacolor',newCol[3]);
-		eacolor = newCol[3];
-    }
-    colN3[4].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[4];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[4];
-		localStorage.setItem('eacolor',newCol[4]);
-		eacolor = newCol[4];
-    }
-    colN3[5].onclick = () => {
-        document.querySelector(".color3").style.backgroundColor = newCol[5];
-		document.querySelector(`#yum`).style.backgroundColor= newCol[5];
-		localStorage.setItem('eacolor',newCol[5]);
-		eacolor = newCol[5];
-    }
-}
-document.querySelector("#start").onclick = () =>{
-	Two();
-}
-document.onkeydown = function (event) {if(event.key = "Enter"){
-	Two();
-}}
-
-
-function Two(){
-	document.querySelector("body").innerHTML = `<span class="version font">Version:</span><span class="version-id"> 1.2.3.428</span><br></br>`
-	document.querySelector("body").innerHTML += `<canvas id="c1" width="400" height="400"></canvas>`;
-	document.querySelector("#c1").style.backgroundColor = bgcolor;
-	document.querySelector("body").innerHTML += `<div id="buttoms"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<div id="up"></div>`;
-	document.querySelector("#buttoms").innerHTML += `<span id="left"></span>`;
-	document.querySelector("#buttoms").innerHTML += `<span id="right"></span>`;
-	document.querySelector("#buttoms").innerHTML += `<div id="down"></div>`;
-
-	function mobile(){
-		if (navigator.userAgent.match('iPhone') || navigator.userAgent.match('Android') || navigator.userAgent.match('iPad') || navigator.userAgent.match('RIM')) {
-		document.querySelector("#up").style.marginLeft = 330+'px';
-		document.querySelector("#down").style.marginLeft = 335+'px';
-		document.querySelector("#right").style.marginLeft = 115+'px';
-		document.querySelector("#left").style.marginLeft = 215+'px';
-		document.querySelector("#c1").style.marginLeft = 200+'px';
-
-		document.querySelector("#up").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/up_circle-64.png" alt="">`;
-		document.querySelector("#left").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/left_circle-64.png" alt="">`;
-	  	document.querySelector("#right").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/right_circle-64.png" alt="">`;
-		document.querySelector("#down").innerHTML =`<img src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/down_circle-64.png" alt="">`;
-		}	
-	}
-	mobile()
-
-	let bUp = document.querySelector("#up");
-	let bLeft = document.querySelector("#left");
-	let bDown = document.querySelector("#down");
-	let bRight = document.querySelector("#right");
-	let canvas = document.getElementById('c1');
-	let ctx = canvas.getContext('2d');
-	let mb;//Doesnt let you go abroad
 	let cens;//NO left <- -> right NO up <- -> bottom NO
-	let cdnt;//Coordinates
+	let cdnt = Math.floor(Math.random() * 100)//random
+	let t//timer
+	let yum = 2//yum-yum yummy!
+	let r = [Math.floor(cdnt / 10) * size]//right
+	let u = [cdnt % 10 * size]//up
 	let Saves = {
-		Y: 0,
-		X: 0,
-		XSearch: 0,
-		YSearch: 0,
-		times: 0,
-		sec: 1000,
-	}
-	let t;//timer
-	let yum = 2;//yum-yum yummy!//hum
-	let u = [0];//up
-	let r = [0];//right
-	function stop() {
-		if (r[0] === -40) {
-			r[0] += 40;
-			mb = 0;
-			alert("Тебе стоит быть по медленнее");
-			location.reload();
-		}
-		else if (r[0] === 400) {
-			r[0] -= 40;
-			mb = 0;
-			alert("Аа,да?");
-			location.reload();
-		}
-		else if (u[0] === -40) {
-			u[0] += 40;
-			mb = 0;
-			alert("Уоу уоу,помедленнее!");
-			location.reload();
+		YSearch: Math.floor(cdnt / 10),
+		XSearch: cdnt % 10,
+		sec: 700,
+	};
+	let pluScore;
 
-		}
-		else if (u[0] === 400) {
-			u[0] -= 40;
-			mb = 0;
-			alert("Попробуй еще раз");
-			location.reload();
-		}
-		else mb = 1;
-	}//You will not pass!
-	function move() {
-		if (mb === 1) {
-			for (let i = 100; i > 0; i--) {
-				Saves.times = i - 1;
-				r[i] = r[Saves.times];
-				u[i] = u[Saves.times];
-			}
+	function gameOver(){
+		clearTimeout(t)
+		document.onkeydown = null
+
+		pluScore = ((+yum - 2) * 10)
+		score += pluScore//plus to score
+		if(pluScore > bestScore) bestScore = +pluScore//plus to best score!
+
+		localStorage.setItem('score', +score)
+		localStorage.setItem('bestscore', bestScore)
+
+		clearTimeout(t)
+		document.body.innerHTML = '' 
+		document.body.insertAdjacentHTML('beforeend', `
+			<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>
+			<div id="center">
+				<img id="gameover" src="Images/GameOver.png" alt="" />
+				<div class="score" id="scoreITG">Your score in this game: ${pluScore}</div>
+				<div class="score" id="bScore">Best score: ${bestScore}</div>
+				<div class="score" id="tScorEv">Total score ever: ${score}</div>
+				<img id="restart" src="Images/Restart.png" alt="" />
+			</div>
+		`)
+		const center = document.querySelector("#center")
+		center.style.background = "black"
+		center.style.height = 600 +"px"
+
+		const restart = document.querySelector("#restart")
+		restart.onmousemove = function() { this.src = "Images/Restart2.png" }
+		restart.onmouseleave = function() { this.src = "Images/Restart.png" }
+		restart.onclick = () => location.reload()
+	}//GameOver//
+
+	function checkGameOver() {
+		if (r[0] === -size || r[0] === size*10 || u[0] === -size || u[0] === size*10) gameOver()
+
+		for (let i = 4; i < yum; i++) if(r[i] === r[0] && u[i] === u[0]) gameOver()
+	}//Game over//
+
+	const plusTail = () => {
+		for(let i = 100; i > 0; i--) {
+			r[i] = r[i-1]
+			u[i] = u[i-1]
 		}
 	}//Snake moves
-	function blue() {
-		ctx.beginPath();
-		ctx.fillStyle = snacolor;
-		ctx.moveTo(r[0], u[0]);
-		ctx.lineTo(r[0] + 40, u[0]);
-		ctx.lineTo(r[0] + 40, u[0] + 40);
-		ctx.lineTo(r[0], u[0] + 40);
-		ctx.lineTo(r[0], u[0]);
-		ctx.stroke();
-		ctx.fill();
-	}//blue square
-	function minus() {
-		for (let i = 0; i < 100; i += 10) {
-			if (i <= cdnt && cdnt < i + 10) {
-				Saves.XSearch = i / 10;
-				Saves.YSearch = cdnt - i;
-				if (r[0] === 40 * Saves.YSearch && u[0] === 40 * Saves.XSearch) {
-					yum++;
-					Saves.sec -= 7;
-					neW();
-				}
-			}
+
+	function minusEat() {
+		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch
+
+		if (r[0] === sSX && u[0] === sSY) {
+			yum++
+			Saves.sec -= 4
+			newCrdntEat()
 		}
 	}//orng is dying
+
 	function finish() {
 		if (yum === 100) {
-			document.querySelector('body').style.background = "yellow";
-			alert('Congratulations you won!');
-			location.reload();
+			document.body.style.background = "yellow"
+			alert('Congratulations you won!')
+			location.reload()
 		}
-	}//The End.
-	function plus() {
-		for (let i = 0; i < yum; i++) {
-			ctx.beginPath();
-			ctx.fillStyle = snacolor;
-			ctx.moveTo(r[i], u[i]);
-			ctx.lineTo(r[i] + 40, u[i]);
-			ctx.lineTo(r[i] + 40, u[i] + 40);
-			ctx.lineTo(r[i], u[i] + 40);
-			ctx.lineTo(r[i], u[i]);
-			ctx.stroke();
-			ctx.fill();
-		}
-	}//+tail
-	function fake() {
-		for (let i = 5; i < yum; i++) {
-			if (r[i] === r[1] && u[i] === u[1]) {
-				alert('Oh shit, here we go again');
-				location.reload();
-			}
-		}
-	}//Snake hits itself.REBOOT///
-	function fiX() {
-		for (let i = 0; i < 100; i += 10) {
-			if (i <= cdnt && cdnt < i + 10) {
-				Saves.Y = i / 10;
-				Saves.X = cdnt - i;
-				ctx.beginPath();
-				ctx.fillStyle = eacolor;
-				ctx.moveTo(0 + 40 * Saves.X, 0 + 40 * Saves.Y);
-				ctx.lineTo(40 + 40 * Saves.X, 0 + 40 * Saves.Y);
-				ctx.lineTo(40 + 40 * Saves.X, 40 + 40 * Saves.Y);
-				ctx.lineTo(0 + 40 * Saves.X, 40 + 40 * Saves.Y);
-				ctx.lineTo(0 + 40 * Saves.X, 0 + 40 * Saves.Y);
-				ctx.stroke();
-				ctx.fill();
-			}
-		}
-	}//Spawn orng square
-	function neW() {
-		cdnt = Math.floor(Math.random() * 100);
-		for (let i = 0; i < 100; i += 10) {
-			if (i <= cdnt && cdnt < i + 10) {
-				Saves.XSearch = i / 10;
-				Saves.YSearch = cdnt - i;
-				for (let k = 0; k < yum; k++) {
-					if (r[k] === 40 * Saves.YSearch && u[k] === 40 * Saves.XSearch) {
-						neW();
-					}
-				}
-			}
-		}
+	}//The End(?).
+
+	function newCrdntEat() {
+		cdnt = Math.floor(Math.random() * 100)//random
+
+		Saves.YSearch = Math.floor(cdnt / 10)
+		Saves.XSearch = cdnt % 10
+		let sSX = size * Saves.XSearch, sSY = size * Saves.YSearch
+
+		for(let i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) newCrdntEat()
 	}//rundom number
 
-	blue();
+	const fixEat = () => creatingSquare(ctx, eatColor, size * Saves.XSearch, size * Saves.YSearch, size)//Spawn orng square//
+
+	const makingSnake = () => { 
+		for(let i = 0; i < yum; i++) creatingSquare(ctx, snakeColor, r[i], u[i], size) 
+	}
+
 	function sequence(){
-		ctx.clearRect(0, 0, 400, 400);
-		stop();
-		move();
-		blue();
-		minus();
-		finish();
-		fiX();
-		plus();
-		fake();
-	}	
-	function R() {
-		r[0] += 40;
+		ctx.clearRect(0, 0, size*10, size*10)
+		checkGameOver()
+		plusTail()
+		minusEat()
+		finish()
+		fixEat()
+		makingSnake()
+	}//sequence
+
+	const makeTurn = (uORx, size, censNum) => {
+		clearTimeout(t)
+		uORx[0] += size
 		sequence()
-		cens = 1;
-		t = setTimeout(R, Saves.sec);
+		cens = censNum
+		t = setTimeout(makeTurn, Saves.sec, uORx, size, censNum)
+	}//moving
+
+	document.onkeydown = event => {
+		const ek = event.key
+		const checkEk = (directionKeys, ek) => {return directionKeys.includes(ek)}
+
+		if (cens !== 1 && checkEk(['ArrowLeft', 'A', 'a', 'ф', 'Ф'], ek)) makeTurn(r, -size, 3)
+		if (cens !== 2 && checkEk(['ArrowUp', 'W', 'w', 'ц','Ц'], ek)) makeTurn(u, -size, 4)
+		if (cens !== 3 && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek)) makeTurn(r, size, 1)
+		if (cens !== 4 && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'], ek)) makeTurn(u, size, 2)
 	}
-	function D() {
-		u[0] += 40;
-		sequence()
-		cens = 2;
-		t = setTimeout(D, Saves.sec);
+	buttonLeft.onclick = () => {
+		if(cens !== 1) makeTurn(r, -size, 3)//click on left
 	}
-	function L() {
-		r[0] -= 40;
-		sequence()
-		cens = 3;
-		t = setTimeout(L, Saves.sec);
+	buttonUp.onclick = () => {
+		if(cens !== 2) makeTurn(u, -size, 4)//click on up
 	}
-	function U() {
-		u[0] -= 40;
-		sequence()
-		cens = 4;		
-		t = setTimeout(U, Saves.sec);
+	buttonRight.onclick = () => {
+		if(cens !== 3) makeTurn(r, size, 1)//click on right
 	}
-	document.onkeydown = function (event) {
-		ctx.clearRect(0, 0, 400, 400);
-		blue();
-		fiX();
-		if (event.key === 'ArrowRight' | event.key === 'D' | event.key === 'd' | event.key === 'в' | event.key === 'В' && r !== 360 && cens !== 3) {
-			clearTimeout(t)
-			R();
-		}
-		if (event.key === 'ArrowDown' | event.key === 'S' | event.key === 's' | event.key === 'ы' | event.key === 'Ы' && u !== 360 && cens !== 4) {
-			clearTimeout(t)
-			D();
-		}
-		if (event.key === 'ArrowLeft' | event.key === 'A' | event.key === 'a' | event.key === 'ф' | event.key === 'Ф' && r !== 0 && cens !== 1) {
-			clearTimeout(t)
-			L();
-		}
-		if (event.key === 'ArrowUp' | event.key === 'W' | event.key === 'w' | event.key === 'ц' | event.key === 'Ц' && u !== 0 && cens !== 2) {
-			clearTimeout(t)
-			U();
-		}
+	buttonDown.onclick = () => {
+		if(cens !== 4) makeTurn(u, size, 2)//click on down
 	}
-	bUp.onclick = () => {
-			if(u !== 0 && cens !== 2) {
-				clearTimeout(t)
-				U();
-			}
-	}
-	bLeft.onclick = () => {
-			if(r !== 0 && cens !== 1) {
-				clearTimeout(t)
-				L();
-			}
-	}
-	bDown.onclick = () => {
-			if (u !== 360 && cens !== 4) {
-				clearTimeout(t)
-				D();
-			}
-	}
-	bRight.onclick = () => {
-			if(r !== 360 && cens !== 3) {
-				clearTimeout(t)
-				R();
-			}
-	}
-	neW();
-	fiX();
-}
+
+	creatingSquare(ctx, snakeColor, r[0], u[0], size)//snakeHead 
+	newCrdntEat()
+	fixEat()
+}//Snake

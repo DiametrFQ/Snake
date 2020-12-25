@@ -3,53 +3,49 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Snake</title>
+  <meta name="viewport" content="user-scalable=no" />
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="Images/icon.png">
 </head>
 
-<span class="version font">Version:</span><span class="version-id"> 1.2.3.478</span><br>
+<span id="version-font">Version:</span><span id="version-id"> 1.3.4.245</span><br>
 
 <body>
   <div id="center">
-    <div id="input">
-      <div id="background">
-        <div class="word">Background:</div>
-        <span class="color1"></span>
-        <span id="buttom1">
-          <img class="bottom1"src="Buttom1.png" alt="">
-        </span>
-        <span class="colors1"></span>
-      </div>
-
-      <div id="snake">
-        <div class="word">Snake:</div>
-        <span class="color2"></span>
-        <span id="buttom2">
-          <img class="bottom2"src="Buttom1.png" alt="">
-        </span>
-        <span class="colors2"></span>
-      </div>
-
-      <div id="eat">
-        <div class="word">Eat:</div>
-        <span class="color3"></span>
-        <span id="buttom3">
-          <img class="bottom3"src="Buttom1.png" alt="">
-        </span>
-        <span class="colors3"></span>
-      </div>
+    <div class="div"id="Background">
+      <div class="word">Background</div>
+      <input type="color" class="color" id="colBg">
+      <span class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
     </div>
 
-    <span id="example">
-      <div id="c2" width="300px" height="300px">
-        <div id="yum"></div>
-        <div id="tail">
+    <div class="div" id="Snake">
+      <div class="word">Snake</div>
+      <input type="color" class="color" id="colSnake">
+      <span class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>
 
-        </div>
-      </div>  
-
-      <div id="start">Start</div>
-    </span>
+    <div class="div" id="Eat">
+      <div class="word">Eat</div>
+      <input type="color" class="color" id="colEat">
+      <span class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>
+    
+    <canvas id="canvas2" width="300px" height="300px"></canvas>
+    
+    <div id="start"><img src="Images/Start.png" alt=""></div>
   </div>
 </body>
 
