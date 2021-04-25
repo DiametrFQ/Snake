@@ -225,26 +225,26 @@ function Start(){
 		if(censNum === "left"){
 			circle(ctx, r[0], u[0], 6, 'white')
 			circle(ctx, r[0], u[0]+40, 6, 'white')
-			circle(ctx, r[0]-3, u[0], 2.5, '#2E4F71')
-			circle(ctx, r[0]-3, u[0]+40, 2.5, '#2E4F71')
+			circle(ctx, r[0]-3, u[0], 2.5, '#2965CA')
+			circle(ctx, r[0]-3, u[0]+40, 2.5, '#2965CA')
 		}
 		if(censNum === "up"){
 			circle(ctx, r[0], u[0], 6, 'white')
 			circle(ctx, r[0]+40, u[0], 6, 'white')
-			circle(ctx, r[0], u[0]-3, 2.5, '#2E4F71')
-			circle(ctx, r[0]+40, u[0]-3, 2.5, '#2E4F71')
+			circle(ctx, r[0], u[0]-3, 2.5, '#2965CA')
+			circle(ctx, r[0]+40, u[0]-3, 2.5, '#2965CA')
 		}
 		if(censNum === "right"){
 			circle(ctx, r[0]+40, u[0], 6, 'white')
 			circle(ctx, r[0]+40, u[0]+40, 6, 'white')
-			circle(ctx, r[0]+40+3, u[0], 2.5, '#2E4F71')
-			circle(ctx, r[0]+40+3, u[0]+40, 2.5, '#2E4F71')
+			circle(ctx, r[0]+40+3, u[0], 2.5, '#2965CA')
+			circle(ctx, r[0]+40+3, u[0]+40, 2.5, '#2965CA')
 		}
 		if(censNum === "down"){
 			circle(ctx, r[0]+40, u[0]+40, 6, 'white')
 			circle(ctx, r[0], u[0]+40, 6, 'white')
-			circle(ctx, r[0]+40, u[0]+40+3, 2.5, '#2E4F71')
-			circle(ctx, r[0], u[0]+40+3, 2.5, '#2E4F71')
+			circle(ctx, r[0]+40, u[0]+40+3, 2.5, '#2965CA')
+			circle(ctx, r[0], u[0]+40+3, 2.5, '#2965CA')
 		}
 		// circle(ctx, r[0], u[0]) //up and left
 		// circle(ctx, r[0]+40, u[0]) //up and right
@@ -279,8 +279,9 @@ function Start(){
 	creatingSquare(ctx, snakeColor, r[0], u[0], size)//snakeHead 
 	circle(ctx, r[0], u[0], 6, 'white')
 	circle(ctx, r[0]+40, u[0], 6, 'white')
-	circle(ctx, r[0], u[0], 2.5, '#2E4F71')
-	circle(ctx, r[0]+40, u[0], 2.5 , '#2E4F71')// create eyes Snake
+	circle(ctx, r[0], u[0], 2.5, '#2965CA')
+	circle(ctx, r[0]+40, u[0], 2.5 , '#2965CA')// create eyes Snake
+	//eye color of the person who came up with the idea
 	newCrdntEat()
 	fixEat()
 }//Snake
