@@ -18,7 +18,7 @@ const ctx2 :CanvasRenderingContext2D|null|undefined = canvas2?.getContext('2d');
 const navUA :string = navigator.userAgent
 const size :number = 70
 
-let creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y :number, length :number) => {
+let creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y :number, length :number) :void => {
 	ctx.beginPath()
 	ctx.fillStyle = color
 	ctx.moveTo(x, y)
@@ -30,16 +30,16 @@ let creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y
 	ctx.fill()
 }
 
-let circle = (ctx :CanvasRenderingContext2D, x :number, y: number, r :number, color :string) => {
+let circle = (ctx :CanvasRenderingContext2D, x :number, y: number, r :number, color :string) :void => {
 	ctx.beginPath()
 	ctx.strokeStyle = 'black'
 	ctx.fillStyle = color
 	ctx.arc(x + 15, y + 15, r, 0, 2*Math.PI, true)
-	ctx.stroke()
+	ctx.stroke() 
 	ctx.fill()
 }//eye Snake
 
-let startCanvas = () => {
+let startCanvas = () :void => {
 
 	ctx2?.clearRect(0, 0, size*10, size*10)
 
@@ -52,6 +52,7 @@ let startCanvas = () => {
 }
 
 window.onload = () => {
+
 	if(canvas2 && colBg && bgColor) canvas2.style.backgroundColor = colBg.value = bgColor
 	if(colSnake && snakeColor) colSnake.value = snakeColor
 	if(colEat && eatColor) colEat.value = eatColor
@@ -59,27 +60,30 @@ window.onload = () => {
 }//Start
 
 if(colBg && canvas2) colBg.oninput = function<HTMLInputElement>() {
+
 	bgColor = canvas2.style.backgroundColor = this.value
 	localStorage.setItem('bgColor', bgColor)
 }
 if(colSnake) colSnake.oninput = function<HTMLInputElement>() {
+
 	snakeColor = this.value
 	localStorage.setItem('snakeColor', snakeColor)
 	startCanvas()
 }
 if(colEat) colEat.oninput = function<HTMLInputElement>() {
+
 	eatColor = this.value
 	localStorage.setItem('eatColor', eatColor)
 	startCanvas()
 }
 
-const start = document?.querySelector<HTMLElement>("#start")
+const start :HTMLElement|null = document?.querySelector("#start")
 
 if(start) start.onclick = () => Start()
 
-document.onkeydown = event => { if(event.key === "Enter") Start() }
+document.onkeydown = (event :KeyboardEvent) => { if(event.key === "Enter") Start() }
 
-const Start = (): void =>{
+const Start = () :void =>{
 	const side = ['up', 'right', 'down', 'left']
 
 	document.body.innerHTML = ''
@@ -94,12 +98,12 @@ const Start = (): void =>{
 		</div>
 	`)
 
-	const buttonUp = document.querySelector<HTMLElement>(".arrow-up")
-	const buttonDown = document.querySelector<HTMLElement>(".arrow-down")
-	const buttonLeft = document.querySelector<HTMLElement>(".arrow-left")
-	const buttonRight = document.querySelector<HTMLElement>(".arrow-right")
+	const buttonUp :HTMLElement|null = document.querySelector(".arrow-up")
+	const buttonDown :HTMLElement|null = document.querySelector(".arrow-down")
+	const buttonLeft :HTMLElement|null = document.querySelector(".arrow-left")
+	const buttonRight :HTMLElement|null = document.querySelector(".arrow-right")
 
-	const button = [buttonUp, buttonRight, buttonDown, buttonLeft]
+	const button :(HTMLElement|null)[] = [buttonUp, buttonRight, buttonDown, buttonLeft]
 
 	if(navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
 
@@ -111,8 +115,9 @@ const Start = (): void =>{
 			`)
 		}
 	}
+
 	const canvas = document.querySelector<HTMLCanvasElement>('#canvas1')//c1
-	if(canvas) canvas.style.backgroundColor = String(bgColor);
+	if(canvas && bgColor) canvas.style.backgroundColor = bgColor;
 	const ctx :CanvasRenderingContext2D|null|undefined = canvas?.getContext('2d');
 
 	let cens :string;//NO left <- -> right NO up <- -> bottom NO
@@ -126,9 +131,9 @@ const Start = (): void =>{
 		XSrch: cdnt % 10,
 		sec: 700,
 	};
-	let pluScore :number;
 
-	function gameOver(): void{
+	function gameOver() :void{
+
 		clearTimeout(timer)
 		document.onkeydown = null
 
@@ -167,7 +172,7 @@ const Start = (): void =>{
 		}
 	}//GameOver//
 
-	let checkGameOver = (): void => {
+	let checkGameOver = () :void => {
 
 		if (r[0] === -size || r[0] === size*10 || u[0] === -size || u[0] === size*10) gameOver()
 
@@ -175,16 +180,15 @@ const Start = (): void =>{
 
 	}//Game over//
 
-	const plusTail = (): void => {
+	const plusTail = () :void => {
 
 		for(let i = 100; i > 0; i--) {
 			r[i] = r[i-1]
 			u[i] = u[i-1]
 		}
-
 	}//Snake moves
 
-	const minusEat = (): void => {
+	const minusEat = () :void => {
 
 		let sSX = size * Svs.XSrch, sSY = size * Svs.YSrch
 
@@ -193,20 +197,19 @@ const Start = (): void =>{
 			Svs.sec -= 4
 			newCrdntEat()
 		}
-
 	}//orng is dying
 
-	const finish = (): void => {
+	const finish = () :void => {
 
 		if (yum === 100) {
 			document.body.style.background = "yellow"
 			alert('Congratulations you won!')
 			window.location.reload()
 		}
-
 	}//The End(?).
 
-	const newCrdntEat = (): void => {
+	const newCrdntEat = () :void => {
+
 		cdnt = Math.floor(Math.random() * 100)//random
 
 		Svs.YSrch = Math.floor(cdnt / 10)
@@ -216,20 +219,20 @@ const Start = (): void =>{
 		for(let i = 0; i < yum; i++) if(r[i] === sSX && u[i] === sSY) newCrdntEat()
 	}//rundom number
 
-	const fixEat = () => {
+	const fixEat = () :void => {
 
 		if(ctx && eatColor) 
 			creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size)
-
 	}//Spawn orng square
 
-	const makingSnake = (): void  => {
+	const makingSnake = () :void => {
 		if(ctx && snakeColor) 
 			for(let i = 0; i < yum; i++) 
 				creatingSquare(ctx, snakeColor, r[i], u[i], size) 
 	}
 
-	let sequence = (): void  => {
+	let sequence = () :void => {
+
 		ctx?.clearRect(0, 0, size*10, size*10)
 		checkGameOver()
 		plusTail()
@@ -239,7 +242,7 @@ const Start = (): void =>{
 		makingSnake()
 	}
 
-	let eyes = (ctx :CanvasRenderingContext2D,add31 :number, add32 :number, up :number, rght :number, down :number, left :number) => {
+	let eyes = (ctx :CanvasRenderingContext2D,add31 :number, add32 :number, up :number, rght :number, down :number, left :number) :void => {
 
 		circle(ctx, r[0] + rght,		 u[0] + down, 6, 'white')
 		circle(ctx, r[0] + rght + add31, u[0] + down + add32, 2.5, '#2965CA')
@@ -247,7 +250,8 @@ const Start = (): void =>{
 		circle(ctx, r[0] + up + add31,	 u[0] + left + add32, 2.5, '#2965CA')
 	}
 
-	const makeTurn = (ctx :CanvasRenderingContext2D, uORx :number[], size :number, fCens :string) => {
+	const makeTurn = (ctx :CanvasRenderingContext2D, uORx :number[], size :number, fCens :string) :void => {
+
 		clearTimeout(timer)
 		cens = fCens
 		uORx[0] += size
@@ -260,9 +264,10 @@ const Start = (): void =>{
 		timer = setTimeout(makeTurn, Svs.sec, uORx, size, fCens)
 	}//moving
 
-	document.onkeydown = event => {
-		const ek = event.key
-		const checkEk = (directionKeys :string[], ek :string) => { return directionKeys.includes(ek) }
+	document.onkeydown = (event: KeyboardEvent)  => {
+
+		const ek :string = event.key
+		const checkEk = (directionKeys :string[], ek :string): boolean => { return directionKeys.includes(ek) }
 
 		if (cens !== "up" && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'], ek) && ctx) makeTurn(ctx, u, size, "down")
 		if (cens !== "rght" && checkEk(['ArrowLeft', 'A', 'a', 'ф', 'Ф'], ek) && ctx) makeTurn(ctx, r, -size, "left")
@@ -270,19 +275,19 @@ const Start = (): void =>{
 		if (cens !== "left" && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek) && ctx) makeTurn(ctx, r, size, "rght")
 	}
 
-	if(buttonDown) buttonDown.onclick = () => {
+	if(buttonDown) buttonDown.onclick = () :void => {
 		if(cens !== "up" && ctx) makeTurn(ctx, u, size, "down")//click on down
 	}
 
-	if(buttonLeft) buttonLeft.onclick = () => {
+	if(buttonLeft) buttonLeft.onclick = () :void => {
 		if(cens !== "rght" && ctx) makeTurn(ctx, r, -size, "left")//click on left
 	}
 
-	if(buttonUp) buttonUp.onclick = () => {
+	if(buttonUp) buttonUp.onclick = () :void => {
 		if(cens !== "down" && ctx) makeTurn(ctx, u, -size, "up")//click on up
 	}
 
-	if(buttonRight) buttonRight.onclick = () => {
+	if(buttonRight) buttonRight.onclick = () :void => {
 		if(cens !== "left" && ctx) makeTurn(ctx, r, size, "rght")//click on right
 	}
 	

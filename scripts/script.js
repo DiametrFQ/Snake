@@ -78,7 +78,7 @@ if (colEat)
 const start = document === null || document === void 0 ? void 0 : document.querySelector("#start");
 if (start)
     start.onclick = () => Start();
-document.onkeydown = event => { if (event.key === "Enter")
+document.onkeydown = (event) => { if (event.key === "Enter")
     Start(); };
 const Start = () => {
     var _a;
@@ -108,8 +108,8 @@ const Start = () => {
         }
     }
     const canvas = document.querySelector('#canvas1'); //c1
-    if (canvas)
-        canvas.style.backgroundColor = String(bgColor);
+    if (canvas && bgColor)
+        canvas.style.backgroundColor = bgColor;
     const ctx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d');
     let cens; //NO left <- -> right NO up <- -> bottom NO
     let cdnt = Math.floor(Math.random() * 100); //random
@@ -122,7 +122,6 @@ const Start = () => {
         XSrch: cdnt % 10,
         sec: 700,
     };
-    let pluScore;
     function gameOver() {
         clearTimeout(timer);
         document.onkeydown = null;
@@ -232,7 +231,7 @@ const Start = () => {
             eyes(ctx, -3, 0, 0, 0, 0, 40);
         timer = setTimeout(makeTurn, Svs.sec, uORx, size, fCens);
     }; //moving
-    document.onkeydown = event => {
+    document.onkeydown = (event) => {
         const ek = event.key;
         const checkEk = (directionKeys, ek) => { return directionKeys.includes(ek); };
         if (cens !== "up" && checkEk(['ArrowDown', 'S', 's', 'ы', 'Ы'], ek) && ctx)
