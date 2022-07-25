@@ -14,7 +14,7 @@ const colBg = document.querySelector("#colBg");
 const colSnake = document.querySelector("#colSnake");
 const colEat = document.querySelector("#colEat");
 const canvas2 = document.querySelector("#canvas2");
-const ctx2 = canvas2 === null || canvas2 === void 0 ? void 0 : canvas2.getContext('2d');
+const ctx2 = canvas2.getContext('2d');
 const navUA = navigator.userAgent;
 const size = 70;
 let creatingSquare = (ctx, color, x, y, length) => {
@@ -37,11 +37,10 @@ let circle = (ctx, x, y, r, color) => {
     ctx.fill();
 };
 let startCanvas = () => {
-    ctx2 === null || ctx2 === void 0 ? void 0 : ctx2.clearRect(0, 0, size * 10, size * 10);
-    if (ctx2 && snakeColor && eatColor) {
+    ctx2.clearRect(0, 0, size * 10, size * 10);
+    if (snakeColor && eatColor) {
         for (let i = 0; i < 5; i++)
-            if (ctx2)
-                creatingSquare(ctx2, snakeColor, 0, 31 * i, 30);
+            creatingSquare(ctx2, snakeColor, 0, 31 * i, 30);
         for (let i = 4; i < 12; i++)
             creatingSquare(ctx2, snakeColor, 31 * (i - 4), 124, 30);
         for (let i = 11; i < 14; i++)
@@ -50,38 +49,33 @@ let startCanvas = () => {
     }
 };
 window.onload = () => {
-    if (canvas2 && colBg && bgColor)
+    if (bgColor)
         canvas2.style.backgroundColor = colBg.value = bgColor;
-    if (colSnake && snakeColor)
+    if (snakeColor)
         colSnake.value = snakeColor;
-    if (colEat && eatColor)
+    if (eatColor)
         colEat.value = eatColor;
     startCanvas();
 };
-if (colBg && canvas2)
-    colBg.oninput = function () {
-        bgColor = canvas2.style.backgroundColor = this.value;
-        localStorage.setItem('bgColor', bgColor);
-    };
-if (colSnake)
-    colSnake.oninput = function () {
-        snakeColor = this.value;
-        localStorage.setItem('snakeColor', snakeColor);
-        startCanvas();
-    };
-if (colEat)
-    colEat.oninput = function () {
-        eatColor = this.value;
-        localStorage.setItem('eatColor', eatColor);
-        startCanvas();
-    };
-const start = document === null || document === void 0 ? void 0 : document.querySelector("#start");
-if (start)
-    start.onclick = () => Start();
+colBg.oninput = function () {
+    bgColor = canvas2.style.backgroundColor = this.value;
+    localStorage.setItem('bgColor', bgColor);
+};
+colSnake.oninput = function () {
+    snakeColor = this.value;
+    localStorage.setItem('snakeColor', snakeColor);
+    startCanvas();
+};
+colEat.oninput = function () {
+    eatColor = this.value;
+    localStorage.setItem('eatColor', eatColor);
+    startCanvas();
+};
+const start = document.querySelector("#start");
+start.onclick = () => Start();
 document.onkeydown = (event) => { if (event.key === "Enter")
     Start(); };
 const Start = () => {
-    var _a;
     const side = ['up', 'right', 'down', 'left'];
     document.body.innerHTML = '';
     document.body.insertAdjacentHTML('beforeend', `
@@ -98,23 +92,21 @@ const Start = () => {
     const buttonDown = document.querySelector(".arrow-down");
     const buttonLeft = document.querySelector(".arrow-left");
     const buttonRight = document.querySelector(".arrow-right");
-    const button = [buttonUp, buttonRight, buttonDown, buttonLeft];
-    if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM')) {
-        for (let i = 0; i < side.length; i++) {
-            (_a = button[i]) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML('beforeend', `
+    const buttons = [buttonUp, buttonRight, buttonDown, buttonLeft];
+    if (navUA.match('iPhone') || navUA.match('Android') || navUA.match('iPad') || navUA.match('RIM'))
+        for (let i = 0; i < side.length; i++)
+            buttons[i].insertAdjacentHTML('beforeend', `
 				<div class="arrow-${side[i]}-top"></div>
 				<div class="arrow-${side[i]}-bottom"></div>
 			`);
-        }
-    }
     const canvas = document.querySelector('#canvas1');
-    if (canvas && bgColor)
+    if (bgColor)
         canvas.style.backgroundColor = bgColor;
-    const ctx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
     let cens;
-    let cdnt = Math.floor(Math.random() * 100);
     let timer;
     let yum = 2;
+    let cdnt = Math.floor(Math.random() * 100);
     let r = [Math.floor(cdnt / 10) * size];
     let u = [cdnt % 10 * size];
     let Svs = {
@@ -144,16 +136,12 @@ const Start = () => {
 			</div>
 		`);
         const center = document.querySelector("#center");
-        if (center) {
-            center.style.background = "black";
-            center.style.height = 600 + "px";
-        }
+        center.style.background = "black";
+        center.style.height = 600 + "px";
         const restart = document.querySelector("#restart");
-        if (restart) {
-            restart.onmousemove = function () { this.src = "Images/Restart2.png"; };
-            restart.onmouseleave = function () { this.src = "Images/Restart.png"; };
-            restart.onclick = () => location.reload();
-        }
+        restart.onmousemove = function () { this.src = "Images/Restart2.png"; };
+        restart.onmouseleave = function () { this.src = "Images/Restart.png"; };
+        restart.onclick = () => location.reload();
     }
     let checkGameOver = () => {
         if (r[0] === -size || r[0] === size * 10 || u[0] === -size || u[0] === size * 10)
@@ -193,16 +181,16 @@ const Start = () => {
                 newCrdntEat();
     };
     const fixEat = () => {
-        if (ctx && eatColor)
+        if (eatColor)
             creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size);
     };
     const makingSnake = () => {
-        if (ctx && snakeColor)
+        if (snakeColor)
             for (let i = 0; i < yum; i++)
                 creatingSquare(ctx, snakeColor, r[i], u[i], size);
     };
     let sequence = () => {
-        ctx === null || ctx === void 0 ? void 0 : ctx.clearRect(0, 0, size * 10, size * 10);
+        ctx.clearRect(0, 0, size * 10, size * 10);
         checkGameOver();
         plusTail();
         minusEat();
@@ -243,30 +231,25 @@ const Start = () => {
         if (cens !== "left" && checkEk(['ArrowRight', 'D', 'd', 'в', 'В'], ek) && ctx)
             makeTurn(ctx, r, size, "rght");
     };
-    if (buttonDown)
-        buttonDown.onclick = () => {
-            if (cens !== "up" && ctx)
-                makeTurn(ctx, u, size, "down");
-        };
-    if (buttonLeft)
-        buttonLeft.onclick = () => {
-            if (cens !== "rght" && ctx)
-                makeTurn(ctx, r, -size, "left");
-        };
-    if (buttonUp)
-        buttonUp.onclick = () => {
-            if (cens !== "down" && ctx)
-                makeTurn(ctx, u, -size, "up");
-        };
-    if (buttonRight)
-        buttonRight.onclick = () => {
-            if (cens !== "left" && ctx)
-                makeTurn(ctx, r, size, "rght");
-        };
-    if (ctx && snakeColor)
+    buttonDown.onclick = () => {
+        if (cens !== "up")
+            makeTurn(ctx, u, size, "down");
+    };
+    buttonLeft.onclick = () => {
+        if (cens !== "rght")
+            makeTurn(ctx, r, -size, "left");
+    };
+    buttonUp.onclick = () => {
+        if (cens !== "down")
+            makeTurn(ctx, u, -size, "up");
+    };
+    buttonRight.onclick = () => {
+        if (cens !== "left")
+            makeTurn(ctx, r, size, "rght");
+    };
+    if (snakeColor)
         creatingSquare(ctx, snakeColor, r[0], u[0], size);
-    if (ctx)
-        eyes(ctx, 0, -3, 40, 0, 0, 0);
+    eyes(ctx, 0, -3, 40, 0, 0, 0);
     newCrdntEat();
     fixEat();
 };
