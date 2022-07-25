@@ -1,15 +1,15 @@
 "use strict";
-let score = Number(localStorage.getItem('score')); // Preserve the color of the overall result
-let bestScore = Number(localStorage.getItem('bestscore')); //Keeping the color of the Best Score
-let bgColor = localStorage.getItem('bgColor'); //Keeping the color of the background
-let snakeColor = localStorage.getItem('snakeColor'); //Keeping the color of the snake
-let eatColor = localStorage.getItem('eatColor'); //Keeping the color of the food
+let score = Number(localStorage.getItem('score'));
+let bestScore = Number(localStorage.getItem('bestscore'));
+let bgColor = localStorage.getItem('bgColor');
+let snakeColor = localStorage.getItem('snakeColor');
+let eatColor = localStorage.getItem('eatColor');
 if (!bgColor)
-    bgColor = '#00ff00'; //green
+    bgColor = '#00ff00';
 if (!snakeColor)
-    snakeColor = '#0000ff'; //blue
+    snakeColor = '#0000ff';
 if (!eatColor)
-    eatColor = '#ffb500'; //yellow
+    eatColor = '#ffb500';
 const colBg = document.querySelector("#colBg");
 const colSnake = document.querySelector("#colSnake");
 const colEat = document.querySelector("#colEat");
@@ -35,7 +35,7 @@ let circle = (ctx, x, y, r, color) => {
     ctx.arc(x + 15, y + 15, r, 0, 2 * Math.PI, true);
     ctx.stroke();
     ctx.fill();
-}; //eye Snake
+};
 let startCanvas = () => {
     ctx2 === null || ctx2 === void 0 ? void 0 : ctx2.clearRect(0, 0, size * 10, size * 10);
     if (ctx2 && snakeColor && eatColor) {
@@ -45,8 +45,8 @@ let startCanvas = () => {
         for (let i = 4; i < 12; i++)
             creatingSquare(ctx2, snakeColor, 31 * (i - 4), 124, 30);
         for (let i = 11; i < 14; i++)
-            creatingSquare(ctx2, snakeColor, 217, 124 + 31 * (i - 11), 30); //Snake on Start
-        creatingSquare(ctx2, eatColor, 217, 217, 30); //Eat on Start
+            creatingSquare(ctx2, snakeColor, 217, 124 + 31 * (i - 11), 30);
+        creatingSquare(ctx2, eatColor, 217, 217, 30);
     }
 };
 window.onload = () => {
@@ -57,7 +57,7 @@ window.onload = () => {
     if (colEat && eatColor)
         colEat.value = eatColor;
     startCanvas();
-}; //Start
+};
 if (colBg && canvas2)
     colBg.oninput = function () {
         bgColor = canvas2.style.backgroundColor = this.value;
@@ -107,16 +107,16 @@ const Start = () => {
 			`);
         }
     }
-    const canvas = document.querySelector('#canvas1'); //c1
+    const canvas = document.querySelector('#canvas1');
     if (canvas && bgColor)
         canvas.style.backgroundColor = bgColor;
     const ctx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d');
-    let cens; //NO left <- -> right NO up <- -> bottom NO
-    let cdnt = Math.floor(Math.random() * 100); //random
-    let timer; //timer
-    let yum = 2; //counter
-    let r = [Math.floor(cdnt / 10) * size]; //right
-    let u = [cdnt % 10 * size]; //up
+    let cens;
+    let cdnt = Math.floor(Math.random() * 100);
+    let timer;
+    let yum = 2;
+    let r = [Math.floor(cdnt / 10) * size];
+    let u = [cdnt % 10 * size];
     let Svs = {
         YSrch: Math.floor(cdnt / 10),
         XSrch: cdnt % 10,
@@ -126,12 +126,12 @@ const Start = () => {
         clearTimeout(timer);
         document.onkeydown = null;
         let pluScore = ((yum - 2) * 10);
-        score += pluScore; //plus to score
+        score += pluScore;
         if (pluScore > bestScore)
-            bestScore = +pluScore; //plus to best score!
+            bestScore = +pluScore;
         localStorage.setItem('score', String(score));
         localStorage.setItem('bestscore', String(bestScore));
-        clearTimeout(timer); //I don't know why, but it doesn't work without the second clearTimeout
+        clearTimeout(timer);
         document.body.innerHTML = '';
         document.body.insertAdjacentHTML('beforeend', `
 			<span id="version-font">Version: </span><span id="version-id">1.3.4.245</span>
@@ -154,20 +154,20 @@ const Start = () => {
             restart.onmouseleave = function () { this.src = "Images/Restart.png"; };
             restart.onclick = () => location.reload();
         }
-    } //GameOver//
+    }
     let checkGameOver = () => {
         if (r[0] === -size || r[0] === size * 10 || u[0] === -size || u[0] === size * 10)
             gameOver();
         for (let i = 4; i < yum; i++)
             if (r[i] === r[0] && u[i] === u[0])
                 gameOver();
-    }; //Game over//
+    };
     const plusTail = () => {
         for (let i = 100; i > 0; i--) {
             r[i] = r[i - 1];
             u[i] = u[i - 1];
         }
-    }; //Snake moves
+    };
     const minusEat = () => {
         let sSX = size * Svs.XSrch, sSY = size * Svs.YSrch;
         if (r[0] === sSX && u[0] === sSY) {
@@ -175,27 +175,27 @@ const Start = () => {
             Svs.sec -= 4;
             newCrdntEat();
         }
-    }; //orng is dying
+    };
     const finish = () => {
         if (yum === 100) {
             document.body.style.background = "yellow";
             alert('Congratulations you won!');
             window.location.reload();
         }
-    }; //The End(?).
+    };
     const newCrdntEat = () => {
-        cdnt = Math.floor(Math.random() * 100); //random
+        cdnt = Math.floor(Math.random() * 100);
         Svs.YSrch = Math.floor(cdnt / 10);
         Svs.XSrch = cdnt % 10;
         let sSX = size * Svs.XSrch, sSY = size * Svs.YSrch;
         for (let i = 0; i < yum; i++)
             if (r[i] === sSX && u[i] === sSY)
                 newCrdntEat();
-    }; //rundom number
+    };
     const fixEat = () => {
         if (ctx && eatColor)
             creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size);
-    }; //Spawn orng square
+    };
     const makingSnake = () => {
         if (ctx && snakeColor)
             for (let i = 0; i < yum; i++)
@@ -230,7 +230,7 @@ const Start = () => {
         if (cens === "left")
             eyes(ctx, -3, 0, 0, 0, 0, 40);
         timer = setTimeout(makeTurn, Svs.sec, uORx, size, fCens);
-    }; //moving
+    };
     document.onkeydown = (event) => {
         const ek = event.key;
         const checkEk = (directionKeys, ek) => { return directionKeys.includes(ek); };
@@ -246,27 +246,28 @@ const Start = () => {
     if (buttonDown)
         buttonDown.onclick = () => {
             if (cens !== "up" && ctx)
-                makeTurn(ctx, u, size, "down"); //click on down
+                makeTurn(ctx, u, size, "down");
         };
     if (buttonLeft)
         buttonLeft.onclick = () => {
             if (cens !== "rght" && ctx)
-                makeTurn(ctx, r, -size, "left"); //click on left
+                makeTurn(ctx, r, -size, "left");
         };
     if (buttonUp)
         buttonUp.onclick = () => {
             if (cens !== "down" && ctx)
-                makeTurn(ctx, u, -size, "up"); //click on up
+                makeTurn(ctx, u, -size, "up");
         };
     if (buttonRight)
         buttonRight.onclick = () => {
             if (cens !== "left" && ctx)
-                makeTurn(ctx, r, size, "rght"); //click on right
+                makeTurn(ctx, r, size, "rght");
         };
     if (ctx && snakeColor)
-        creatingSquare(ctx, snakeColor, r[0], u[0], size); //snakeHead
+        creatingSquare(ctx, snakeColor, r[0], u[0], size);
     if (ctx)
-        eyes(ctx, 0, -3, 40, 0, 0, 0); // create eyes Snake
+        eyes(ctx, 0, -3, 40, 0, 0, 0);
     newCrdntEat();
     fixEat();
-}; //Snake
+};
+//# sourceMappingURL=script.js.map
