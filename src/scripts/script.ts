@@ -13,7 +13,7 @@ const colSnake :HTMLInputElement= document.querySelector("#colSnake")!
 const colEat :HTMLInputElement = document.querySelector("#colEat")!
 
 const canvas2 :HTMLCanvasElement = document.querySelector("#canvas2")!
-const ctx2 :CanvasRenderingContext2D = canvas2.getContext('2d')!;
+const ctx2 :CanvasRenderingContext2D = canvas2.getContext('2d')!
 
 const navUA :string = navigator.userAgent
 const size :number = 70
