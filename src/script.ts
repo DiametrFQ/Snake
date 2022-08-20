@@ -1,24 +1,20 @@
-let score :number = Number(localStorage.getItem('score'))// Preserve the color of the overall result
-let bestScore :number = Number(localStorage.getItem('bestscore'))//Keeping the color of the Best Score
-let bgColor :string|null = localStorage.getItem('bgColor')//Keeping the color of the background
-let snakeColor :string|null = localStorage.getItem('snakeColor')//Keeping the color of the snake
-let eatColor :string|null = localStorage.getItem('eatColor')//Keeping the color of the food
-
-if( !bgColor ) bgColor = '#00ff00'//green
-if( !snakeColor ) snakeColor = '#0000ff'//blue
-if( !eatColor) eatColor= '#ffb500'//yellow
+let score = Number(localStorage.getItem('score'))// Preserve the color of the overall result
+let bestScore = Number(localStorage.getItem('bestscore'))//Keeping the color of the Best Score
+let bgColor = localStorage.getItem('bgColor') ?? '#00ff00'//Keeping the color of the background
+let snakeColor  = localStorage.getItem('snakeColor') ?? '#0000ff'//Keeping the color of the snake
+let eatColor = localStorage.getItem('eatColor') ?? '#ffb500'//Keeping the color of the food
 
 const colBg :HTMLInputElement = document.querySelector("#colBg")!
 const colSnake :HTMLInputElement= document.querySelector("#colSnake")!
 const colEat :HTMLInputElement = document.querySelector("#colEat")!
 
 const canvas2 :HTMLCanvasElement = document.querySelector("#canvas2")!
-const ctx2 :CanvasRenderingContext2D = canvas2.getContext('2d')!
+const ctx2 = canvas2.getContext('2d')!
 
-const navUA :string = navigator.userAgent
-const size :number = 70
+const navUA :string = navigator.userAgent;
+const size = 70; 
 
-let creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y :number, length :number) :void => {
+const creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y :number, length :number) :void => {
 	ctx.beginPath()
 	ctx.fillStyle = color
 	ctx.moveTo(x, y)
@@ -30,7 +26,7 @@ let creatingSquare = (ctx :CanvasRenderingContext2D, color :string, x :number, y
 	ctx.fill()
 }
 
-let circle = (ctx :CanvasRenderingContext2D, x :number, y: number, r :number, color :string) :void => {
+const circle = (ctx :CanvasRenderingContext2D, x :number, y: number, r :number, color :string) :void => {
 	ctx.beginPath()
 	ctx.strokeStyle = 'black'
 	ctx.fillStyle = color
@@ -39,23 +35,18 @@ let circle = (ctx :CanvasRenderingContext2D, x :number, y: number, r :number, co
 	ctx.fill()
 }//eye Snake
 
-let startCanvas = () => {
-
+const startCanvas = () => {
 	ctx2.clearRect(0, 0, size*10, size*10)
-
-	if( snakeColor && eatColor ){
-		for(let i = 0; i < 5; i++) creatingSquare(ctx2, snakeColor, 0, 31 * i, 30)
-		for(let i = 4; i < 12; i++) creatingSquare(ctx2, snakeColor, 31*( i - 4 ), 124, 30)
-		for(let i = 11; i < 14; i++) creatingSquare(ctx2 , snakeColor, 217, 124 + 31*( i - 11 ), 30)//Snake on Start
-		creatingSquare(ctx2, eatColor, 217, 217, 30)//Eat on Start
-	}
+	for(let i = 0; i < 5; i++) creatingSquare(ctx2, snakeColor, 0, 31 * i, 30)
+	for(let i = 4; i < 12; i++) creatingSquare(ctx2, snakeColor, 31*( i - 4 ), 124, 30)
+	for(let i = 11; i < 14; i++) creatingSquare(ctx2 , snakeColor, 217, 124 + 31*( i - 11 ), 30)//Snake on Start
+	creatingSquare(ctx2, eatColor, 217, 217, 30)//Eat on Start
 }
 
 window.onload = () => {
-
-	if(bgColor) canvas2.style.backgroundColor = colBg.value = bgColor
-	if(snakeColor) colSnake.value = snakeColor
-	if(eatColor) colEat.value = eatColor
+	canvas2.style.backgroundColor = colBg.value = bgColor
+	colSnake.value = snakeColor
+	colEat.value = eatColor
 	startCanvas()
 }//Start
 
@@ -115,12 +106,12 @@ const Start = () =>{
 			`)
 		
 	const canvas = document.querySelector<HTMLCanvasElement>('#canvas1')!//c1
-	if(bgColor) canvas.style.backgroundColor = bgColor;
+	canvas.style.backgroundColor = bgColor;
 
 	const ctx :CanvasRenderingContext2D = canvas.getContext('2d')!;
 
 	let cens :string;//NO left <- -> right NO up <- -> bottom NO
-	let timer :number//timer
+	let timer :ReturnType<typeof setTimeout>//timer
 	let yum = 2//counter
 
 	let cdnt = Math.floor( Math.random() * 100 )//random
@@ -138,7 +129,7 @@ const Start = () =>{
 		clearTimeout(timer)
 		document.onkeydown = null
 
-		let pluScore :number = ((yum - 2) * 10)
+		let pluScore = ((yum - 2) * 10)
 		score += pluScore//plus to score
 		if(pluScore > bestScore) bestScore = +pluScore//plus to best score!
 
@@ -171,7 +162,7 @@ const Start = () =>{
 		
 	}//GameOver//
 
-	let checkGameOver = () => {
+	const checkGameOver = () => {
 
 		if (r[0] === -size || r[0] === size*10 || u[0] === -size || u[0] === size*10) gameOver()
 
@@ -188,8 +179,7 @@ const Start = () =>{
 	}//Snake moves
 
 	const minusEat = () => {
-
-		let sSX = size * Svs.XSrch, sSY = size * Svs.YSrch
+		const sSX = size * Svs.XSrch, sSY = size * Svs.YSrch
 
 		if (r[0] === sSX && u[0] === sSY) {
 			yum++
@@ -200,11 +190,12 @@ const Start = () =>{
 
 	const finish = () => {
 
-		if (yum === 100) {
+		if (yum === 100){
 			document.body.style.background = "yellow"
 			alert('Congratulations you won!')
 			window.location.reload()
 		}
+		
 	}//The End(?).
 
 	const newCrdntEat = () => {
@@ -220,20 +211,17 @@ const Start = () =>{
 
 	const fixEat = () => {
 
-		if(eatColor) 
-			creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size)
+		creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size)
 
 	}//Spawn orng square
 
 	const makingSnake = () => {
-
 		if(snakeColor) 
 			for(let i = 0; i < yum; i++) 
 				creatingSquare(ctx, snakeColor, r[i], u[i], size) 
 	}
 
-	let sequence = () => {
-
+	const sequence = () => {
 		ctx.clearRect(0, 0, size*10, size*10)
 		checkGameOver()
 		plusTail()
@@ -243,26 +231,26 @@ const Start = () =>{
 		makingSnake()
 	}
 
-	let eyes = (ctx :CanvasRenderingContext2D, add31 :number, add32 :number, up :number, rght :number, down :number, left :number) :void => {
-
+	const eyes = (ctx :CanvasRenderingContext2D, add31 :number, add32 :number, up :number, rght :number, down :number, left :number) => {
 		circle(ctx, r[0] + rght,		 u[0] + down, 6, 'white')
 		circle(ctx, r[0] + rght + add31, u[0] + down + add32, 2.5, '#2965CA')
-		circle(ctx, r[0] + up,			 u[0] + left, 6, 'white')
+		circle(ctx, r[0] + up,			 u[0] + left, 6, 'white') 
 		circle(ctx, r[0] + up + add31,	 u[0] + left + add32, 2.5, '#2965CA')
 	}
 
-	const makeTurn = (ctx :CanvasRenderingContext2D, uORx :number[], size :number, fCens :string) :void => {
+	const makeTurn = (ctx :CanvasRenderingContext2D, uORx :number[], size :number, fCens :string) => {
 
 		clearTimeout(timer)
-		cens = fCens
 		uORx[0] += size
+
 		sequence()
-		if(cens === "up")   eyes(ctx, 0, -3, 40,  0,  0, 0 )
-		if(cens === "rght")	eyes(ctx, 3,  0, 40, 40,  0, 40)
-		if(cens === "down") eyes(ctx, 0,  3,  0, 40, 40, 40)
-		if(cens === "left") eyes(ctx, -3, 0,  0,  0,  0, 40)
-		
-		timer = setTimeout(makeTurn, Svs.sec, uORx, size, fCens)
+		if(fCens === "up") eyes(ctx, 0, -3, 40,  0,  0, 0)
+		if(fCens === "rght") eyes(ctx, 3,  0, 40, 40,  0, 40)
+		if(fCens === "down") eyes(ctx, 0,  3,  0, 40, 40, 40)
+		if(fCens === "left") eyes(ctx, -3, 0,  0,  0,  0, 40)
+
+		timer = setTimeout(makeTurn, Svs.sec, ctx, uORx, size, fCens) 
+		//let Interval = setInterval( makeTurn, Svs.sec, uORx, size, fCens );
 	}//moving
 
 	document.onkeydown = (event: KeyboardEvent)  => {
@@ -277,25 +265,24 @@ const Start = () =>{
 	}
 
 	buttonDown.onclick = () => {
-		if(cens !== "up") makeTurn(ctx, u, size, "down")//click on down
+		if(cens !== "up") makeTurn(ctx, u, size, "down")
 	}
 
 	buttonLeft.onclick = () => {
-		if(cens !== "rght") makeTurn(ctx, r, -size, "left")//click on left
+		if(cens !== "rght") makeTurn(ctx, r, -size, "left")
 	}
 
 	buttonUp.onclick = () => {
-		if(cens !== "down") makeTurn(ctx, u, -size, "up")//click on up
+		if(cens !== "down") makeTurn(ctx, u, -size, "up")
 	}
 
 	buttonRight.onclick = () => {
-		if(cens !== "left") makeTurn(ctx, r, size, "rght")//click on right
+		if(cens !== "left") makeTurn(ctx, r, size, "rght")
 	}
 	
-	if(snakeColor) creatingSquare(ctx, snakeColor, r[0], u[0], size)//snakeHead
-
-	eyes(ctx, 0, -3, 40,  0,  0, 0 )// create eyes Snake
+	creatingSquare(ctx, snakeColor, r[0], u[0], size)//snakeHead
+	eyes(ctx, 0, -3, 40,  0,  0, 0 )
 
 	newCrdntEat()
 	fixEat()
-}//Snake
+}

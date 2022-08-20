@@ -1,15 +1,10 @@
 "use strict";
+var _a, _b, _c;
 let score = Number(localStorage.getItem('score'));
 let bestScore = Number(localStorage.getItem('bestscore'));
-let bgColor = localStorage.getItem('bgColor');
-let snakeColor = localStorage.getItem('snakeColor');
-let eatColor = localStorage.getItem('eatColor');
-if (!bgColor)
-    bgColor = '#00ff00';
-if (!snakeColor)
-    snakeColor = '#0000ff';
-if (!eatColor)
-    eatColor = '#ffb500';
+let bgColor = (_a = localStorage.getItem('bgColor')) !== null && _a !== void 0 ? _a : '#00ff00';
+let snakeColor = (_b = localStorage.getItem('snakeColor')) !== null && _b !== void 0 ? _b : '#0000ff';
+let eatColor = (_c = localStorage.getItem('eatColor')) !== null && _c !== void 0 ? _c : '#ffb500';
 const colBg = document.querySelector("#colBg");
 const colSnake = document.querySelector("#colSnake");
 const colEat = document.querySelector("#colEat");
@@ -17,7 +12,7 @@ const canvas2 = document.querySelector("#canvas2");
 const ctx2 = canvas2.getContext('2d');
 const navUA = navigator.userAgent;
 const size = 70;
-let creatingSquare = (ctx, color, x, y, length) => {
+const creatingSquare = (ctx, color, x, y, length) => {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.moveTo(x, y);
@@ -28,7 +23,7 @@ let creatingSquare = (ctx, color, x, y, length) => {
     ctx.stroke();
     ctx.fill();
 };
-let circle = (ctx, x, y, r, color) => {
+const circle = (ctx, x, y, r, color) => {
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.fillStyle = color;
@@ -36,25 +31,20 @@ let circle = (ctx, x, y, r, color) => {
     ctx.stroke();
     ctx.fill();
 };
-let startCanvas = () => {
+const startCanvas = () => {
     ctx2.clearRect(0, 0, size * 10, size * 10);
-    if (snakeColor && eatColor) {
-        for (let i = 0; i < 5; i++)
-            creatingSquare(ctx2, snakeColor, 0, 31 * i, 30);
-        for (let i = 4; i < 12; i++)
-            creatingSquare(ctx2, snakeColor, 31 * (i - 4), 124, 30);
-        for (let i = 11; i < 14; i++)
-            creatingSquare(ctx2, snakeColor, 217, 124 + 31 * (i - 11), 30);
-        creatingSquare(ctx2, eatColor, 217, 217, 30);
-    }
+    for (let i = 0; i < 5; i++)
+        creatingSquare(ctx2, snakeColor, 0, 31 * i, 30);
+    for (let i = 4; i < 12; i++)
+        creatingSquare(ctx2, snakeColor, 31 * (i - 4), 124, 30);
+    for (let i = 11; i < 14; i++)
+        creatingSquare(ctx2, snakeColor, 217, 124 + 31 * (i - 11), 30);
+    creatingSquare(ctx2, eatColor, 217, 217, 30);
 };
 window.onload = () => {
-    if (bgColor)
-        canvas2.style.backgroundColor = colBg.value = bgColor;
-    if (snakeColor)
-        colSnake.value = snakeColor;
-    if (eatColor)
-        colEat.value = eatColor;
+    canvas2.style.backgroundColor = colBg.value = bgColor;
+    colSnake.value = snakeColor;
+    colEat.value = eatColor;
     startCanvas();
 };
 colBg.oninput = function () {
@@ -100,8 +90,7 @@ const Start = () => {
 				<div class="arrow-${side[i]}-bottom"></div>
 			`);
     const canvas = document.querySelector('#canvas1');
-    if (bgColor)
-        canvas.style.backgroundColor = bgColor;
+    canvas.style.backgroundColor = bgColor;
     const ctx = canvas.getContext('2d');
     let cens;
     let timer;
@@ -143,7 +132,7 @@ const Start = () => {
         restart.onmouseleave = function () { this.src = "Images/Restart.png"; };
         restart.onclick = () => location.reload();
     }
-    let checkGameOver = () => {
+    const checkGameOver = () => {
         if (r[0] === -size || r[0] === size * 10 || u[0] === -size || u[0] === size * 10)
             gameOver();
         for (let i = 4; i < yum; i++)
@@ -157,7 +146,7 @@ const Start = () => {
         }
     };
     const minusEat = () => {
-        let sSX = size * Svs.XSrch, sSY = size * Svs.YSrch;
+        const sSX = size * Svs.XSrch, sSY = size * Svs.YSrch;
         if (r[0] === sSX && u[0] === sSY) {
             yum++;
             Svs.sec -= 4;
@@ -181,15 +170,14 @@ const Start = () => {
                 newCrdntEat();
     };
     const fixEat = () => {
-        if (eatColor)
-            creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size);
+        creatingSquare(ctx, eatColor, size * Svs.XSrch, size * Svs.YSrch, size);
     };
     const makingSnake = () => {
         if (snakeColor)
             for (let i = 0; i < yum; i++)
                 creatingSquare(ctx, snakeColor, r[i], u[i], size);
     };
-    let sequence = () => {
+    const sequence = () => {
         ctx.clearRect(0, 0, size * 10, size * 10);
         checkGameOver();
         plusTail();
@@ -198,7 +186,7 @@ const Start = () => {
         fixEat();
         makingSnake();
     };
-    let eyes = (ctx, add31, add32, up, rght, down, left) => {
+    const eyes = (ctx, add31, add32, up, rght, down, left) => {
         circle(ctx, r[0] + rght, u[0] + down, 6, 'white');
         circle(ctx, r[0] + rght + add31, u[0] + down + add32, 2.5, '#2965CA');
         circle(ctx, r[0] + up, u[0] + left, 6, 'white');
@@ -206,18 +194,17 @@ const Start = () => {
     };
     const makeTurn = (ctx, uORx, size, fCens) => {
         clearTimeout(timer);
-        cens = fCens;
         uORx[0] += size;
         sequence();
-        if (cens === "up")
+        if (fCens === "up")
             eyes(ctx, 0, -3, 40, 0, 0, 0);
-        if (cens === "rght")
+        if (fCens === "rght")
             eyes(ctx, 3, 0, 40, 40, 0, 40);
-        if (cens === "down")
+        if (fCens === "down")
             eyes(ctx, 0, 3, 0, 40, 40, 40);
-        if (cens === "left")
+        if (fCens === "left")
             eyes(ctx, -3, 0, 0, 0, 0, 40);
-        timer = setTimeout(makeTurn, Svs.sec, uORx, size, fCens);
+        timer = setTimeout(makeTurn, Svs.sec, ctx, uORx, size, fCens);
     };
     document.onkeydown = (event) => {
         const ek = event.key;
@@ -247,8 +234,7 @@ const Start = () => {
         if (cens !== "left")
             makeTurn(ctx, r, size, "rght");
     };
-    if (snakeColor)
-        creatingSquare(ctx, snakeColor, r[0], u[0], size);
+    creatingSquare(ctx, snakeColor, r[0], u[0], size);
     eyes(ctx, 0, -3, 40, 0, 0, 0);
     newCrdntEat();
     fixEat();
