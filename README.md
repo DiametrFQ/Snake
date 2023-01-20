@@ -4,7 +4,7 @@
 
 1 Upload the folder with the file.
 
-2 Open the file in a browser or you can play the snake https://diametrfq.github.io/Snake/index.html.
+2 Open the file in a browser or you can play the snake snakets.vercel.app
 
 3 Select the color of the snake, food or even the field on which the snake will appear and press "Start". 
 
